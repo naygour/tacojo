@@ -696,7 +696,7 @@ function viewIdPatient($db)
 
     if(isset($_POST['btModif']))
     {
-        //echo'aaaaaaaaa';
+        
         $id_dispensation        = $_POST['id_dispensationT'];
         $etat_dispensation      = $_POST['etat_dispensation'];
         $date_dispensation      = $_POST['dateDispT'];
@@ -719,7 +719,7 @@ function viewIdPatient($db)
 
         if($nb!=1)
         {
-            echo '<br><div class="center alert alert-danger" role="alert">Erreur lors de la modification!</div>';
+            echo '<br><div class="center alert alert-danger" role="alert">Erreur de Modification!</div>';
         }
         else
         {
@@ -793,12 +793,12 @@ function viewIdPatient($db)
                     <div class="panel panel-default">
                             <div class="panel-heading">
                                     <div class="center">
-                                            <h3>Dispensations du patient ' . $uneListe['num_id_national'] . '</h3>
+                                            <h3>Dispensations du patient ' . $uneListe['num_inclusion'] . '</h3>
                                     </div>
                             </div>
                     </div>
             </div>
-
+            
             <div class="col-md-12">
 
             <div class="panel panel-default panel-table">
@@ -812,8 +812,8 @@ function viewIdPatient($db)
             ';
 
             echo
-            '
-                <form method="POST" action="index.php?page=detail&id_patient='.$uneListe['id_patient'].'">
+            '<div id="dvData>
+                <form method="POST" action="index.php?page=detail&id_patient=">
                 <div class="panel-body">
             ';
 
@@ -821,7 +821,7 @@ function viewIdPatient($db)
             
             for ($mois=1; $mois<=12; $mois++)
             {
-                $tableDispens[$mois] = $dispensation->selectOneYearMonth($uneListe['num_inclusion'], $mois, '2017');
+                $tableDispens[$mois] = $dispensation->selectOneYearMonth($uneListe['num_inclusion'], $mois, date('Y'));
             }
             
             $legende[0] ='Statut';
@@ -864,6 +864,7 @@ function viewIdPatient($db)
                     $suivi_presence = new Suivi($db);
                     $listesuivi = $suivi_presence->selectAll();
                     $nb = count($listesuivi);
+                    
 
                     for($ligne=0;$ligne<8;$ligne++)
                     {
@@ -873,42 +874,42 @@ function viewIdPatient($db)
                         <th scope="row">'.$legende[$ligne].'</th>';
                         if($ligne==0)
                         {
-                            for($mois=1;$mois<=12;$mois++)
+                          for($mois=1;$mois<=12;$mois++)
+                          {
+                            if($tableDispens[$mois][$ligne+2]==1)
                             {
-                                if($tableDispens[$mois][$ligne+2]==1)
-                                {
-                                    echo'<td> Suivi </td>';
-                                }
-                                elseif($tableDispens[$mois][$ligne+2]==2)
-                                {
-                                    echo'<td> Absent </td>';
-                                }
-                                elseif($tableDispens[$mois][$ligne+2]==3)
-                                {
-                                    echo' <td> Décédé</td>';
-                                }
-                                elseif($tableDispens[$mois][$ligne+2]==4)
-                                {
-                                    echo '<td> Perdu de vue </td>';
-                                }
-                                elseif($tableDispens[$mois][$ligne+2]==5)
-                                {
-                                    echo' <td> Transfert sortant </td>';
-                                }
-                                else
-                                {
-                                    echo'<td>    </td>';
-                                }
+                            echo'<td> Suivi </td>';
                             }
+                            elseif($tableDispens[$mois][$ligne+2]==2)
+                            {
+                              echo'<td> Absent </td>';
+                            }
+                            elseif($tableDispens[$mois][$ligne+2]==3)
+                            {
+                              echo' <td> Décédé</td>';
+                            }
+                            elseif($tableDispens[$mois][$ligne+2]==4)
+                            {
+                              echo '<td> Perdu de vue </td>';
+                            }
+                            elseif($tableDispens[$mois][$ligne+2]==5)
+                            {
+                              echo' <td> Transfert sortant </td>';
+                            }
+                            else
+                            {
+                              echo'<td>    </td>';
+                            }
+                          }
                         }
-                        
                         else
                         {
                             $val=$ligne+10;
                             
                             for($mois=1;$mois<=12;$mois++)
                             {
-                                echo'<td id="'.$legende[$val].'-'.$tableDispens[$mois][0].'">'.$tableDispens[$mois][$ligne+2].'</td >';
+                                echo'
+                                <td id="'.$legende[$val].'-'.$tableDispens[$mois][0].'">'.$tableDispens[$mois][$ligne+2].'</td >';
                             }
                         }
                         echo
@@ -928,8 +929,8 @@ function viewIdPatient($db)
                     for($mois=1;$mois<=12;$mois++)
                     {
                         $pattern = $mois.':'.date('Y');
-                        
-                        if(in_array($pattern, $arrayModif))
+                       
+                        if(!empty($tableDispens[$mois][0]))
                         {
                             echo '<td><input type="button" class="btn btn-primary click-modalModif" name ="btModif2" value="Modif-'.$tableDispens[$mois][0].'" data-toggle="modal" data-target="#modalModif" data-iddisp="'.$tableDispens[$mois][0].'" data-dateDisp="'.$tableDispens[$mois][3].'" /></td>';
                         }
@@ -944,10 +945,15 @@ function viewIdPatient($db)
 
 			   	  </thead>
 			    </table>
+                            <input type="button" id="btnExport" value=" Exporter votre tableau en Excel " class="btn btn-success click-modalAction" />
 			  </div>
 			</form>
 		    </div>
+                   </div>
 	    </div>
+
+
+
 
 
 	    <!-- Modal -->
@@ -956,12 +962,12 @@ function viewIdPatient($db)
 			<div class="modal-content">
 			  <div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h2 class="modal-title" id="myModalLabel">Présence du patient ' . $uneListe['num_id_national'] . '</h2>
+				<h2 class="modal-title" id="myModalLabel">Présence du patient ' . $uneListe['num_inclusion'] . '</h2>
 			  </div>
 			  <div class="modal-body">
 
 			  <h4>Presence pour le mois <span id="nommois"></span> de l\'année <span id="nomannee"></span> :</h4>
-			 	<form action="index.php?page=detail&id_patient='.$uneListe['id_patient'].'" method="post">
+			 	<form action="index.php?page=detail&id_patient=" method="post">
 			 	';
 				echo
                                 '
@@ -985,10 +991,10 @@ function viewIdPatient($db)
                                 '
                                 </select><br>
 
-                                <div id=present>
+                                        <div id=present>
 
-                                <label>Date de la dispensation</label>
-                                <input name="date_dispensation" type="text" id="pUpDate" class="pUpDate form-control" placeholder="JJ-MM-AAAA"/><br>
+                                        <label>Date de la dispensation</label>
+                                        <input name="date_dispensation" type="text" id="pUpDate" class="pUpDate form-control" placeholder="JJ-MM-AAAA"/><br>
 
                                 <label> Date du début du traitement </label>
                                 <input name="date_debut_traitement" type="text" id="jjjj" class="pUpDate form-control" placeholder="JJ-MM-AAAA"/><br>
@@ -1063,7 +1069,7 @@ function viewIdPatient($db)
                         var nommois = $(this).data(\'nommois\');
                         var annee = $(this).data(\'annee\');
                         var idp = $(this).data(\'idp\');
-                        $("#pUpDate").datepicker("setDate", new Date(1,mois-1,1));
+                        $("#pUpDate").datepicker("setDate", new Date(annee,mois-1,1));
                         $("#nommois").text(nommois);
                         $("#mois").val(mois);
                         $("#id_dispensation").val(iddisp);
@@ -1074,9 +1080,11 @@ function viewIdPatient($db)
                 );
 		</script>';
 
+
+
 		if(isset($_POST['btModif']))
                 {
-                    echo'aaaaaaaa';
+                    
                     $id_patient = $_POST['id_patient'];
                     $protocole = $_POST['protocole'];
                     $patient = new Patient($db);
@@ -1118,11 +1126,11 @@ function viewIdPatient($db)
 			  <div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<h2 class="modal-title" id="myModalLabel">Modification de la presence du patient ' . $uneListe['num_inclusion'] . ' (Pas encore effectué)</h2><input type="text" name="nommois" id="nommois"/>
-                            </div>
-                            <div class="modal-body">
+			  </div>
+			  <div class="modal-body">
 
-                            <h4>Modification de la presence pour le mois <span id="nommois"></span> de l\'année <span id="nomannee"></span> :</h4>
-                            <form action="index.php?page=detail&id_patient=" method="post">
+			  <h4>Modification de la presence pour le mois <span id="nommois"></span> de l\'année <span id="nomannee"></span> :</h4>
+			 	<form action="index.php?page=detail&id_patient=" method="post">
 		';
 
                 echo'<label>Etat du patient</label>
@@ -1166,6 +1174,10 @@ function viewIdPatient($db)
                 echo ' <label> Observations </label>
                 <input class="form-control" type="text" name="observationsT" id="observationsT" value=""/><br>';
 
+
+
+
+
         echo
         '
             <input type="hidden" id="id_patient" name="id_patient" value=""/>
@@ -1173,7 +1185,6 @@ function viewIdPatient($db)
             <input type="hidden" id="annee" name="annee" value=""/>
             <input type="hidden" id="id_dispensation" name="id_dispensation" value=""/>
         ';
-        
         echo
         '
         </div>

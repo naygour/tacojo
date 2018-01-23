@@ -68,27 +68,8 @@
 //</editor-fold>
 
 $(document).ready(function()
-{  
-    //<editor-fold defaultstate="collapsed" desc="NAVBAR">
-    var open = $('.open-nav'),
-    close = $('.close'),
-    overlay = $('.overlay');
-    
-    open.click(function() {
-        overlay.show();
-        $('#wrapper').addClass('toggled');
-    });
-    
-    close.click(function() {
-        overlay.hide();
-        $('#wrapper').removeClass('toggled');
-    });
-    //</editor-fold>
-    
-    
-    //<editor-fold defaultstate="collapsed" desc="AUTOCOMPLETE">
-    //Testé, n'a aps l'air de fonctionner
-    $('#patients').autocomplete({
+{
+   $('#patients').autocomplete({
         source: 'src/bd/autocomplete_patients.php',
         dataType: 'json',
         minLength: 1,
@@ -96,20 +77,16 @@ $(document).ready(function()
         select: function (event, ui) {
             // Set autocomplete element to display the label
             this.value = ui.item.label;
-            
+
             // Store value in hidden field
             window.location.href='index.php?page=detail&id_patient='+ui.item.value;
-            
+
             // Prevent default behaviour
             return false;
         }
     });
-    //</editor-fold>
-
-    
-    //<editor-fold defaultstate="collapsed" desc="???">
     $('#etat_dispensation').change(function(){ //je récupère l'id du select
-        
+
         //alert($(this).val());
         if($(this).val()==1){ // si la valeur du select est 1
             $('#present').css("display","block"); // j'affiche la div present
@@ -117,109 +94,89 @@ $(document).ready(function()
         else{ //sinon
             $('#present').css("display","none"); // je ne l'affiche pas
         }
-        
+
     });
-    //</editor-fold>
 
-    
-    //<editor-fold defaultstate="collapsed" desc="???">
-//    $( "#id_patient" ).change(function() {
-//        alert( "Handler for .change() called." );
-//    });
-    //</editor-fold>
 
-    
-    //<editor-fold defaultstate="collapsed" desc="DATEPICKER_1">
-//    $('.pUpDate, .dOffDate, .date').datepicker({
-//        
-//        
-//        firstDay: 1,
-//        altField: "#datepicker",
-//        closeText: 'Fermer',
-//        prevText: 'Précédent',
-//        nextText: 'Suivant',
-//        currentText: 'Aujourd\'hui',
-//        monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
-//        monthNamesShort: ['Janv.', 'Févr.', 'Mars', 'Avril', 'Mai', 'Juin', 'Juil.', 'Août', 'Sept.', 'Oct.', 'Nov.', 'Déc.'],
-//        dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
-//        dayNamesShort: ['Dim.', 'Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.'],
-//        dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
-//        weekHeader: 'Sem.',
-//        dateFormat: 'yy-mm-dd'
-//    });
-//
-//
-//
-//    //set the drop off date to be one day ahead of the pickup date
-//
-//
-//    $('.pUpDate').change(refreshDate);
-//    $('#nb_jours_traitement').change(refreshDate);
-//
-//
-//    function refreshDate(){
-//        if($('.pUpDate').val()!="") {
-//            var nbjour = $("#nb_jours_traitement").val();
-//            var nbjourint = parseInt(nbjour);
-//            var nextDayDate = $('.pUpDate').datepicker('getDate', '+1d');
-//            nextDayDate.setDate(nextDayDate.getDate() + nbjourint);
-//            $('.dOffDate').datepicker('setDate', nextDayDate);
-//        }
-//    }
-//
-//
-//    //ensure that the drop off date cannot be before the pickup date
-//    function customRange(a) {
-//    var b = new Date();
-//    var c = new Date(b.getFullYear(), b.getMonth(), b.getDate());
-//    if (a.id == 'DropoffDate') {
-//        if ($('.pUpDate').datepicker('getDate') != null) {
-//            c = $('.pUpDate').datepicker('getDate');
-//        }
-//    }
-//    return {
-//        minDate: c
-//    }
-//    }
-
-    //</editor-fold>
-        
-    //<editor-fold defaultstate="collapsed" desc="???">
-    function getHouseModel(){
-        var model=$('select').val();
-        alert(model);
-    }
-    //</editor-fold>
-
-    
-    //<editor-fold defaultstate="collapsed" desc="TABLEAUX">
-    $('table.display').dataTable( {
-        paging: false,
-        "info": false,
-        "scrollX": true,
-        "language": {
-            "url": "js/dataTables.french.lang"
-        }
-    } );
-    //</editor-fold>
-
-    $( ".datepicker" ).datepicker(
-    {
-        dateFormat: 'yy-mm-dd' ,
-        showAnim : 'slide',
-        changeMonth: true,
-        changeYear: true,
-        orientation: "top"
-    });
-    
-
-    $("#textarea").keyup(function(){
-        $("#count").text("Caractères restants: " + (255 - $(this).val().length));
-    });
-    
-    
-    
 });
+
+$( "#id_patient" ).change(function() {
+  alert( "Handler for .change() called." );
+});
+
+
+
+
+
+$().ready(function () {
+    //pickup drop off calendar date picker settings
+    $('.pUpDate, .dOffDate, .date').datepicker({
+
+
+        firstDay: 1,
+        altField: "#datepicker",
+        closeText: 'Fermer',
+        prevText: 'Précédent',
+        nextText: 'Suivant',
+        currentText: 'Aujourd\'hui',
+        monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+        monthNamesShort: ['Janv.', 'Févr.', 'Mars', 'Avril', 'Mai', 'Juin', 'Juil.', 'Août', 'Sept.', 'Oct.', 'Nov.', 'Déc.'],
+        dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+        dayNamesShort: ['Dim.', 'Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.'],
+        dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
+        weekHeader: 'Sem.',
+        dateFormat: 'yy-mm-dd'
+    });
+
+    //set the drop off date to be one day ahead of the pickup date
+
+
+    $('.pUpDate').change(refreshDate);
+    $('#nb_jours_traitement').change(refreshDate);
+
+
+    function refreshDate(){
+        if($('.pUpDate').val()!="") {
+            var nbjour = $("#nb_jours_traitement").val();
+            var nbjourint = parseInt(nbjour);
+            var nextDayDate = $('.pUpDate').datepicker('getDate', '+1d');
+            nextDayDate.setDate(nextDayDate.getDate() + nbjourint);
+            $('.dOffDate').datepicker('setDate', nextDayDate);
+        }
+    }
+
+    //ensure that the drop off date cannot be before the pickup date
+    function customRange(a) {
+    var b = new Date();
+    var c = new Date(b.getFullYear(), b.getMonth(), b.getDate());
+    if (a.id == 'DropoffDate') {
+        if ($('.pUpDate').datepicker('getDate') != null) {
+            c = $('.pUpDate').datepicker('getDate');
+        }
+    }
+    return {
+        minDate: c
+    }
+}
+
+    });
+
+function getHouseModel(){
+      var model=$('select').val();
+      alert(model);
+}
+
+
+
+    $(document).ready(function() {
+        $('table.display').dataTable( {
+            paging: false,
+            "info": false,
+            "language": {
+                "url": "js/dataTables.french.lang"
+            }
+        } );
+    } );
 
 
 //<editor-fold defaultstate="collapsed" desc="ANCIEN CODE MOCHE">
