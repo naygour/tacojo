@@ -994,10 +994,10 @@ function viewIdPatient($db)
                                         <div id=present>
 
                                         <label>Date de la dispensation</label>
-                                        <input name="date_dispensation" type="text" id="pUpDate" class="pUpDate form-control" placeholder="JJ-MM-AAAA"/><br>
+                                        <input name="date_dispensation" type="text" id="aa" class="pUpDate form-control" placeholder="JJ-MM-AAAA"/><br>
 
                                 <label> Date du début du traitement </label>
-                                <input name="date_debut_traitement" type="text" id="jjjj" class="pUpDate form-control" placeholder="JJ-MM-AAAA"/><br>
+                                <input name="date_debut_traitement" type="text" id="pUpDate" class="pUpDate form-control" placeholder="JJ-MM-AAAA"/><br>
 
                                 <label>Nombre de jours du traitement</label>
                                 <input class="form-control" type="text" id="nb_jours_traitement" name="nb_jours_traitement" placeholder="Exemple : 30" value=""><br>
@@ -1029,7 +1029,7 @@ function viewIdPatient($db)
 						</select>
 						<br>
                                 <label> Date du prochain RDV </label>
-                                <input name="date_rdv" type="text" id="pUpDate" class="pUpDate form-control" placeholder="JJ-MM-AAAA"/><br>
+                                <input name="date_rdv" type="text" id="aaaa" class="pUpDate form-control" placeholder="JJ-MM-AAAA"/><br>
 
                                 <label> Poids  </label>
                                 <input class="form-control" type="text" id="poids" name="poids" placeholder="Exemple : 70" value=""><br>

@@ -137,13 +137,11 @@ $().ready(function () {
 
 
     function refreshDate(){
-        if($('.pUpDate').val()!="") {
-            var nbjour = $("#nb_jours_traitement").val();
+            var nbjour =  $('#nb_jours_traitement').val();
             var nbjourint = parseInt(nbjour);
-            var nextDayDate = $('.pUpDate').datepicker('getDate', '+1d');
+            var nextDayDate = $('#pUpDate').datepicker('getDate', '+1d');
             nextDayDate.setDate(nextDayDate.getDate() + nbjourint);
             $('.dOffDate').datepicker('setDate', nextDayDate);
-        }
     }
 
     //ensure that the drop off date cannot be before the pickup date
