@@ -1,0 +1,9 @@
+serveur 		: 		51.254.137.223
+identifiant             : 		senegal
+mdp 			: 		abZef2376
+
+
+Ligne                   : il s'agit d'une ligne de traitement. Quand un patient est mis sous traitement, il est en première ligne. Parfois, le traitement ne fonctionne plus et le virus reprend le dessus : on change alors le traitement pour une seconde ligne. Et parfois, il se passe la même chose avec le seconde ligne. On change de nouveau pour une troisième ligne. 
+
+Date d'inclusion        : date à laquelle le patient est "inclus" dans la file active, c'est à dire la date à laquelle il est mis sous traitement ARV (antirétroviraux, médicaments contre le VIH).
+Date de changement      : date à laquelle on change le traitement du patient, pour une autre ligne, ou en cas de rupture, ou en cas d'effets indésirables trop importants.
