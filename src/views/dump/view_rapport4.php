@@ -20,6 +20,7 @@ function viewRapport4($db){
     Choisissez une année
 
    <form action="" method="post">
+   
 
 
    <select id="selectAnnee" name="select">';
