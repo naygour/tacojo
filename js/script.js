@@ -50,22 +50,23 @@
 //    });
 //});
 
-//$(document).ready(function() {
-//    var open = $('.open-nav'),
-//        close = $('.close'),
-//        overlay = $('.overlay');
-//
-//    open.click(function() {
-//        overlay.show();
-//        $('#wrapper').addClass('toggled');
-//    });
-//
-//    close.click(function() {
-//        overlay.hide();
-//        $('#wrapper').removeClass('toggled');
-//    });
-//});
+$(document).ready(function() {
+    var open = $('.open-nav'),
+        close = $('.close'),
+        overlay = $('.overlay');
+
+    open.click(function() {
+        overlay.show();
+        $('#wrapper').addClass('toggled');
+    });
+
+    close.click(function() {
+        overlay.hide();
+        $('#wrapper').removeClass('toggled');
+    });
+});
 //</editor-fold>
+
 
 $(document).ready(function()
 {
@@ -177,78 +178,3 @@ function getHouseModel(){
             }
         } );
     } );
-
-
-//<editor-fold defaultstate="collapsed" desc="ANCIEN CODE MOCHE">
-//$().ready(function () {
-//    //pickup drop off calendar date picker settings
-//    $('.pUpDate, .dOffDate, .date').datepicker({
-//
-//
-//        firstDay: 1,
-//        altField: "#datepicker",
-//        closeText: 'Fermer',
-//        prevText: 'Précédent',
-//        nextText: 'Suivant',
-//        currentText: 'Aujourd\'hui',
-//        monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
-//        monthNamesShort: ['Janv.', 'Févr.', 'Mars', 'Avril', 'Mai', 'Juin', 'Juil.', 'Août', 'Sept.', 'Oct.', 'Nov.', 'Déc.'],
-//        dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
-//        dayNamesShort: ['Dim.', 'Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.'],
-//        dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
-//        weekHeader: 'Sem.',
-//        dateFormat: 'yy-mm-dd'
-//    });
-//
-//    //set the drop off date to be one day ahead of the pickup date
-//
-//
-//    $('.pUpDate').change(refreshDate);
-//    $('#nb_jours_traitement').change(refreshDate);
-//
-//
-//    function refreshDate(){
-//        if($('.pUpDate').val()!="") {
-//            var nbjour = $("#nb_jours_traitement").val();
-//            var nbjourint = parseInt(nbjour);
-//            var nextDayDate = $('.pUpDate').datepicker('getDate', '+1d');
-//            nextDayDate.setDate(nextDayDate.getDate() + nbjourint);
-//            $('.dOffDate').datepicker('setDate', nextDayDate);
-//        }
-//    }
-//
-//    //ensure that the drop off date cannot be before the pickup date
-//    function customRange(a) {
-//    var b = new Date();
-//    var c = new Date(b.getFullYear(), b.getMonth(), b.getDate());
-//    if (a.id == 'DropoffDate') {
-//        if ($('.pUpDate').datepicker('getDate') != null) {
-//            c = $('.pUpDate').datepicker('getDate');
-//        }
-//    }
-//    return {
-//        minDate: c
-//    }
-//}
-//
-//    });
-//
-//function getHouseModel(){
-//      var model=$('select').val();
-//      alert(model);
-//}
-//
-//
-//
-//$(document).ready(function() {
-//    $('table.display').dataTable( {
-//        paging: false,
-//        "info": false,
-//        "scrollX": true,
-//        "language": {
-//            "url": "js/dataTables.french.lang"
-//        }
-//    } );
-//} );
-//</editor-fold>
-
