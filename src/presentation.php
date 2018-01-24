@@ -24,7 +24,8 @@ function entete()
 
                     <script src="js/mui.min.js"></script>
                     <script src="js/jquery-2.1.4.min.js"></script>
-                    <script src="js/script.js"></script>
+                    <script src="js/script.js"></script>$
+                    <script src="js/formulaire.js"></script>
                     <script src="js/bootstrap.js"></script>
                     <script type="text/javascript" src="js/jquery.min.js"></script>
                     <script src="js/jquery-ui.js" ></script>

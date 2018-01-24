@@ -29,28 +29,33 @@ function viewAjouterPatient($db)
 
         if($sexe!="M" && $sexe!="F")
         {
+            $impossible=1;
             echo'<br><div class="well center alert alert-danger" role="alert">Veuillez renseigner le sexe du patient !</div>
             <script>$(".well").fadeTo(5000, 200).slideUp(500);</script>';
         }
-        elseif($profil_serologique==4)
+        if($profil_serologique==4)
             {
+            $impossible=1;
             echo'<br><div class="well center alert alert-danger" role="alert">Veuillez renseigner le profil sérologique du patient !</div>
             <script>$(".well").fadeTo(5000, 200).slideUp(500);</script>';
         }
-        elseif(empty($date_de_naissance))
+        if(empty($date_de_naissance))
         {
+            $impossible=1;
             echo'<br><div class="well center alert alert-danger" role="alert">Veuillez renseigner la date de naissance !</div>
             <script>$(".well").fadeTo(5000, 200).slideUp(500);</script>';
         }
-        elseif(empty($date_inclusion))
+        if(empty($date_inclusion))
         {
+            $impossible=1;
             echo'<br><div class="well center alert alert-danger" role="alert">Veuillez renseigner la date d\'inclusion du patient!</div>
             <script>$(".well").fadeTo(5000, 200).slideUp(500);</script>';
         }
-        elseif(empty($num_inclusion))
+        if(empty($num_inclusion))
         {
             if(empty($num_id_national))
             {
+                $impossible=1;
                 echo'<br><div class="well center alert alert-danger" role="alert">Veuillez renseigner soit un numéro id national ou un numéro d\'inclusion!</div>
                 <script>$(".well").fadeTo(5000, 200).slideUp(500);</script>';
             }
@@ -131,7 +136,7 @@ function viewAjouterPatient($db)
         
         <div class="form-group">
           <label for="num_inclusion">N° Inclusion</label>
-          <input type="text" class="form-control" name="num_inclusion" id="num_inclusion" placeholder="N° Inclusion">
+          <input type="text" class="form-control" name="num_inclusion" id="num_inclusionTEST" placeholder="N° Inclusion">
         </div>
         
         <div class="form-group">
