@@ -114,7 +114,7 @@ function viewAjouterPatient($db)
     <div class="panel panel-default">
         <div class="panel-heading">
             <div class="center">
-                <h2>Ajouter un patient</h2>
+                <h2>Ajouter un patientient</h2>
             </div>
         </div>
     <div class="panel-body">
@@ -324,7 +324,7 @@ function viewListePatient($db)
                 <div class="row">
                   <div class="col col-xs-6">
                     <h3 class="panel-title">Liste des patients</h3>
-                  </div>
+                  </div>PhpProject1
                   <!--<div class="col col-xs-6 text-right">
                     <button type="button" class="btn btn-sm btn-primary btn-create">Create New</button>
                   </div>-->
@@ -342,7 +342,7 @@ function viewListePatient($db)
                     <th>Profil sérologique</th>
                     <th>Sexe</th>
                     <th>Date de naissance</th>
-                    <th>Date d\'inclusion </th>
+                    <th>Date d\'inclusion </th>PhpProject1
                     <th>Dernière Dispensation</th>
                     <th>Protocole en cours</th>
                     <th>Ligne</th>
@@ -999,10 +999,10 @@ function viewIdPatient($db)
                                         <div id=present>
 
                                         <label>Date de la dispensation</label>
-                                        <input name="date_dispensation" type="text" id="aa" class="pUpDate form-control" placeholder="JJ-MM-AAAA"/><br>
+                                        <input name="date_dispensation" type="text" id="pUpDate" class="pUpDate form-control" placeholder="JJ-MM-AAAA"/><br>
 
                                 <label> Date du début du traitement </label>
-                                <input name="date_debut_traitement" type="text" id="pUpDate" class="pUpDate form-control" placeholder="JJ-MM-AAAA"/><br>
+                                <input name="date_debut_traitement" type="text" id="jjjj" class="pUpDate form-control" placeholder="JJ-MM-AAAA"/><br>
 
                                 <label>Nombre de jours du traitement</label>
                                 <input class="form-control" type="text" id="nb_jours_traitement" name="nb_jours_traitement" placeholder="Exemple : 30" value=""><br>
@@ -1034,7 +1034,7 @@ function viewIdPatient($db)
 						</select>
 						<br>
                                 <label> Date du prochain RDV </label>
-                                <input name="date_rdv" type="text" id="aaaa" class="pUpDate form-control" placeholder="JJ-MM-AAAA"/><br>
+                                <input name="date_rdv" type="text" id="pUpDate" class="pUpDate form-control" placeholder="JJ-MM-AAAA"/><br>
 
                                 <label> Poids  </label>
                                 <input class="form-control" type="text" id="poids" name="poids" placeholder="Exemple : 70" value=""><br>
