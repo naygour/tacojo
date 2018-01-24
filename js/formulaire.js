@@ -19,7 +19,8 @@ $(document).ready(function()
         
         verifierDate($('#date_de_naissance'));
         verifierDate($('#date_inclusion'));
-        
+   
+            
         
         
     });
