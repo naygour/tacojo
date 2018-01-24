@@ -7,6 +7,7 @@ function viewAccueil($db)
     {
         //AFFICHAGE DE L'ACCUEIL POUR UNE PERSONNE NON CONNECTEE
 	echo
+        
         '
         <!--<div id="content-wrapper">-->
         <div class="container">
