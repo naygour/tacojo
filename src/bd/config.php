@@ -1,6 +1,7 @@
 <?php
     $config['serveur']='localhost';
     $config['login']='root';
-    $config['mdp']='';
+    $config['mdp']='btsinfo';
     $config['bd']='bdsenegal';
 ?>
+n
