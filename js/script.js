@@ -68,8 +68,7 @@ $(document).ready(function() {
 //</editor-fold>
 
 
-$(document).ready(function()
-{
+$(document).ready(function(){
    $('#patients').autocomplete({
         source: 'src/bd/autocomplete_patients.php',
         dataType: 'json',
@@ -99,7 +98,7 @@ $(document).ready(function()
     });
 
 
-});
+});  //Autocomplete Patient
 
 $( "#id_patient" ).change(function() {
   alert( "Handler for .change() called." );
@@ -158,7 +157,7 @@ $().ready(function () {
     }
 }
 
-    });
+    });  //Function DatePicker
 
 function getHouseModel(){
       var model=$('select').val();
@@ -175,4 +174,10 @@ function getHouseModel(){
                 "url": "js/dataTables.french.lang"
             }
         } );
+        
+         $("#textarea").keyup(function(){
+        $("#count").text("Caractères restants: " + (255 - $(this).val().length));
+    });
     } );
+    
+ 

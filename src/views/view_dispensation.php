@@ -202,17 +202,17 @@ function ajouterDispensationPourLePatient($db)
                         <br>
 
                         <label>Date de la dispensation</label>
-                        <input name="date_dispensation" class="datepicker form-control" type="text" placeholder="aaaa-mm-jj"/>
+                        <input name="date_dispensation" class="datepicker form-control" type="text" placeholder="jj-mm-aaaa"/>
                     
                         <br>
                         
                         <label>Date début du traitement</label>
-                        <input name="date_debut_traitement" class="datepicker form-control" type="text" placeholder="aaaa-mm-jj"/>
+                        <input name="date_debut_traitement" class="datepicker form-control" type="text" placeholder="jj-mm-aaaa"/>
 
                         <br>
                         
                         <label>Date fin du traitement</label>
-                        <input name="date_fin_traitement" class="datepicker form-control" type="text" placeholder="aaaa-mm-jj"/>
+                        <input name="date_fin_traitement" class="datepicker form-control" type="text" placeholder="jj-mm-aaaa"/>
 
                         <br>
 
@@ -222,7 +222,7 @@ function ajouterDispensationPourLePatient($db)
                         <br>
                         
                         <label>Date du rendez-vous</label>
-                        <input id="rdv" name="rdv" class="datepicker form-control" type="text" placeholder="aaaa-mm-jj"/>
+                        <input id="rdv" name="rdv" class="datepicker form-control" type="text" placeholder="jj-mm-aaaa"/>
                         
                         <br>
 

@@ -114,7 +114,7 @@ function viewAjouterPatient($db)
     <div class="panel panel-default">
         <div class="panel-heading">
             <div class="center">
-                <h2>Ajouter un patientient</h2>
+                <h2>Ajouter un patientttttt</h2>
             </div>
         </div>
     <div class="panel-body">
@@ -163,7 +163,7 @@ function viewAjouterPatient($db)
             
             <select class="form-control" id="profil_serologique" name="profil_serologique">
             ';
-    
+     Co-Infection 
             $listeProfilsSerologiques = new profil_serologique($db);
             $lesProfilsSérologiques = $listeProfilsSerologiques->selectAll();
             $compteur=1;
