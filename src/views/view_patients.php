@@ -324,7 +324,7 @@ function viewListePatient($db)
                 <div class="row">
                   <div class="col col-xs-6">
                     <h3 class="panel-title">Liste des patients</h3>
-                  </div>PhpProject1
+                  </div>
                   <!--<div class="col col-xs-6 text-right">
                     <button type="button" class="btn btn-sm btn-primary btn-create">Create New</button>
                   </div>-->
@@ -333,6 +333,8 @@ function viewListePatient($db)
               
 
               <div class="panel-body">
+              <div style="width:100%;overflow:auto;">  ';       /*Barre de défilements*/
+    echo'
                 <table style="min-width : 100%" id="repDataTable1" class="table table-striped table-bordered table-list display">
                   <thead>
                    <tr>
@@ -342,7 +344,7 @@ function viewListePatient($db)
                     <th>Profil sérologique</th>
                     <th>Sexe</th>
                     <th>Date de naissance</th>
-                    <th>Date d\'inclusion </th>PhpProject1
+                    <th>Date d\'inclusion </th>
                     <th>Dernière Dispensation</th>
                     <th>Protocole en cours</th>
                     <th>Ligne</th>
