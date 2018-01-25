@@ -4,4 +4,3 @@
     $config['mdp']='btsinfo';
     $config['bd']='bdsenegal';
 ?>
-n
