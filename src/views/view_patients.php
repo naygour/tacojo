@@ -114,7 +114,7 @@ function viewAjouterPatient($db)
     <div class="panel panel-default">
         <div class="panel-heading">
             <div class="center">
-                <h2>Ajouter un patient</h2>
+                <h2>Ajouter un patientttttt</h2>
             </div>
         </div>
     <div class="panel-body">
@@ -163,7 +163,7 @@ function viewAjouterPatient($db)
             
             <select class="form-control" id="profil_serologique" name="profil_serologique">
             ';
-    
+     Co-Infection 
             $listeProfilsSerologiques = new profil_serologique($db);
             $lesProfilsSérologiques = $listeProfilsSerologiques->selectAll();
             $compteur=1;
@@ -324,7 +324,7 @@ function viewListePatient($db)
                 <div class="row">
                   <div class="col col-xs-6">
                     <h3 class="panel-title">Liste des patients</h3>
-                  </div>
+                  </div>PhpProject1
                   <!--<div class="col col-xs-6 text-right">
                     <button type="button" class="btn btn-sm btn-primary btn-create">Create New</button>
                   </div>-->
@@ -333,8 +333,6 @@ function viewListePatient($db)
               
 
               <div class="panel-body">
-              <div style="width:100%;overflow:auto;">  ';       /*Barre de défilements*/
-    echo'
                 <table style="min-width : 100%" id="repDataTable1" class="table table-striped table-bordered table-list display">
                   <thead>
                    <tr>
@@ -344,7 +342,7 @@ function viewListePatient($db)
                     <th>Profil sérologique</th>
                     <th>Sexe</th>
                     <th>Date de naissance</th>
-                    <th>Date d\'inclusion </th>
+                    <th>Date d\'inclusion </th>PhpProject1
                     <th>Dernière Dispensation</th>
                     <th>Protocole en cours</th>
                     <th>Ligne</th>
