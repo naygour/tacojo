@@ -114,7 +114,7 @@ function viewAjouterPatient($db)
     <div class="panel panel-default">
         <div class="panel-heading">
             <div class="center">
-                <h2>Ajouter un patientient</h2>
+                <h2>Ajouter un patient</h2>
             </div>
         </div>
     <div class="panel-body">
