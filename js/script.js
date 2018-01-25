@@ -111,7 +111,7 @@ $( "#id_patient" ).change(function() {
 
 $().ready(function () {
     //pickup drop off calendar date picker settings
-    $('.pUpDate, .dOffDate, .date').datepicker({
+    $('.datepicker, .dOffDate, .date').datepicker({
 
 
         firstDay: 1,
@@ -132,14 +132,14 @@ $().ready(function () {
     //set the drop off date to be one day ahead of the pickup date
 
 
-    $('.pUpDate').change(refreshDate);
+    $('.datepicker').change(refreshDate);
     $('#nb_jours_traitement').change(refreshDate);
 
 
     function refreshDate(){
             var nbjour =  $('#nb_jours_traitement').val();
             var nbjourint = parseInt(nbjour);
-            var nextDayDate = $('#pUpDate').datepicker('getDate', '+1d');
+            var nextDayDate = $('.datepicker').datepicker('getDate', '+1d');
             nextDayDate.setDate(nextDayDate.getDate() + nbjourint);
             $('.dOffDate').datepicker('setDate', nextDayDate);
     }
@@ -149,8 +149,8 @@ $().ready(function () {
     var b = new Date();
     var c = new Date(b.getFullYear(), b.getMonth(), b.getDate());
     if (a.id == 'DropoffDate') {
-        if ($('.pUpDate').datepicker('getDate') != null) {
-            c = $('.pUpDate').datepicker('getDate');
+        if ($('.datepicker').datepicker('getDate') != null) {
+            c = $('.datepikcer').datepicker('getDate');
         }
     }
     return {

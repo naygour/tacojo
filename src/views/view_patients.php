@@ -747,7 +747,7 @@ function viewIdPatient($db)
         $id_patient = $_POST['id_patient'];
         $annee = $_POST['annee'];
         $mois = $_POST['mois'];
-        //print_r($_POST);
+        print_r($_POST);
         $suivi_presence = new Suivi($db);
         $nb = $suivi_presence->insertAll($id_patient, $annee, $mois);
 
@@ -999,10 +999,10 @@ function viewIdPatient($db)
                                         <div id=present>
 
                                         <label>Date de la dispensation</label>
-                                        <input name="date_dispensation" type="text" id="date_dispensation" class="pUpDate form-control" placeholder="JJ-MM-AAAA"/><br>
+                                        <input name="date_dispensation" type="date" id="date_dispensation" class="datepicker form-control" placeholder="JJ-MM-AAAA"/><br>
 
                                 <label> Date du début du traitement </label>
-                                <input name="date_debut_traitement" type="text" id="pUpDate" class="pUpDate form-control" placeholder="JJ-MM-AAAA"/><br>
+                                <input name="date_debut_traitement" type="date" id="pUpDate" class="datepicker form-control" placeholder="JJ-MM-AAAA"/><br>
 
                                 <label>Nombre de jours du traitement</label>
                                 <input class="form-control" type="text" id="nb_jours_traitement" name="nb_jours_traitement" placeholder="Exemple : 30" value=""><br>
@@ -1034,7 +1034,7 @@ function viewIdPatient($db)
 						</select>
 						<br>
                                 <label> Date du prochain RDV </label>
-                                <input name="date_rdv" type="text" id="date_rdv" class="pUpDate form-control" placeholder="JJ-MM-AAAA"/><br>
+                                <input name="date_rdv" type="date" id="date_rdv" class="datepicker form-control" placeholder="JJ-MM-AAAA"/><br>
 
                                 <label> Poids  </label>
                                 <input class="form-control" type="text" id="poids" name="poids" placeholder="Exemple : 70" value=""><br>
@@ -1056,7 +1056,7 @@ function viewIdPatient($db)
 
                                 </div>
                                 <div class="modal-footer">
-                                      <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                                      <button type="button"  class="btn btn-default" data-dismiss="modal">Annuler</button>
                                       <input type="submit" id="btValider" name="btValider" class="btn btn-primary" value="Valider"/>
                                 </div>
                                 </form>
