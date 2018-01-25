@@ -60,7 +60,7 @@ function viewRapport($db)
                   </div>
                 </div>
               </div>
-              <div class="panel-body">
+              <div class="panhttp://172.16.207.74/Senegal/Senegal/tacojo/index.php?page=rapport#el-body">
                 <form method="POST" action="index.php?page=rapport">
 
 
@@ -135,7 +135,7 @@ function viewRapport($db)
     </div>
     </div>
     </div>
-    </div>
+    </div>http://172.16.207.74/Senegal/Senegal/tacojo/index.php?page=rapport#
 ';
 }
 ?>
