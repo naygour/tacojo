@@ -91,26 +91,46 @@ function viewRapport($db)
                             </tr>
                       </thead>
 
-                      <tbody>
-                    ';
+                      
+                    <tr>
+                    <td></td>
+                    <td rowspan="2"> <1 an </td>
+                    <td>M</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    
+                    <td></td>
+                    
+                    <td></td>
+                    </tr>
+                    
+                    <tr>
+                    <td></td>
+                    <td>F</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    
+                    </tr>
+                    
+                        
+                            
 
-                    $statsTmp = array();
 
-                    foreach ($stats as $value)
-                    {
-                    echo '<tr><td class="bg-success"></td>';
-                        $info=$value;
-                        $nb= count($info)/2;
 
-                        for($i = 0; $i<$nb; $i++)
-                        {                        $info=$value;
-                        $nb= count($info)/2;
-                            echo'<td>';
-                            echo $info[$i];
-                            echo'</td>';
-                        }
-                        echo '</tr>';
-                    }
+
+
+
+';
+                    
                     
                 }
                 
