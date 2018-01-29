@@ -304,6 +304,7 @@ function viewListePatient($db)
                 <input type="hidden" id="id_patient" name="id_patient" value="">
                 <div class="input-group-btn">
                     <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                    
                 </div>
             </div>
         </form>-->
@@ -323,7 +324,7 @@ function viewListePatient($db)
                 <div class="row">
                   <div class="col col-xs-6">
                     <h3 class="panel-title">Liste des patients</h3>
-                  </div>PhpProject1
+                  </div>
                   <!--<div class="col col-xs-6 text-right">
                     <button type="button" class="btn btn-sm btn-primary btn-create">Create New</button>
                   </div>-->
@@ -332,7 +333,8 @@ function viewListePatient($db)
               
 
               <div class="panel-body">
-                <table style="min-width : 100%" id="repDataTable1" class="table table-striped table-bordered table-list display">
+              <div style="overflow:auto;">
+                <table style="min-width : 100%" id="repDataTable1" class="table table-striped table-bordered table-list display" >
                   <thead>
                    <tr>
                     <th>Accès à la fiche Patient</th>
@@ -341,7 +343,7 @@ function viewListePatient($db)
                     <th>Profil sérologique</th>
                     <th>Sexe</th>
                     <th>Date de naissance</th>
-                    <th>Date d\'inclusion </th>PhpProject1
+                    <th>Date d\'inclusion </th>
                     <th>Dernière Dispensation</th>
                     <th>Protocole en cours</th>
                     <th>Ligne</th>
@@ -351,7 +353,7 @@ function viewListePatient($db)
                     <th>Prochain rdv </th>
                    </tr>
                   </thead>
-                  <tbody>
+                  <tbody></div>
                           ';
 	foreach ($listePatient as $unPatient)
         {

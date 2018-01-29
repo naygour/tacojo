@@ -270,9 +270,9 @@ INSERT INTO `MEDICAMENT` (`id_medicament`, `acronyme_medicament`, `nom_medicamen
 (13, 'TDF', 'Ténofovir'),
 (16, 'DRV', 'Darunavir'),
 (17, 'FTC', 'Emtricitabine'),
-(18, 'NVP', 'NÃ©virapine'),
+(18, 'NVP', 'Névirapine'),
 (21, 'DTG', 'Dolutegravir'),
-(22, 'RAL', 'RaltÃ©gravir'),
+(22, 'RAL', 'Raltégravir'),
 (23, 'RTV', 'Ritonavir');
 
 -- --------------------------------------------------------

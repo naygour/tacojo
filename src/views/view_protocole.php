@@ -2,7 +2,7 @@
 
 function viewListeProtocole($db)
 {
-
+echo'<meta http-equiv="content-type" content="text/html; charset=utf-8" />';
     echo
     '
         <!--<div id="content-wrapper">-->
@@ -257,6 +257,7 @@ function viewListeProtocole($db)
 
 function viewModifProtocole($db)
 {
+    echo'<meta http-equiv="content-type" content="text/html; charset=utf-8" />';
     echo
     '
     <!--<div id="content-wrapper">-->

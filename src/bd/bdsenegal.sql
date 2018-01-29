@@ -99,9 +99,9 @@ CREATE TABLE `etat_dispensation` (
 --
 
 INSERT INTO `etat_dispensation` (`id_etat_dispen`, `nom_etat_dispen`) VALUES
-(1, 'PrÃ©sent'),
+(1, 'Présent'),
 (2, 'Absent'),
-(3, 'DÃ©cÃ©dÃ©'),
+(3, 'Décédé'),
 (4, 'Abandon'),
 (5, 'Transfert sortant');
 

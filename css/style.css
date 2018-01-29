@@ -364,7 +364,7 @@ used to vertically center elements, may need modification if you're not using de
 }
 
 .table.dataTable thead th, table.dataTable thead td{
-  border-bottom: 0px !important;
+  border-bottom: 0px; !important;
 }
 
 .table.dataTable{
