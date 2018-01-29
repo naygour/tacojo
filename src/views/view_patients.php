@@ -162,8 +162,7 @@ function viewAjouterPatient($db)
             <label for="profil_serologique">Profil sérologique</label>
             
             <select class="form-control" id="profil_serologique" name="profil_serologique">
-            ';
-     Co-Infection 
+            '; 
             $listeProfilsSerologiques = new profil_serologique($db);
             $lesProfilsSérologiques = $listeProfilsSerologiques->selectAll();
             $compteur=1;

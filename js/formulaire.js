@@ -15,7 +15,6 @@ $(document).ready(function()
             cp += verifier($('#num_id_national'));
             cp += verifier($('#num_inclusionTEST'));
             cp += verifierDate($('#date_inclusion'));
-
             if(cp!=4){
                 e.preventDefault(); // on annule la fonction par défaut du bouton d'envoi
             }
@@ -25,7 +24,6 @@ $(document).ready(function()
     
         $('#btValider').click(function(e){
             var cp=0;
-            alert($('#date_dispensation').val());
             cp += verifierNombre($('#poids'));
             cp += verifier($('#observations'));
             cp += verifierNombre($('#nb_jours_traitement'));
@@ -33,7 +31,8 @@ $(document).ready(function()
             cp += verifierDate($('#pUpDate'));
             cp += verifierDate($('#date_dispensation'));
             cp += verifierDate($('#date_rdv'));
-            if(cp!=7){
+            cp += verifierJourFerie($('#date_rdv'));
+            if(cp!=8){
                 e.preventDefault(); // on annule la fonction par défaut du bouton d'envoi
             }
 
@@ -42,11 +41,11 @@ $(document).ready(function()
         function verifier(champ){
             var cp=0;
             if(champ.val() == ""){ // si le champ est vide
-                afficherErreur(true,champ);
+                afficherErreur(true,champ); // Fonction qui va afficher l'erreur
             }
             else{
                 cp=1;
-                afficherErreur(false,champ);
+                afficherErreur(false,champ); // Fonction qui va remet le formulaire basique s'il n'y a pas erreur
             }
             return cp;
         
@@ -102,6 +101,30 @@ $(document).ready(function()
                 //backgroundColor : 'white
                 
                 });
+            }
+        }
+        
+        function verifierJourFerie(champ){
+            
+            var dateDepart= champ.val(); 
+            var from = dateDepart.split("-")
+            var year = from[0];
+            var month = from[1];
+            var day = from[2];
+            var date = new Date(year,month,day);
+            
+            var jour= date.getDay();
+            var jourFerie= [year+"-01-01" , year+"-05-01",year+"-05-08",year+"-07-14",year+"-08-15",year+"-11-01",year+"-11-11",year+"-12-25"]
+            
+            if(jour==2 || jour==3){
+                afficherErreur(true,champ);
+            }
+            else{
+                for(var i=0 ; i<jourFerie.length; i++){
+                    if(dateDepart==jourFerie[i]){
+                        afficherErreur(true,champ);
+                    }
+                }
             }
         }
 
