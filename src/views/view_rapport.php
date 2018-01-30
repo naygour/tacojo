@@ -24,11 +24,12 @@ function viewRapport($db)
 
 
             <select id="selectAnnee" name="select">';
-            for ($i = 2015; $i <= 2050; $i++)
+            $mois = ['Janvier','Février', 'Mars' , 'Avril','Mai','Juin','Juillet','Aout','Septembre','Octobre','Novembre','Décembre'];
+            for ($i = 2016; $i <= 2050; $i++)
             {
                 for ($j=1; $j <13 ; $j++)
                 {
-                    echo '<option>['.$j.']'.$i.' </option>';
+                    echo '<option value = '.$i.'-'.$j.'-01 >'.$mois[$j-1].'/'.$i.' </option>';
                 }
             }
             echo
@@ -41,7 +42,18 @@ function viewRapport($db)
 
     if (isset($_POST['submit']))
     {
-        echo '<script language="JavaScript">$("#selectAnnee").val('.$_POST['select'].')</script>';
+                echo '<script language="JavaScript">$("#selectAnnee").val('.$_POST['select'].')</script>';
+                $test    = new rapport($db);
+                $lesInscritsAvantHomme   = $test->selectInscritAvant("M",$_POST['select']);   // Tout les hommes inscrits avant ce mois
+                $LesInscritsAvantFemme   = $test->selectInscritAvant("F",$_POST['select']);
+                $mois                    = $test->selectMois($_POST['select']);
+                $annee                  = $test->selectAnnee($_POST['select']);
+                $leMoisApres = "".$annee['annee']."-".($mois['mois']+1)."-01"; // On récupere la date du mois d'apres 
+                $lesInscritsPendantHomme = $test->selectInscritAvant("M",$leMoisApres); // On calcule avant ce mois pour ensuite soustraire a tout les mois d'avant
+                $lesInscritsPendantFemme = $test->selectInscritAvant("F",$leMoisApres);
+                $lesInscritsPendantFemme = count($lesInscritsPendantFemme) - count($LesInscritsAvantFemme);
+                $lesInscritsPendantHomme = count($lesInscritsPendantHomme) - count($lesInscritsAvantHomme);
+                
     }
     else
     {
@@ -71,49 +83,59 @@ function viewRapport($db)
                 $stats      = $rapport->selectAllExceptId();
                 $nb         = count($stats);
                 
+                
                 if($nb>0)
                 {
                     echo
-                    
-                    
-                    
                     '
                       <thead>
                         <tr>
-                            <th>  </th>
                             <th>Age</th>
                             <th>Sexe</th>
-                            <th>Nombre total de patients sous ARV régulièrement suivis jusqu\'au mois précédent</th>
-                            <th>Nombre de nouveaux patients mis sous ARV durant le mois</th>
-                            <th>Nombre de patients sous ARV décédés et enregistrés durant le mois</th>
+                            <th>Nombre total de patients qui ont été suivis sous ARV dans le site depuis le début jusqu’au mois précédent</th>
+                            <thNombre total de patients sous ARV régulièrement suivis jusqu\'au mois précédent</th>
+                            <th>Nombre de nouveaux patients mis sous ARV durant le mois  </th>
+                            <th>Nombre de patients sous ARV décédés et enregistrés durant le mois  </th>
                             <th>Nombre de patients sous ARV déclarés perdus de vue durant le mois </th>
                             <th>Nombre de patients sous ARV perdus de vue et revenus durant le mois</th>
-                            <th>Nombre de patients sous ARV transférés dans le site (TE) durant le mois</th>
-                            <th>Nombre de patients sous ARV transférés vers un autre site (TA) durant le mois </th>
-                            <th>Nombre total de patients sous ARV régulèrement suivis (file active sous ARV) </th>
+                            <th>Nombre de patients sous ARV transférés dans le site (TE) durant le mois </th>
+                            <th>Nombre de patients sous ARV transférés vers un autre site (TA) durant le mois  </th>
+                            <th> Nombre total de patients sous ARV régulèrement suivis (file active sous ARV) </th>
                             </tr>
                       </thead>
-
+      
+                    <tr>
+                    <td rowspan="2"> <1 an </td>
+                    <td>M</td>
+                    <td>'.count($lesInscritsAvantHomme).'</td>
+                    <td>'.$lesInscritsPendantHomme.'</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    
+                    <td></td>
+                    
+                    <td></td>
+                    </tr>
+                    
+                    <tr>
+                    <td>F</td>
+                    <td>'.count($LesInscritsAvantFemme).'</td>
+                    <td>'.$lesInscritsPendantFemme.'</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    
+                    </tr>
+                    
+                        
                       <tbody>
                     ';
 
-                    $statsTmp = array();
-
-                    foreach ($stats as $value)
-                    {
-                    echo '<tr><td class="bg-success"></td>';
-                        $info=$value;
-                        $nb= count($info)/2;
-
-                        for($i = 0; $i<$nb; $i++)
-                        {                        $info=$value;
-                        $nb= count($info)/2;
-                            echo'<td>';
-                            echo $info[$i];
-                            echo'</td>';
-                        }
-                        echo '</tr>';
-                    }
                     
                 }
                 
