@@ -74,6 +74,9 @@ function viewRapport($db)
                 if($nb>0)
                 {
                     echo
+                    
+                    
+                    
                     '
                       <thead>
                         <tr>
