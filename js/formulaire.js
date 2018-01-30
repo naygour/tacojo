@@ -32,6 +32,7 @@ $(document).ready(function()
             cp += verifierDate($('#date_dispensation'));
             cp += verifierDate($('#date_rdv'));
             cp += verifierJourFerie($('#date_rdv'));
+            alert(cp);
             if(cp!=8){
                 e.preventDefault(); // on annule la fonction par défaut du bouton d'envoi
             }
@@ -105,7 +106,7 @@ $(document).ready(function()
         }
         
         function verifierJourFerie(champ){
-            
+            var cp=1;
             var dateDepart= champ.val(); 
             var from = dateDepart.split("-")
             var year = from[0];
@@ -117,15 +118,18 @@ $(document).ready(function()
             var jourFerie= [year+"-01-01" , year+"-05-01",year+"-05-08",year+"-07-14",year+"-08-15",year+"-11-01",year+"-11-11",year+"-12-25"]
             
             if(jour==2 || jour==3){
+                cp=0;
                 afficherErreur(true,champ);
             }
             else{
                 for(var i=0 ; i<jourFerie.length; i++){
                     if(dateDepart==jourFerie[i]){
+                        cp=0;
                         afficherErreur(true,champ);
                     }
                 }
             }
+            return cp;
         }
 
 });

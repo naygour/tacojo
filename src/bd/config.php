@@ -8,7 +8,7 @@
     //LOCAL 
     $config['serveur']='localhost';
     $config['login']='root';
-    $config['mdp']='btsinfo';
+    $config['mdp']='';
     $config['bd']='bdsenegal';
      
 ?>
