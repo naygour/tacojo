@@ -60,9 +60,9 @@ function getPage()
         if(isset($_SESSION['login']))
         //Si la personne est connectée
         {
-                $rolePersonne=$_SESSION['role'];
+                $role=$_SESSION['role'];
                 //On récupère son role
-                if($rolePersonne>=$role)
+                if($role>=$role)
                 //Si le role de la personne est le même que celui requis pour la page
                 { 
                     $contenu=$explose[0];
