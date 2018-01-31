@@ -111,7 +111,7 @@ function ajouterDispensationPourLePatient($db)
 
     if (isset($_POST['btAjoutDisp']))
     {
-        $num_inclusion = $_POST['num_inclusion'];
+        $id_patient = $_POST['id_patient'];
         $etat_dispensation = $_POST['etat_dispensation'];
         $date_dispensation = $_POST['date_dispensation'];
         $date_debut_traitement = $_POST['date_debut_traitement'];
@@ -123,7 +123,7 @@ function ajouterDispensationPourLePatient($db)
         
         $dispensations = new dispensation($db);
         
-        $nb = $dispensations->insertAll( $num_inclusion, $etat_dispensation, $date_dispensation, $date_debut_traitement, $nb_jours_traitement, $date_fin_traitement, $rdv, $poids, $observations);
+        $nb = $dispensations->insertAll( $id_patient, $etat_dispensation, $date_dispensation, $date_debut_traitement, $nb_jours_traitement, $date_fin_traitement, $rdv, $poids, $observations);
            
         if($nb!=1)
         {
@@ -290,6 +290,7 @@ function viewListDispensation($db)
                       </div>
 
 			<div class="panel-body">
+                        <div style="overflow:auto;">
 			    <table style="min-width : 100%" id="repDataTable1" class="table table-striped table-bordered table-list display">';
 
                                 $protocole = new protocole($db);
@@ -327,7 +328,7 @@ function viewListDispensation($db)
 			                        <th>Poids</th>
 			                    </tr>
 			                </thead>
-                                        
+                                        </div>
                                         <tbody>
                                         ';
                                         foreach ($listeP as $unPatient)

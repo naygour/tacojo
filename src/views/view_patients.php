@@ -704,6 +704,7 @@ function viewIdPatient($db)
     {
         
         $id_dispensation        = $_POST['id_dispensationT'];
+        $id_patient             = $_POST['id_patient'];
         $etat_dispensation      = $_POST['etat_dispensation'];
         $date_dispensation      = $_POST['dateDispT'];
         $nb_jours_traitement    = $_POST['NbJour'];
@@ -713,15 +714,15 @@ function viewIdPatient($db)
         $observations           = $_POST['observationsT'];
         $poids                  = $_POST['poidsT'];
 
-        $id_patient=$_POST['id_patient'];
+        
 
         $modifdispensation = new dispensation($db);
 
         $uneDisp= $modifdispensation-> selectId($id_dispensation);
 
-        $num_inclusion= $uneDisp['num_inclusion'];
+        $id_patient= $uneDisp['id_patient'];
 
-        $nb = $modifdispensation->updateAll($id_dispensation,$num_inclusion,$etat_dispensation, $date_dispensation,$date_debut_traitement, $nb_jours_traitement, $date_fin_traitement , $rdv ,$poids, $observations);
+        $nb = $modifdispensation->updateAll($id_dispensation,$id_patient,$etat_dispensation, $date_dispensation,$date_debut_traitement, $nb_jours_traitement, $date_fin_traitement , $rdv ,$poids, $observations);
 
         if($nb!=1)
         {
@@ -735,7 +736,7 @@ function viewIdPatient($db)
 
     if(isset($_POST['btValider']))
     {
-        $num_inclusion = $_POST['num_inclusion'];
+        $id_patient = $_POST['id_patient'];
         $etat_dispensation = $_POST['etat_dispensation'];
         $date_dispensation = $_POST['date_dispensation'];
         $nb_jours_traitement = $_POST['nb_jours_traitement'];
@@ -744,17 +745,15 @@ function viewIdPatient($db)
         $date_debut_traitement= $_POST['date_debut_traitement'];
         $date_rdv= $_POST['date_rdv'];
         $observations=$_POST['observations'];
-
-        $id_patient = $_POST['id_patient'];
         $annee = $_POST['annee'];
         $mois = $_POST['mois'];
-        print_r($_POST);
+        //print_r($_POST);                          //Afiiche toutes les variables POST
         $suivi_presence = new Suivi($db);
         $nb = $suivi_presence->insertAll($id_patient, $annee, $mois);
 
         $dispensation = new dispensation($db);
 
-        $nb2 = $dispensation->insertAll($num_inclusion, $etat_dispensation, $date_dispensation, $date_debut_traitement, $nb_jours_traitement, $date_fin_traitement, $date_rdv,$poids, $observations);
+        $nb2 = $dispensation->insertAll($id_patient, $etat_dispensation, $date_dispensation, $date_debut_traitement, $nb_jours_traitement, $date_fin_traitement, $date_rdv,$poids, $observations);
 
         if($nb2!=1)
         {
@@ -766,14 +765,16 @@ function viewIdPatient($db)
                 $uneListe = $patient->selectId($id_patient); //selectOne renvoie la valeur false si il n'a pas trouver de Produit
                 if ($uneListe != false)
                 {
-                       // header('refresh:2;url=index.php?page=patient');
+                    //header('refresh:2;url=index.php?page=patient');
                 }
             }
         }
         else
         {
             echo '<br><div class="center alert alert-success" role="alert">Ajout effectué !</div></div></div>';
-            //header('refresh:2;url=index.php?page=patient');
+            
+            echo "<script type='text/javascript'>document.location.replace('index.php?page=detail&id_patient= 123456795 ');</script>";     // Il faut intégrer '.$uneListe['id_patient'].'  a la place de 123456795
+            
         }
     }
 
@@ -799,7 +800,7 @@ function viewIdPatient($db)
                     <div class="panel panel-default">
                             <div class="panel-heading">
                                     <div class="center">
-                                            <h3>Dispensations du patient ' . $uneListe['num_inclusion'] . '</h3>
+                                            <h3>Dispensations du patient ' . $uneListe['id_patient'] . '</h3>
                                     </div>
                             </div>
                     </div>
@@ -827,7 +828,7 @@ function viewIdPatient($db)
             
             for ($mois=1; $mois<=12; $mois++)
             {
-                $tableDispens[$mois] = $dispensation->selectOneYearMonth($uneListe['num_inclusion'], $mois, date('Y'));
+                $tableDispens[$mois] = $dispensation->selectOneYearMonth($uneListe['id_patient'], $mois, date('Y'));
             }
             
             $legende[0] ='Statut';
@@ -849,10 +850,11 @@ function viewIdPatient($db)
 
             echo
             '
+                <div style="overflow:auto;">
                 <table class="table table-striped table-bordered table-list">
                   <thead>
                     <tr>
-                     <th></th>
+                        <th></th>
                         <th>Jan</th>
                         <th>Fev</th>
                         <th>Mar</th>
@@ -904,7 +906,7 @@ function viewIdPatient($db)
                             }
                             else
                             {
-                              echo'<td>    </td>';
+                              echo'<td>  </td>';
                             }
                           }
                         }
@@ -951,7 +953,7 @@ function viewIdPatient($db)
 
 			   	  </thead>
 			    </table>
-                            <input type="button" id="btnExport" value=" Exporter votre tableau en Excel " class="btn btn-success click-modalAction" />
+                            </div>
 			  </div>
 			</form>
 		    </div>
@@ -979,9 +981,9 @@ function viewIdPatient($db)
                                 '
                                 <div class="panel-body">
 
-                                <input class="form-control" type="hidden" name="num_inclusion" id="num_inclusion" value="' . $uneListe['num_inclusion'] . '"/>
+                                <input class="form-control" type="hidden" name="id_patient" id="id_patient" value="' . $uneListe['id_patient'] . '"/>
 
-                                        <label>Etat du patient</label>
+                                        <label>État du patient</label>
                                         <select class="form-control" id="etat_dispensation" name="etat_dispensation">
                                 ';
 
@@ -1002,14 +1004,14 @@ function viewIdPatient($db)
                                         <label>Date de la dispensation</label>
                                         <input name="date_dispensation" type="date" id="date_dispensation" class="datepicker form-control" placeholder="JJ-MM-AAAA"/><br>
 
-                                <label> Date du début du traitement </label>
-                                <input name="date_debut_traitement" type="date" id="pUpDate" class="datepicker form-control" placeholder="JJ-MM-AAAA"/><br>
+                                        <label> Date du début du traitement </label>
+                                        <input name="date_debut_traitement" type="date" id="pUpDate" class="datepicker form-control" placeholder="JJ-MM-AAAA"/><br>
 
-                                <label>Nombre de jours du traitement</label>
-                                <input class="form-control" type="text" id="nb_jours_traitement" name="nb_jours_traitement" placeholder="Exemple : 30" value=""><br>
-
-                                <label>Protocole Dispensé</label>
-                                <select class="form-control" id="protocole" name="protocole"></br>
+                                        <label>Nombre de jours du traitement</label>
+                                        <input class="form-control" type="text" id="nb_jours_traitement" name="nb_jours_traitement" placeholder="Exemple : 30" value=""><br>
+                                
+                                        <label>Protocole Dispensé</label>
+                                        <select class="form-control" id="protocole" name="protocole"></br>
 
                                 ';
                                 
@@ -1049,7 +1051,7 @@ function viewIdPatient($db)
 
                                 </div>
 
-				<input type="hidden" id="id_patient" name="id_patient" value=""/>
+				<input type="hidden" id="id_patient" name="id_patient" value="'.$uneListe['id_patient'].'"/>
 				<input type="hidden" id="mois" name="mois" value=""/>
 				<input type="hidden" id="annee" name="annee" value=""/>
 				<input type="hidden" id="id_dispensation" name="id_dispensation" value=""/>
@@ -1271,7 +1273,7 @@ function viewFichePatient($db){
     $DateInc = $date_inclusion->selectOne($lePatient['num_inclusion']);
     
     $dispensation = new dispensation($db);
-    $derniereDispen = $dispensation->selectDerniereDispen($lePatient['num_inclusion']);
+    $derniereDispen = $dispensation->selectDerniereDispen($lePatient['id_patient']);
     
     $dispensation2 = new dispensation($db);
     $allDisp = $dispensation2->selectAllDateDisp($lePatient['num_inclusion']);

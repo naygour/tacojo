@@ -26,7 +26,7 @@
 
             $this->selectOne2=$db->prepare("select * from PATIENT where num_id_national=:num_id_national");
 
-            $this->selectOne=$db->prepare("select * from PATIENT where num_inclusion=:num_inclusion");
+            $this->selectOne=$db->prepare("select * from PATIENT where id_patient=:id_patient");
 
             $this->selectId=$db->prepare("select * from PATIENT where id_patient=:id_patient");
 
