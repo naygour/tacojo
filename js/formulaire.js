@@ -32,8 +32,8 @@ $(document).ready(function()
             cp += verifierDate($('#date_dispensation'));
             cp += verifierDate($('#date_rdv'));
             cp += verifierJourFerie($('#date_rdv'));
-            //alert(cp);
-            if(cp!=8){
+            cp += comparerDate($('#date_rdv') , $('#date_fin_traitement'));
+            if(cp!=9){
                 e.preventDefault(); // on annule la fonction par défaut du bouton d'envoi
             }
 
@@ -131,6 +131,27 @@ $(document).ready(function()
             }
             return cp;
         }
+        
+            function comparerDate(dateA1 , dateA2 ){
+            var cp=0;
+            var date1 = dateA1.val();
+            var date2 = dateA2.val();
+            var from1 = date1.split("-") , from2 = date2.split("-") ;
+            var year1 = from1[0] , year2 = from2[0]
+            var month1 = from1[1] , month2 = from2[1]
+            var day1 = from1[2] , day2 = from2[2]
 
+            date1 = new Date(year1 , month1 , day1);
+            date2 = new Date(year2 , month2 , day2);
+
+            if(date1 > date2 ){
+                afficherErreur(true,dateA1);
+            }
+            else {
+                cp=1;
+                afficherErreur(false,dateA1);
+            }
+            return cp;
+        }
 });
 

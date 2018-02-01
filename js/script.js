@@ -138,7 +138,7 @@ $().ready(function () {
     function refreshDate(){
             var nbjour =  $('#nb_jours_traitement').val();
             var nbjourint = parseInt(nbjour);
-            var nextDayDate = $('.datepicker').datepicker('getDate', '+1d');
+            var nextDayDate = $('#pUpDate').datepicker('getDate', '+1d');
             nextDayDate.setDate(nextDayDate.getDate() + nbjourint);
             $('.dOffDate').datepicker('setDate', nextDayDate);
     }
