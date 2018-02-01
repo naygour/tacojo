@@ -28,14 +28,14 @@ function viewMedicament($db)
         foreach ($liste as $unAcronyme)
         {
             //Si l'acronyme du medicament entré par l'utilisateur correspond à l'acronyme d'un médicament de la liste
-            if($acronyme_acronyme==$unAcronyme['acronyme_acronyme'])
+            if($acronyme_acronyme==$unAcronyme['acronyme_medicament'])
             {
                 //On affiche un message d'erreur et on mets cp à 1
                 echo '<br><div class="alert center alert-danger" role="alert">L\'acronyme existe déja !!!</div>';
                 $cp=1;
             }
             //Si le nom d'un medicament entré par l'utilisateur corresponds à l'acronyme d'un médicament de la liste
-            else if($nom_acronyme==$unAcronyme['nom_acronyme'])
+            elseif($nom_acronyme==$unAcronyme['nom_medicament'])
             {
                 //On affiche un message d'erreur et on mets cp à 1
                 echo '<br><div class="alert center alert-danger" role="alert">La Signification existe déja !!!</div>';

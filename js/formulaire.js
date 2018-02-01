@@ -33,7 +33,8 @@ $(document).ready(function()
             cp += verifierDate($('#date_rdv'));
             cp += verifierJourFerie($('#date_rdv'));
             cp += comparerDate($('#date_rdv') , $('#date_fin_traitement'));
-            if(cp!=9){
+            cp += comparerDate( $('#date_dispensation') , $('#pUpDate'));
+            if(cp!=10){
                 e.preventDefault(); // on annule la fonction par défaut du bouton d'envoi
             }
 
@@ -146,6 +147,7 @@ $(document).ready(function()
 
             if(date1 > date2 ){
                 afficherErreur(true,dateA1);
+                afficherErreur(true,dateA2);
             }
             else {
                 cp=1;
