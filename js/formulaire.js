@@ -32,14 +32,14 @@ $(document).ready(function()
             cp += verifierDate($('#date_dispensation'));
             cp += verifierDate($('#date_rdv'));
             cp += verifierJourFerie($('#date_rdv'));
-            alert(cp);
+            //alert(cp);
             if(cp!=8){
                 e.preventDefault(); // on annule la fonction par défaut du bouton d'envoi
             }
 
          });
     
-        function verifier(champ){
+       function verifier(champ){
             var cp=0;
             if(champ.val() == ""){ // si le champ est vide
                 afficherErreur(true,champ); // Fonction qui va afficher l'erreur

@@ -773,7 +773,7 @@ function viewIdPatient($db)
         {
             echo '<br><div class="center alert alert-success" role="alert">Ajout effectué !</div></div></div>';
             
-            echo "<script type='text/javascript'>document.location.replace('index.php?page=detail&id_patient= 123456795 ');</script>";     // Il faut intégrer '.$uneListe['id_patient'].'  a la place de 123456795
+            echo '<script type="text/javascript">window.location.replace("index.php?page=detail&id_patient="+"'.$id_patient.'");</script>';
             
         }
     }
