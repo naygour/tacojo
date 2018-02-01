@@ -14,7 +14,7 @@
 
             $this->insertAll = $db->prepare("INSERT INTO MEDICAMENT(acronyme_medicament, nom_medicament) values(:acronyme_medicament, :nom_medicament)");
 
-            $this->deleteOne=$db->prepare("delete from MEDICAMENT where id_acronyme=:id_medicament");
+            $this->deleteOne=$db->prepare("delete from MEDICAMENT where id_medicament=:id_medicament");
 
             $this->updateAll=$db->prepare("update MEDICAMENT SET acronyme_medicament=:acronyme_medicament, nom_medicament=:nom_medicament WHERE id_medicament=:id_medicament");
 

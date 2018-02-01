@@ -162,7 +162,6 @@ function viewModifMedicament($db)
     {
         //On récupère l'id du medicament
         $id_acronyme = $_POST['id_acronyme'];
-
         //On instancie la classe acronyme pour utiliser la RQ de suppresion d'un medicament
         $acronyme = new acronyme($db);
         $nb = $acronyme->deleteOne($id_acronyme);
