@@ -21,6 +21,8 @@
                                             :date_de_naissance, :protocole, :poids, :ligne, :co_infections)");
 
             $this->selectAll=$db->prepare("select * from PATIENT ");
+            
+            $this->selectAll2=$db->prepare("select month(dateInscription) as moisInscription , year(dateInscription) as yearInscription,sexe, dateInscription, id_patient,DATEDIFF(:date , date_de_naissance) as AgeEnJour from PATIENT ");
 
             $this->selectOne3=$db->prepare("select * from PATIENT where num_inclusion=:num_inclusion and num_id_national=:num_id_national");
 
@@ -50,7 +52,12 @@
             $this->selectAll->execute();
             return $this->selectAll->fetchAll();
         }
-
+        
+        public function selectAll2($date) {
+            $this->selectAll2->execute(array(':date' => $date));
+            return $this->selectAll2->fetchAll();
+        }
+        
         public function selectOne3($num_inclusion, $num_id_national) {
             $this->selectOne3->execute(array(':num_inclusion' => $num_inclusion, ':num_id_national' => $num_id_national));
             return $this->selectOne3->fetch();

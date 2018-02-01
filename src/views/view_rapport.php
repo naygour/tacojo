@@ -29,7 +29,7 @@ function viewRapport($db)
             {
                 for ($j=1; $j <13 ; $j++)
                 {
-                    echo '<option value = '.$i.'-'.$j.'-01 >'.$mois[$j-1].'/'.$i.' </option>';
+                    echo '<option value = '.$i.'-'.$j.'-01 >'.$mois[$j-1].' / '.$i.' </option>';
                 }
             }
             echo
@@ -42,19 +42,328 @@ function viewRapport($db)
 
     if (isset($_POST['submit']))
     {
+                $M1=0;$M2=0;$M3=0;$M4=0;
+                $F1=0;$F2=0;$F3=0;$F4=0;
+                $MoisF1=0;$MoisF2=0;$MoisF3=0;$MoisF4=0;
+                $MoisM1=0;$MoisM2=0;$MoisM3=0;$MoisM4=0;
+                $DecedeF1=0;$DecedeF2=0;$DecedeF3=0;$DecedeF4=0;
+                $DecedeM1=0;$DecedeM2=0;$DecedeM3=0;$DecedeM4=0;
+                $TransfertSortantF1=0;$TransfertSortantF2=0;$TransfertSortantF3=0;$TransfertSortantF4=0;
+                $TransfertSortantM1=0;$TransfertSortantM2=0;$TransfertSortantM3=0;$TransfertSortantM4=0;
+                $TransfertEntrantF1=0;$TransfertEntrantF2=0;$TransfertEntrantF3=0;$TransfertEntrantF4=0;
+                $TransfertEntrantM1=0;$TransfertEntrantM2=0;$TransfertEntrantM3=0;$TransfertEntrantM4=0;
+                $PDVF1=0;$PDVF2=0;$PDVF3=0;$PDVF4=0;
+                $PDVM1=0;$PDVM3=0;$PDVM2=0;$PDVM4=0;
+                $PDVRF1=0;$PDVRF2=0;$PDVRF3=0;$PDVRF4=0;
+                $PDVRM1=0;$PDVRM2=0;$PDVRM3=0;$PDVRM4=0;
                 echo '<script language="JavaScript">$("#selectAnnee").val('.$_POST['select'].')</script>';
-                $test    = new rapport($db);
-                $lesInscritsAvantHomme   = $test->selectInscritAvant("M",$_POST['select']);   // Tout les hommes inscrits avant ce mois
-                $LesInscritsAvantFemme   = $test->selectInscritAvant("F",$_POST['select']);
-                $mois                    = $test->selectMois($_POST['select']);
-                $annee                  = $test->selectAnnee($_POST['select']);
-                $leMoisApres = "".$annee['annee']."-".($mois['mois']+1)."-01"; // On récupere la date du mois d'apres 
-                $lesInscritsPendantHomme = $test->selectInscritAvant("M",$leMoisApres); // On calcule avant ce mois pour ensuite soustraire a tout les mois d'avant
-                $lesInscritsPendantFemme = $test->selectInscritAvant("F",$leMoisApres);
-                $lesInscritsPendantFemme = count($lesInscritsPendantFemme) - count($LesInscritsAvantFemme);
-                $lesInscritsPendantHomme = count($lesInscritsPendantHomme) - count($lesInscritsAvantHomme);
+                $date=$_POST['select'];
+                $test           = new rapport($db);
+                $mois           = $test->selectMois($_POST['select']);
+                $mois           = $mois['mois']; // On récupere le mois 
+                $annee          = $test->selectAnnee($_POST['select']);
+                $annee          = $annee['annee']; // On recupere l'annee
+                $moisSuivant=$mois+1;
+                if($mois==12){
+                    $moisSuivant=1;
+                }
+                echo $moisSuivant;
+                $date    = "".$annee."-".$moisSuivant."-01"; // On récupere la date du mois d'apres 
+                //$liste          = $test->selectInscritAvant($leMoisApres); // On calcule avant ce mois pour ensuite savoir si la date coreespond au mois au avant
+                //$listePatientDecede  = $test->selectEtatDisp($mois , $annee , 3); // On cherche les Patients du mois qui sont DCD 
                 
+                
+                /*foreach ($liste as $unPatient) {
+                    if($unPatient['sexe']=='F'){
+                        if($unPatient['AgeEnJour']<365){
+                            if($unPatient['mois']==$mois && $unPatient['year']==$annee){
+                                $MoisF1=$MoisF1+1;
+                            }
+                            else{
+                                $F1=$F1+1;
+                            }
+                        }
+                        elseif($unPatient['AgeEnJour']>364 && $unPatient['AgeEnJour']<1826) {
+                            if($unPatient['mois']==$mois && $unPatient['year']==$annee){
+                                $MoisF2=$MoisF2+1;
+                            }
+                            else{
+                                $F2=$F2+1;
+                            }
+                        }
+                        elseif($unPatient['AgeEnJour']>1825 && $unPatient['AgeEnJour']<5479) {
+                            if($unPatient['mois']==$mois && $unPatient['year']==$annee){
+                                $MoisF3=$MoisF3+1;
+                            }
+                            else{
+                                $F3=$F3+1;
+                            }
+                        }
+                        else{
+                            if($unPatient['mois']==$mois && $unPatient['year']==$annee){
+                                $MoisF4=$MoisF4+1;
+                            }
+                            else{
+                                $F4=$F4+1;
+                            }
+                        }
+                    }
+                    else{
+                        if($unPatient['AgeEnJour']<365){
+                            if($unPatient['mois']==$mois && $unPatient['year']==$annee){
+                                $MoisM1=$MoisM1+1;
+                            }
+                            else{
+                                $M1=$M1+1;
+                            }
+                        }
+                        elseif($unPatient['AgeEnJour']>364 && $unPatient['AgeEnJour']<1826) {
+                            if($unPatient['mois']==$mois && $unPatient['year']==$annee){
+                                $MoisM2=$MoisM2+1;
+                            }
+                            else{
+                                $M2=$M2+1;
+                            }
+                        }
+                        elseif($unPatient['AgeEnJour']>1825 && $unPatient['AgeEnJour']<5479) {
+                            if($unPatient['mois']==$mois && $unPatient['year']==$annee){
+                                $MoisM3=$MoisM3+1;
+                            }
+                            else{
+                                $M3=$M3+1;
+                            }
+                        }
+                        else{
+                            if($unPatient['mois']==$mois && $unPatient['year']==$annee){
+                                $MoisM4=$MoisM4+1;
+                            }
+                            else{
+                                $M4=$M4+1;
+                            }
+                        }
+                    }
+                }
+                */
+                
+                $patient        = new Patient($db);
+                $listePatient   = $patient ->selectAll2($date);   // On récupère tout d'abord la liste de tout les patients      
+                 
+                foreach ($listePatient as $unPatient) {
+                    $rapport        = new rapport($db);
+                    $laDispensationDuMois   = $rapport ->selectEtatDisp($mois , $annee , $unPatient['id_patient']);
+                    if($unPatient['AgeEnJour']>0){   
+                        
+                        if($unPatient['sexe']=='F'){ // Si c'est féminin 
+
+                            if($unPatient['AgeEnJour']<365){ // Si moins d'un an 
+
+                                if($unPatient['moisInscription']==$mois && $unPatient['yearInscription']==$annee){ // Si ARV ce mois si
+                                    $MoisF1=$MoisF1+1;
+                                }
+                                elseif(strtotime($unPatient['dateInscription']) < strtotime($date)) { // Si la date est avant la date demandé 
+                                    $F1=$F1+1;
+                                }
+                                if($laDispensationDuMois['etat_dispensation']==3){
+                                    $DecedeF1=$DecedeF1+1;
+                                }
+                                elseif($laDispensationDuMois['etat_dispensation']==5){
+                                    $TransfertSortantF1 = $TransfertSortantF1 + 1 ;
+                                }
+                                elseif($laDispensationDuMois['etat_dispensation']==8){
+                                    $TransfertEntrantF1 = $TransfertEntrantF1 + 1 ;
+                                }
+                                elseif($laDispensationDuMois['etat_dispensation']==6){
+                                    $PDVF1 = $PDVF1 + 1 ;
+                                }
+                                elseif($laDispensationDuMois['etat_dispensation']==7){
+                                    $PDVRF1 = $PDVRF1 + 1 ;
+                                }
+                                
+                            }
+
+                            elseif($unPatient['AgeEnJour']>364 && $unPatient['AgeEnJour']<1826) {
+
+                                if($unPatient['moisInscription']==$mois && $unPatient['yearInscription']==$annee){
+                                    $MoisF2=$MoisF2+1;
+                                }
+                                elseif(strtotime($unPatient['dateInscription']) < strtotime($date)) {
+                                    $F2=$F2+1;
+                                }
+                                if($laDispensationDuMois['etat_dispensation']==3){
+                                    $DecedeF2=$DecedeF2+1;
+                                }
+                                elseif($laDispensationDuMois['etat_dispensation']==5){
+                                    $TransfertSortantF2 = $TransfertSortantF2 + 1 ;
+                                }
+                                elseif($laDispensationDuMois['etat_dispensation']==8){
+                                    $TransfertEntrantF2 = $TransfertEntrantF2 + 1 ;
+                                }
+                                elseif($laDispensationDuMois['etat_dispensation']==6){
+                                    $PDVF2 = $PDVF2 + 1 ;
+                                }
+                                elseif($laDispensationDuMois['etat_dispensation']==7){
+                                    $PDVRF2 = $PDVRF2 + 1 ;
+                                }
+                            }
+                            elseif($unPatient['AgeEnJour']>1825 && $unPatient['AgeEnJour']<5479) {
+                                
+                                if($unPatient['moisInscription']==$mois && $unPatient['yearInscription']==$annee){
+                                    $MoisF3=$MoisF3+1;
+                                }
+                                elseif(strtotime($unPatient['dateInscription']) < strtotime($date)) {
+                                    $F3=$F3+1;
+                                }
+                                if($laDispensationDuMois['etat_dispensation']==3){
+                                    $DecedeF3=$DecedeF3+1;
+                                }
+                                elseif($laDispensationDuMois['etat_dispensation']==5){
+                                    $TransfertSortantF3 = $TransfertSortantF3 + 1 ;
+                                }
+                                elseif($laDispensationDuMois['etat_dispensation']==8){
+                                    $TransfertEntrantF3 = $TransfertEntrantF3 + 1 ;
+                                }
+                                elseif($laDispensationDuMois['etat_dispensation']==6){
+                                    $PDVF3 = $PDVF3 + 1 ;
+                                }
+                                elseif($laDispensationDuMois['etat_dispensation']==7){
+                                    $PDVRF3 = $PDVRF3 + 1 ;
+                                }
+                            }
+                            
+                            else{
+                                
+                                if($unPatient['moisInscription']==$mois && $unPatient['yearInscription']==$annee){
+                                    $MoisF4=$MoisF4+1;
+                                }
+                                 elseif(strtotime($unPatient['dateInscription']) < strtotime($date)) {
+                                    $F4=$F4+1;
+                                }
+                                if($laDispensationDuMois['etat_dispensation']==3){
+                                    $DecedeF4=$DecedeF4+1;
+                                }
+                                elseif($laDispensationDuMois['etat_dispensation']==5){
+                                    $TransfertSortantF4 = $TransfertSortantF4 + 1 ;
+                                }
+                                elseif($laDispensationDuMois['etat_dispensation']==8){
+                                    $TransfertEntrantF4 = $TransfertEntrantF4 + 1 ;
+                                }
+                                elseif($laDispensationDuMois['etat_dispensation']==6){
+                                    $PDVF4 = $PDVF4 + 1 ;
+                                }
+                                elseif($laDispensationDuMois['etat_dispensation']==7){
+                                    $PDVRF4 = $PDVRF4 + 1 ;
+                                }
+                            }
+                        }
+                        else{
+                            
+                            if($unPatient['AgeEnJour']<365){
+                                
+                                if($unPatient['moisInscription']==$mois && $unPatient['yearInscription']==$annee){
+                                    $MoisM1=$MoisM1+1;
+                                }
+                               elseif(strtotime($unPatient['dateInscription']) < strtotime($date)) {
+                                    $M1=$M1+1;
+                                }
+                                if($laDispensationDuMois['etat_dispensation']==3){
+                                    $DecedeM1=$DecedeM1+1;
+                                }
+                                elseif($laDispensationDuMois['etat_dispensation']==5){
+                                    $TransfertSortantM1 = $TransfertSortantM1 + 1 ;
+                                }
+                                elseif($laDispensationDuMois['etat_dispensation']==8){
+                                    $TransfertEntrantM1 = $TransfertEntrantM1 + 1 ;
+                                }
+                                elseif($laDispensationDuMois['etat_dispensation']==6){
+                                    $PDVM1 = $PDVM1 + 1 ;
+                                }
+                                elseif($laDispensationDuMois['etat_dispensation']==7){
+                                    $PDVRM1 = $PDVRM1 + 1 ;
+                                }
+                            }
+                            
+                            elseif($unPatient['AgeEnJour']>364 && $unPatient['AgeEnJour']<1826) {
+                                
+                                if($unPatient['moisInscription']==$mois && $unPatient['yearInscription']==$annee){
+                                    $MoisM2=$MoisM2+1;
+                                }
+                                elseif(strtotime($unPatient['dateInscription']) < strtotime($date)) {
+                                    $M2=$M2+1;
+
+                                }
+                                if($laDispensationDuMois['etat_dispensation']==3){
+                                    $DecedeM2=$DecedeM2+1;
+                                }
+                                elseif($laDispensationDuMois['etat_dispensation']==5){
+                                    $TransfertSortantM2 = $TransfertSortantM2 + 1 ;
+                                }
+                                elseif($laDispensationDuMois['etat_dispensation']==8){
+                                    $TransfertEntrantM2 = $TransfertEntrantM2 + 1 ;
+                                }
+                                elseif($laDispensationDuMois['etat_dispensation']==6){
+                                    $PDVM2 = $PDVM2 + 1 ;
+                                }
+                                elseif($laDispensationDuMois['etat_dispensation']==7){
+                                    $PDVRM2 = $PDVRM2 + 1 ;
+                                }
+                            }
+                            
+                            elseif($unPatient['AgeEnJour']>1825 && $unPatient['AgeEnJour']<5479) {
+                                
+                                if($unPatient['moisInscription']==$mois && $unPatient['yearInscription']==$annee){
+                                    $MoisM3=$MoisM3+1;
+                                }
+                                elseif(strtotime($unPatient['dateInscription']) < strtotime($date)) {
+                                    $M3=$M3+1;
+                                }
+                                if($laDispensationDuMois['etat_dispensation']==3){
+                                    $DecedeM3=$DecedeM3+1;
+                                }
+                                if($laDispensationDuMois['etat_dispensation']==5){
+                                    $TransfertSortantM3 = $TransfertSortantM3 + 1 ;
+                                }
+                                if($laDispensationDuMois['etat_dispensation']==8){
+                                    $TransfertEntrantM3 = $TransfertEntrantM3 + 1 ;
+                                }
+                                if($laDispensationDuMois['etat_dispensation']==6){
+                                    $PDVM3 = $PDVM3 + 1 ;
+                                }
+                                if($laDispensationDuMois['etat_dispensation']==7){
+                                    $PDVRM3 = $PDVRM3 + 1 ;
+                                }
+                            }
+                            
+                            else{
+                                
+                                if($unPatient['moisInscription']==$mois && $unPatient['yearInscription']==$annee){
+                                    $MoisM4=$MoisM4+1;
+                                }
+                                elseif(strtotime($unPatient['dateInscription']) < strtotime($date)) {
+                                    $M4 = $M4+1;
+                                }
+                                if($laDispensationDuMois['etat_dispensation']==3){
+                                    $DecedeM4=$DecedeM4+1;
+                                }
+                                elseif($laDispensationDuMois['etat_dispensation']==5){
+                                    $TransfertSortantM4 = $TransfertSortantM4 + 1 ;
+                                }
+                                elseif($laDispensationDuMois['etat_dispensation']==8){
+                                    $TransfertEntrantM4 = $TransfertEntrantM4 + 1 ;
+                                }
+                                elseif($laDispensationDuMois['etat_dispensation']==6){
+                                    $PDVM4 = $PDVM4 + 1 ;
+                                }
+                                elseif($laDispensationDuMois['etat_dispensation']==7){
+                                    $PDVRM4 = $PDVRM4 + 1 ;
+                                }
+                            }
+                        }
+                    }
+                }
     }
+                    
+
+       
     else
     {
         ($_POST['select']= date('Y'));
@@ -107,29 +416,97 @@ function viewRapport($db)
                     <tr>
                     <td rowspan="2"> <1 an </td>
                     <td>M</td>
-                    <td>'.count($lesInscritsAvantHomme).'</td>
-                    <td>'.$lesInscritsPendantHomme.'</td>
+                    <td>'.$M1.'</td>
+                    <td>'.$MoisM1.'</td>
+                    <td>'.$DecedeM1.'</td>
+                    <td>'.$PDVM1.'</td>
+                    <td>'.$PDVRM1.'</td>
+                    <td>'.$TransfertEntrantM1.'</td>
+                    <td>'.$TransfertSortantM1.'</td>                    
+                    <td></td>                   
                     <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    
-                    <td></td>
-                    
-                    <td></td>
+                    </tr>                   
+                    <tr>
+                    <td>F</td>
+                    <td>'.$F1.'</td>
+                    <td>'.$MoisF1.'</td>
+                    <td>'.$DecedeF1.'</td>
+                    <td>'.$PDVF1.'</td>
+                    <td>'.$PDVRF1.'</td>
+                    <td>'.$TransfertEntrantF1.'</td>
+                    <td>'.$TransfertSortantF1.'</td>                      
                     </tr>
                     
                     <tr>
+                    <td rowspan="2"> 1-4 ans </td>
+                    <td>M</td>
+                    <td>'.$M2.'</td>
+                    <td>'.$MoisM2.'</td>
+                    <td>'.$DecedeM2.'</td>
+                    <td>'.$PDVM2.'</td>
+                    <td>'.$PDVRM2.'</td>
+                    <td>'.$TransfertEntrantM2.'</td>
+                    <td>'.$TransfertSortantM2.'</td>                     
+                    <td></td>                   
+                    <td></td>
+                    </tr>                    
+                    <tr>
                     <td>F</td>
-                    <td>'.count($LesInscritsAvantFemme).'</td>
-                    <td>'.$lesInscritsPendantFemme.'</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>'.$F2.'</td>
+                    <td>'.$MoisF2.'</td>
+                    <td>'.$DecedeF2.'</td>
+                    <td>'.$PDVF2.'</td>
+                    <td>'.$PDVRF2.'</td>
+                    <td>'.$TransfertEntrantF2.'</td>
+                    <td>'.$TransfertSortantF2.'</td>                      
+                    </tr>
                     
+                    <tr>
+                    <td rowspan="2"> 5-14 ans </td>
+                    <td>M</td>
+                    <td>'.$M3.'</td>
+                    <td>'.$MoisM3.'</td>
+                    <td>'.$DecedeM3.'</td>
+                    <td>'.$PDVM3.'</td>
+                    <td>'.$PDVRM3.'</td>
+                    <td>'.$TransfertEntrantM3.'</td>
+                    <td>'.$TransfertSortantM3.'</td>                   
+                    <td></td>                   
+                    <td></td>
+                    </tr>                   
+                    <tr>
+                    <td>F</td>
+                    <td>'.$F3.'</td>
+                    <td>'.$MoisF3.'</td>
+                    <td>'.$DecedeF3.'</td>
+                    <td>'.$PDVF3.'</td>
+                    <td>'.$PDVRF3.'</td>
+                    <td>'.$TransfertEntrantF3.'</td>
+                    <td>'.$TransfertSortantF3.'</td>                   
+                    </tr>
+                    
+                    <tr>
+                    <td rowspan="2"> > 14 ans </td>
+                    <td>M</td>
+                    <td>'.$M4.'</td>
+                    <td>'.$MoisM4.'</td>
+                    <td>'.$DecedeM4.'</td>
+                    <td>'.$PDVM4.'</td>
+                    <td>'.$PDVRM4.'</td>
+                    <td>'.$TransfertEntrantM4.'</td>
+                    <td>'.$TransfertSortantM4.'</td>                   
+                    <td></td>                   
+                    <td></td>
+                    </tr>                    
+                    <tr>
+                    <td>F</td>
+                    <td>'.$F4.'</td>
+                    <td>'.$MoisF4.'</td>
+                    <td>'.$DecedeF4.'</td>
+                    <td>'.$PDVF4.'</td>
+                    <td>'.$PDVRF4.'</td>
+                    <td>'.$TransfertEntrantF4.'</td>
+                    <td>'.$TransfertSortantF4.'</td>                    
                     </tr>
                     
                         
@@ -141,10 +518,18 @@ function viewRapport($db)
                 
                 echo '
                     <tr>
-                    <td class="bg-danger">Total</td>';
-                
-                    $totalPatient = array(1=>0,2=>0,3=>0,4=>0,5=>0,6=>0,7=>0,8=>0,9=>0,10=>0); // Initialisation des totaux à 0
-                    for($i=1;$i<=10;$i++) echo '<td class="bg-danger">'.$totalPatient[$i].'</td>';
+                    <td class="bg-danger">Total</td>
+                    <td class="bg-danger"></td>
+                    <td class="bg-danger">'.($F1 + $F2 + $F3 + $F4 + $M1 + $M2 + $M3 + $M4).'</td>
+                    <td class="bg-danger">'.($MoisF1 + $MoisF2 + $MoisF3 + $MoisF4 + $MoisM1 + $MoisM2 + $MoisM3 + $MoisM4).'</td>
+                    <td class="bg-danger">'.($DecedeF1 + $DecedeF2 + $DecedeF3 + $DecedeF4 + $DecedeM1 + $DecedeM2 + $DecedeM3 + $DecedeM4).'</td>
+                    <td class="bg-danger">'.($PDVF1 + $PDVF2 + $PDVF3 + $PDVF4 + $PDVM1 + $PDVM2 + $PDVM3 + $PDVM4).'</td>
+                    <td class="bg-danger">'.($PDVRF1 + $PDVRF2 + $PDVRF3 + $PDVRF4 + $PDVRM1 + $PDVRM2 + $PDVRM3 + $PDVRM4).'</td>
+                    <td class="bg-danger">'.($TransfertEntrantF1 + $TransfertEntrantF2 + $TransfertEntrantF3 + $TransfertEntrantF4 + $TransfertEntrantM1 + $TransfertEntrantM2 + $TransfertEntrantM3 + $TransfertEntrantM4).'</td>
+                    <td class="bg-danger">'.($TransfertSortantF1 + $TransfertSortantF2 + $TransfertSortantF3 + $TransfertSortantF4 + $TransfertSortantM1 + $TransfertSortantM2 + $TransfertSortantM3 + $TransfertSortantM4).'</td>
+                    <td class="bg-danger"></td>
+                    </tr>
+                 ';
                     
                     echo '
                     </tbody>
