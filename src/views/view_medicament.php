@@ -166,6 +166,7 @@ function viewModifMedicament($db)
         $acronyme = new acronyme($db);
         $nb = $acronyme->deleteOne($id_acronyme);
         
+        
         //Si la RQ s'est mal passée
         if($nb!=1)
         {

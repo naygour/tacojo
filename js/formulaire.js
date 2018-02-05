@@ -39,6 +39,19 @@ $(document).ready(function()
             }
 
          });
+         
+        $('#btUtilisateur').click(function(e){
+            var cp=0;
+            cp += verifier($('#nom_utilisateur'));
+            cp += verifier($('#prenom_utilisateur'));
+            cp += verifier($('#login'));
+            cp += verifier($('#mdp'));
+            cp += comparerMDP($('#mdp') , $('#mdp2'))
+            if(cp!=5){
+                e.preventDefault(); // on annule la fonction par défaut du bouton d'envoi
+            }
+
+         });
     
        function verifier(champ){
             var cp=0;
@@ -133,7 +146,7 @@ $(document).ready(function()
             return cp;
         }
         
-            function comparerDate(dateA1 , dateA2 ){
+        function comparerDate(dateA1 , dateA2 ){
             var cp=0;
             var date1 = dateA1.val();
             var date2 = dateA2.val();
@@ -152,6 +165,22 @@ $(document).ready(function()
             else {
                 cp=1;
                 afficherErreur(false,dateA1);
+            }
+            return cp;
+        }
+        
+        function comparerMDP( champ1 , champ2 ){
+            var cp=0;
+            var mdp = champ1.val();
+            var confirm = champ2.val();
+            
+            if(mdp==confirm){    
+                afficherErreur(false,champ2)
+                cp=1;
+            }
+            else{
+                afficherErreur(true , champ2)
+                
             }
             return cp;
         }

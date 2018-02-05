@@ -185,7 +185,7 @@
 
                                         <div class="form-group">
                                             <label for="Login">Login</label>
-                                            <input type="email" class="form-control" name="login" id="login" placeholder="Login">
+                                            <input type="text" class="form-control" name="login" id="login" placeholder="Login">
                                         </div>
 
                                         <div class="form-group">
