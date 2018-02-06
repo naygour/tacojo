@@ -11,6 +11,7 @@
         private $updateProto;
         private $deleteOne;
         private $selectOne3;
+        private $selectAge;
         
         private $getPatientByNumIDNat;
 
@@ -31,6 +32,8 @@
             $this->selectOne=$db->prepare("select * from PATIENT where id_patient=:id_patient");
 
             $this->selectId=$db->prepare("select * from PATIENT where id_patient=:id_patient");
+            
+            $this->selectAge=$db->prepare("select DATEDIFF(CURRENT_DATE,date_de_naissance) as Age from PATIENT where id_patient=:id_patient");
 
             $this->updateAll=$db->prepare("update PATIENT SET num_id_national=:num_id_national,num_inclusion=:num_inclusion,
                                           profil_serologique=:profil_serologique, sexe=:sexe, date_de_naissance=:date_de_naissance, 
@@ -79,7 +82,11 @@
             return $this->selectId->fetch();
         }
 
-
+        public function selectAge($id_patient) {
+            $this->selectAge->execute(array(':id_patient' => $id_patient));
+            return $this->selectAge->fetch();
+        }
+        
         public function updateAll($id_patient, $num_inclusion, $num_id_national, $profil_serologique, $sexe, $date_de_naissance, $protocole, $poids, $ligne, $co_infections){
             $this->updateAll->execute(array(':id_patient' => $id_patient,':num_inclusion' => $num_inclusion,':num_id_national' => $num_id_national,
                 ':profil_serologique' => $profil_serologique,':sexe' => $sexe,':date_de_naissance' => $date_de_naissance,':protocole' => $protocole,
