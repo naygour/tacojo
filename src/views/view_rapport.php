@@ -205,6 +205,7 @@ function viewRapport($db)
                                     $PDVRF2 = $PDVRF2 + 1 ;
                                 }
                             }
+                            
                             elseif($unPatient['AgeEnJour']>1825 && $unPatient['AgeEnJour']<5479) {
                                 
                                 if($unPatient['moisInscription']==$mois && $unPatient['yearInscription']==$annee){

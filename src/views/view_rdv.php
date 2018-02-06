@@ -70,15 +70,26 @@ function listeRDV($db)
 
                 if($date==0)
                 {
+                    $date1='';
+                    $listeRDV ='';
                     $rdv = new dispensation($db);
                     $listeRDV = $rdv->selectRDV($maxRdv['id_dispensation']);
-
+                    
+                    if(count($listeRDV['rdv'])==1){
+                    $formatDate = "d/m/Y";
+                    $date1=date_create($listeRDV['rdv']);
+                    $DateRDV = date_format($date1 , $formatDate);
+                    }
+                    
+                    else{
+                        $DateRDV='';
+                    }
                     echo
                     '
                     <tr>
                         <td>'.$unPatient['num_id_national'].'</td>
                         <td>'.$unPatient['num_inclusion'].'</td>
-                        <td>'.$listeRDV['rdv'].'</td>
+                        <td>'.$DateRDV.'</td>
                     </tr>
                     ';
 
@@ -88,8 +99,8 @@ function listeRDV($db)
                     $rdv        = new dispensation($db);
                     $listeRDV   = $rdv->selectDerniereDispen($unPatient['idPatient']);
                     
-                    $formatDate = "d/m/Y";
-                    $date1=date_create($listeRDV['rdv']);
+                    //$formatDate = "d/m/Y";
+                    //$date1=date_create($listeRDV['rdv']);
                     
                     if($listeRDV['rdv']==$date)
                     {

@@ -21,6 +21,7 @@ function getPage()
     $LesPages['modifAcronyme']      ="viewModifMedicament;1";
     $LesPages['repartition_adulte'] ="viewRepartitionAdulte;1";
     $LesPages['repartition_enfant'] ="viewRepartitionEnfant;1";
+    $LesPages['repartition_ligne']  ="viewRepartitionLigne;1";
     $LesPages['listeRDV']           ="listeRDV;1";
     $LesPages['rapport']            ="viewRapport;1";
     $LesPages['graphique']          ="view_graph;1";

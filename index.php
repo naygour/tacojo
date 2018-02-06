@@ -19,7 +19,8 @@
 	require_once'src/views/view_medicament.php';
 	require_once'src/views/view_repartition_adulte.php';
 	require_once'src/views/view_repartition_enfant.php';
-	require_once'src/views/view_rdv.php';
+	require_once'src/views/view_repartition_ligne.php';
+        require_once'src/views/view_rdv.php';
 	require_once'src/views/view_rapport.php';
 
         require_once'src/class/class_inclusion.php';
