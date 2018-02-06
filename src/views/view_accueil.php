@@ -49,6 +49,7 @@ function viewAccueil($db)
         </div>
 	';
     }
+    
     else
     //AFFICHAGE DE L'ACCUEIL POUR UNE PERSONNE CONNECTEE
     {
