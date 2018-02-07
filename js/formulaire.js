@@ -34,6 +34,10 @@ $(document).ready(function()
             cp += verifierJourFerie($('#date_rdv'));
             cp += comparerDate($('#date_rdv') , $('#date_fin_traitement'));
             cp += comparerDate( $('#date_dispensation') , $('#pUpDate'));
+            
+            if($('#etat_dispensation').val()!=1){
+                cp=10;
+            }
             if(cp!=10){
                 e.preventDefault(); // on annule la fonction par défaut du bouton d'envoi
             }

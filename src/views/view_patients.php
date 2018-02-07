@@ -713,14 +713,10 @@ function viewIdPatient($db)
         $rdv                    = $_POST['RDV'];
         $observations           = $_POST['observationsT'];
         $poids                  = $_POST['poidsT'];
-
+        print_r($_POST);
         
 
         $modifdispensation = new dispensation($db);
-
-        $uneDisp= $modifdispensation-> selectId($id_dispensation);
-
-        $id_patient= $uneDisp['id_patient'];
 
         $nb = $modifdispensation->updateAll($id_dispensation,$id_patient,$etat_dispensation, $date_dispensation,$date_debut_traitement, $nb_jours_traitement, $date_fin_traitement , $rdv ,$poids, $observations);
 
@@ -734,10 +730,10 @@ function viewIdPatient($db)
         }
     }
 
-    if(isset($_POST['btValider']))
-    {
-        $id_patient = $_POST['id_patient'];
-        $etat_dispensation = $_POST['etat_dispensation'];
+    if(isset($_POST['btValider'])){
+    
+       $etat_dispensation = $_POST['etat_dispensation'];
+       $id_patient = $_POST['id_patient'];
         $date_dispensation = $_POST['date_dispensation'];
         $nb_jours_traitement = $_POST['nb_jours_traitement'];
         $date_fin_traitement = $_POST['date_fin_traitement'];
@@ -747,6 +743,33 @@ function viewIdPatient($db)
         $observations=$_POST['observations'];
         $annee = $_POST['annee'];
         $mois = $_POST['mois'];
+        $protocole = $_POST['protocole'];
+        print_r($_POST); 
+       if($etat_dispensation!=1){
+           $date_dispensation = Date("Y-m-d");
+           $suivi_presence = new Suivi($db);
+            $nb = $suivi_presence->insertAll($id_patient, $annee, $mois);
+           
+            $dispensation = new dispensation($db);
+            $nb2 = $dispensation->insertAll($id_patient, $etat_dispensation, $date_dispensation,NULL,NULL,NULL,NULL,NULL,NULL);
+            
+            if($nb2!=1)
+        {
+            echo '<br><div class="center alert alert-danger" role="alert">Erreur dans l\'ajout !</div>';
+        }
+        else
+        {
+            echo '<br><div class="center alert alert-success" role="alert">Ajout effectué !</div></div></div>';
+            
+           // echo '<script type="text/javascript">window.location.replace("index.php?page=detail&id_patient="+"'.$id_patient.'");</script>';
+            
+        }
+        
+       }
+       else{
+        
+         $patient = new Patient($db);
+         $nb = $patient->updateProto($id_patient, $protocole);
         //print_r($_POST);                          //Afiiche toutes les variables POST
         $suivi_presence = new Suivi($db);
         $nb = $suivi_presence->insertAll($id_patient, $annee, $mois);
@@ -754,7 +777,8 @@ function viewIdPatient($db)
         $dispensation = new dispensation($db);
 
         $nb2 = $dispensation->insertAll($id_patient, $etat_dispensation, $date_dispensation, $date_debut_traitement, $nb_jours_traitement, $date_fin_traitement, $date_rdv,$poids, $observations);
-
+        
+       }
         if($nb2!=1)
         {
             echo '<br><div class="center alert alert-danger" role="alert">Erreur dans l\'ajout !</div>';
@@ -773,7 +797,7 @@ function viewIdPatient($db)
         {
             echo '<br><div class="center alert alert-success" role="alert">Ajout effectué !</div></div></div>';
             
-            echo '<script type="text/javascript">window.location.replace("index.php?page=detail&id_patient="+"'.$id_patient.'");</script>';
+           // echo '<script type="text/javascript">window.location.replace("index.php?page=detail&id_patient="+"'.$id_patient.'");</script>';
             
         }
     }
@@ -1090,15 +1114,6 @@ function viewIdPatient($db)
 
 
 
-		if(isset($_POST['btModif']))
-                {
-                    
-                    $id_patient = $_POST['id_patient'];
-                    $protocole = $_POST['protocole'];
-                    $patient = new Patient($db);
-                    $nb = $patient->updateProto($id_patient, $protocole);
-		}
-
 
 		if(isset($_POST['btModif']))
                 {
@@ -1158,8 +1173,8 @@ function viewIdPatient($db)
                     </select><br>
                 ';
 
-                echo' <label>ID</label>
-                      <input class="form-control" type="text" name="id_dispensationT" id="id_dispensationT" value=""/><br>';
+                echo' 
+                      <input class="form-control" type="hidden" name="id_dispensationT" id="id_dispensationT" value=""/><br>';
 
                 echo' <label>Date dispensation</label>
                     <input class="form-control" type="text" name="dateDispT" id="dateDispT" value=""/><br>';
@@ -1188,7 +1203,7 @@ function viewIdPatient($db)
 
         echo
         '
-            <input type="hidden" id="id_patient" name="id_patient" value=""/>
+            <input type="hidden" id="id_patient" name="id_patient" value="'.$id_patient.'"/>
             <input type="hidden" id="mois" name="mois" value=""/>
             <input type="hidden" id="annee" name="annee" value=""/>
             <input type="hidden" id="id_dispensation" name="id_dispensation" value=""/>
