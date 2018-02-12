@@ -269,10 +269,10 @@ function menu()
                                     <li><a href="index.php?page=protocole" style="color: rgb(93, 182, 166)">Afficher les protocoles</a></li>
                                     <li><a href="index.php?page=acronyme" style="color: rgb(93, 182, 166)">Afficher les acronymes</a></li>
                                   </ul>
-                                </li>
+                                </li>';
                                 
 
-                                <li class="dropdown">
+                                 /*  <li class="dropdown">
                                   <a style="color: rgb(122, 122, 122)" href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                     Dispensation
@@ -283,10 +283,10 @@ function menu()
                                     <li><a href="index.php?page=dispensation" style="color: rgb(93, 182, 166)">Dispensations</a></li>
                                     <li><a href="index.php?page=ajout_dispensation" style="color: rgb(93, 182, 166)">Ajouter une dispensation</a></li>
                                   </ul>
-                                </li>
+                                </li>*/
                                 
 
-
+                                            echo'
                                 <li class="dropdown">
                                   <a style="color: rgb(122, 122, 122)" href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <i class="fa fa-pie-chart" aria-hidden="true"></i>

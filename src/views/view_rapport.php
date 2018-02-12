@@ -25,7 +25,7 @@ function viewRapport($db)
 
             <select id="selectAnnee" name="select">';
             $mois = ['Janvier','Février', 'Mars' , 'Avril','Mai','Juin','Juillet','Aout','Septembre','Octobre','Novembre','Décembre'];
-            for ($i = 2016; $i <= 2050; $i++)
+            for ($i = 2018; $i <= 2050; $i++)
             {
                 for ($j=1; $j <13 ; $j++)
                 {
@@ -382,7 +382,7 @@ function viewRapport($db)
                   </div>
                 </div>
               </div>
-              <div class="panhttp://172.16.207.74/Senegal/Senegal/tacojo/index.php?page=rapport#el-body">
+              <div class="panel-body">
                 <form method="POST" action="index.php?page=rapport">
 
 
@@ -546,7 +546,7 @@ function viewRapport($db)
     </div>
     </div>
     </div>
-    </div>http://172.16.207.74/Senegal/Senegal/tacojo/index.php?page=rapport#
+    </div>
 ';
 }
 ?>
