@@ -389,7 +389,8 @@ function viewListePatient($db)
                                     $unRDV= $rdv -> selectRDV($maxRdv['id_dispensation']);
                                     
                                     $dispensation = new dispensation($db);
-                                    $derniereDispen = $dispensation->selectDerniereDispen($unPatient['num_inclusion']);
+                                    $derniereDispen = $dispensation->selectDerniereDispen($unPatient['id_patient']);
+                                    echo $derniereDispen['derniereDisp'];
                                     
                                     echo
                                     '
@@ -403,7 +404,7 @@ function viewListePatient($db)
                                         $date=date_create($unPatient['date_de_naissance']);
                                         echo'<td>' . date_format($date, $formatDate) . '</td>';
                                             
-                                        $date=date_create($uneDate['dateInclusion']);
+                                        $date=date_create($unPatient['date_inclusion']);
                                         echo'<td>' . date_format($date,$formatDate) .'</td>';
                                         
                                         $date=date_create($derniereDispen['derniereDisp']);
