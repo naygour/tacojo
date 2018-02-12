@@ -376,7 +376,7 @@ function viewListePatient($db)
                                     $uneDate= $inclu -> selectOne($unPatient['num_inclusion']);
 
                                     $etat = new dispensation($db);
-                                    $unEtat= $etat -> selectEtat($unPatient['num_inclusion']);
+                                    $unEtat= $etat -> selectEtat($unPatient['id_patient']);
 
                                     $etatPatient= $unEtat['nom_etat_dispen'];
 
@@ -414,7 +414,7 @@ function viewListePatient($db)
                                         <td>' . $uneLigne['nom_ligne'] . ' </td>
                                         <td>' . $unPatient['poids'] . '</td>
                                         <td><a href="index.php?page=detail&id_patient=' . $unPatient['id_patient'] . '">Dispensation</a></td>
-                                        <td>'. utf8_encode($etatPatient).'</td>';
+                                        <td>'. $etatPatient.'</td>';
                                             
                                         $date=date_create($unRDV['rdv']);
                                         echo'<td>'. date_format($date, $formatDate).'</td>
@@ -1281,8 +1281,7 @@ function viewFichePatient($db){
         $num_id_national=$_GET['num_id_national'];
         $patient=new Patient($db);
         $lePatient = $patient->selectOne2($num_id_national);
-    }    
-    
+    } 
     $formatDate = "d/m/Y";
     
     $date_inclusion = new inclusion($db);
@@ -1290,11 +1289,16 @@ function viewFichePatient($db){
     
     $dispensation = new dispensation($db);
     $derniereDispen = $dispensation->selectDerniereDispen($lePatient['id_patient']);
+    $DateDerniereDisp = $dispensation->selectDateDisp($derniereDispen['derniereDisp']); 
+    echo count($DateDerniereDisp);
     
     $dispensation2 = new dispensation($db);
     $allDisp = $dispensation2->selectAllDateDisp($lePatient['num_inclusion']);
     
-    var_dump($allDisp);
+    $etat_dispensation = new Etat_dispensation($db);
+    $listeP = $etat_dispensation->selectOne($DateDerniereDisp['etat_dispensation']);
+    
+    //var_dump($allDisp);
     
     echo'<form class="form-group" method="POST" action="index.php?page=fichePatient" enctype="multipart/form-data">
             <div class="container">
@@ -1306,7 +1310,7 @@ function viewFichePatient($db){
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <div class="center">
-                                <h2>Patient n°</h2>
+                                <h2>Patient n°'.$lePatient['num_id_national'].'</h2>
                             </div>
                         </div>';
     
@@ -1353,17 +1357,17 @@ function viewFichePatient($db){
                                     <tr>
                                         <th class="demitableau">Accès aux historiques de dispensations</th>
                                         <td class="demitableau">
-                                            <a href="index.php?page=fichePatientDisp&num_inclusion=' .$lePatient['num_inclusion'].'" value="'.$lePatient['num_inclusion'].'">
-                                            <input type="button" id="btFichePatient" name="btFichePatient" class="form-control" value="Fiche Patient"/>
+                                                <a href="index.php?page=detail&id_patient='.$lePatient['id_patient'].'">Dispensation du client</a>
                                         </td>
-                                    </tr>   
-                                    <tr>
+                                    </tr> ';  
+                                    $date= date_create($derniereDispen['rdv']);
+                                    echo'<tr>
                                         <th class="demitableau">Date du prochain rendez-vous</th>
-                                        <td class="demitableau"></td>
+                                        <td class="demitableau">'. date_format($date, $formatDate).'</td>
                                     </tr>  
                                     <tr>
                                         <th class="demitableau">Statut du patient</th>
-                                        <td class="demitableau"></td>
+                                        <td class="demitableau">'.$listeP['nom_etat_dispen'].'</td>
                                     </tr>
                             </table>
                             
@@ -1374,7 +1378,7 @@ function viewFichePatient($db){
     
 }
 
-function viewFichePatientDisp($db){
+/*function viewFichePatientDisp($db){
     
     if(isset($_GET['num_inclusion']))
     {
@@ -1404,5 +1408,5 @@ function viewFichePatientDisp($db){
                 </div>
             </div>';
     
-}
+}*/
 ?>

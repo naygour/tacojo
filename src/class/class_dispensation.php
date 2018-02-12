@@ -12,11 +12,12 @@
         private $selectEtat;
         private $selectRDV;
         private $selectDate;
+        private $selectDateDisp;
         private $selectAllDateDisp;
         
         public function __construct($db) 
         {
-            $this->selectDerniereDispen = $db->prepare("SELECT MAX(`date_dispensation`) AS 'derniereDisp' FROM `DISPENSATION` WHERE `id_patient`=:id_patient");
+            $this->selectDerniereDispen = $db->prepare("SELECT etat_dispensation , date_dispensation , MAX(`date_dispensation`) AS 'derniereDisp' FROM `DISPENSATION` WHERE `id_patient`=:id_patient");
             
             $this->insertAll = $db->prepare("INSERT INTO DISPENSATION(id_patient, etat_dispensation, date_dispensation,
                                             date_debut_traitement, nb_jours_traitement, date_fin_traitement, rdv,poids, observations) 
@@ -43,11 +44,14 @@
             
             $this->selectRDV=$db->prepare("select rdv from DISPENSATION where id_dispensation=:id_dispensation ");
              
+            $this->selectDateDisp=$db->prepare("select etat_dispensation,date_dispensation from DISPENSATION where date_dispensation=:date_dispensation ");
+            
             $this->selectDate=$db->prepare("select rdv from DISPENSATION where rdv=:rdv ");
             
             $this->selectAllDateDisp=$db->prepare("select date_dispensation from DISPENSATION where id_patient=:id_patient");
             
         }
+        
         public function selectDerniereDispen($id_patient) {
             $this->selectDerniereDispen->execute(array(':id_patient' => $id_patient));
             return $this->selectDerniereDispen->fetch();
@@ -105,6 +109,11 @@
         public function selectRDV($id_dispensation) {
             $this->selectRDV->execute(array(':id_dispensation' => $id_dispensation));
             return $this->selectRDV->fetch();
+        }
+        
+          public function selectDateDisp($date_dispensation) {
+            $this->selectDateDisp->execute(array(':date_dispensation' => $date_dispensation));
+            return $this->selectDateDisp->fetch();
         }
 
         public function selectDate($rdv) {
