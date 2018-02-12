@@ -390,7 +390,8 @@ function viewListePatient($db)
                                     
                                     $dispensation = new dispensation($db);
                                     $derniereDispen = $dispensation->selectDerniereDispen($unPatient['id_patient']);
-                                    echo $derniereDispen['derniereDisp'];
+                                    $derniereDispensation = $dispensation->selectDateDisp($derniereDispen['derniereDisp']);
+                                    
                                     
                                     echo
                                     '
@@ -407,10 +408,16 @@ function viewListePatient($db)
                                         $date=date_create($unPatient['date_inclusion']);
                                         echo'<td>' . date_format($date,$formatDate) .'</td>';
                                         
-                                        $date=date_create($derniereDispen['derniereDisp']);
-                                        echo'<td>' . date_format($date, $formatDate) . '</td>
+                                        $date=date_create($derniereDispensation['date_dispensation']);
+                                        
+                                        if(count($derniereDispensation)>1){
+                                            echo'<td>' . date_format($date, $formatDate) . '</td>';
+                                        }
+                                        else{
+                                            echo '<td> X </td>';
+                                        }
                                             
-                                        <td>' . $unProtocole['nom_proto'] . '</td>
+                                        echo'<td>' . $unProtocole['nom_proto'] . '</td>
                                         <td>' . $uneLigne['nom_ligne'] . ' </td>
                                         <td>' . $unPatient['poids'] . '</td>
                                         <td><a href="index.php?page=detail&id_patient=' . $unPatient['id_patient'] . '">Dispensation</a></td>
