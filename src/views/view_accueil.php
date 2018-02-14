@@ -28,7 +28,7 @@ function viewAccueil($db)
 
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                        <input class="form-control" type="email" id="login" name="login" placeholder="exemple@domaine.fr" />
+                        <input class="form-control" type="text" id="login" name="login" placeholder="exemple@domaine.fr" />
                     </div>
 
                     <div class="input-group">

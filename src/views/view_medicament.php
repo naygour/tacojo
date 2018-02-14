@@ -128,7 +128,7 @@ function viewMedicament($db)
                             '
                                 <tr>
                                     <td><a href="index.php?page=modifAcronyme&id_acronyme='. $unAcronyme['id_medicament'].'">'. $unAcronyme['acronyme_medicament'].'</a></td>
-                                    <td>'. utf8_encode($unAcronyme['nom_medicament']).'</td>
+                                    <td>'. $unAcronyme['nom_medicament'].'</td>
                                 </tr>
                             ';
                         }

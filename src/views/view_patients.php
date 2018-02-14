@@ -25,6 +25,7 @@ function viewAjouterPatient($db)
         $ligne              = $_POST['ligne'];
         $date_inclusion     = $_POST['date_inclusion'];
         $co_infections      = $_POST['co_infection'];
+        $inclusion          = $_POST['inclusion'];
 
 
         if($sexe!="M" && $sexe!="F")
@@ -80,7 +81,7 @@ function viewAjouterPatient($db)
             
             if($impossible==0)
             {
-                $nb = $patient->insertAll($num_id_national, $num_inclusion, $profil_serologique, $sexe, $date_de_naissance, $protocole, 0, $ligne,$co_infections);
+                $nb = $patient->insertAll($num_id_national, $num_inclusion, $profil_serologique, $sexe, $date_de_naissance, $protocole, 0, $ligne,$co_infections,$inclusion);
                 
                 if ($nb == 1)
                 {
@@ -91,7 +92,7 @@ function viewAjouterPatient($db)
                     ';
                         
                     $inclu = new inclusion($db);
-                    $nb2 = $inclu ->insertAll($num_inclusion , $date_inclusion);
+                    $nb2 = $inclu ->insertAll($id_inclusion , $type_inclusion);
 
                     echo "<script>window.location.replace(\"index.php?page=patient\")</script>";
                 }
@@ -351,6 +352,7 @@ function viewListePatient($db)
                     <th>Suivi</th>
                     <th>Statut du patient</th>
                     <th>Prochain rdv </th>
+                    <th>Type d\'inclusion </th>
                    </tr>
                   </thead>
                   <tbody></div>
@@ -370,10 +372,15 @@ function viewListePatient($db)
                                 if ($unPatient['ligne'] == $uneLigne['id_ligne'])
                                 {
                                     $date_inclusion = new inclusion($db);
-                                    $DateInc = $date_inclusion->selectOne($unPatient['num_inclusion']);
+                                    $DateInc = $date_inclusion->selectOne($unPatient['id_inclusion']);
 
                                     $inclu = new inclusion($db);
-                                    $uneDate= $inclu -> selectOne($unPatient['num_inclusion']);
+                                    $uneDate= $inclu -> selectOne($unPatient['inclusion']);
+                                    $uneInclu=$uneDate['type_inclusion'];
+                                    
+                                    //$inclu2 = new inclusion($db);
+                                    //$uneInclusion= $inclu2 -> selectOne2($unPatient['inclusion']);
+                                    //$uneInclu = $uneInclusion['type_inclusion'];
 
                                     $etat = new dispensation($db);
                                     $unEtat= $etat -> selectEtat($unPatient['id_patient']);
@@ -396,11 +403,11 @@ function viewListePatient($db)
                                     echo
                                     '
                                     <tr>
-                                        <td><a href="index.php?page=fichePatient&num_id_national=' .$unPatient['num_id_national'].'" value="'.$unPatient['num_id_national'].'"><input type="button" id="btFichePatient" name="btFichePatient" class="form-control" value="Fiche Patient"/></a>
-                                        <td><a href="index.php?page=modifPatient&num_id_national=' . $unPatient['num_id_national'] . '">' . $unPatient['num_id_national'] . '</a></td>
-                                        <td><a href="index.php?page=modifPatient&num_inclusion=' . $unPatient['num_inclusion'] . '">' . $unPatient['num_inclusion'] . '</a></td>
-                                        <td>' . $unProfil['nom_profil'] . '</td>
-                                        <td>' . $unPatient['sexe'] . '</td>';
+                                             <td><a href="index.php?page=fichePatient&num_id_national=' .$unPatient['num_id_national'].'" value="'.$unPatient['num_id_national'].'"><input type="button" id="btFichePatient" name="btFichePatient" class="form-control" value="Fiche Patient"/></a>
+                                             <td><a href="index.php?page=modifPatient&num_id_national=' . $unPatient['num_id_national'] . '">' . $unPatient['num_id_national'] . '</a></td>
+                                             <td><a href="index.php?page=modifPatient&num_inclusion=' . $unPatient['num_inclusion'] . '">' . $unPatient['num_inclusion'] . '</a></td>
+                                             <td>' . $unProfil['nom_profil'] . '</td>
+                                             <td>' . $unPatient['sexe'] . '</td>';
                                             
                                         $date=date_create($unPatient['date_de_naissance']);
                                         echo'<td>' . date_format($date, $formatDate) . '</td>';
@@ -408,8 +415,7 @@ function viewListePatient($db)
                                         $date=date_create($unPatient['date_inclusion']);
                                         echo'<td>' . date_format($date,$formatDate) .'</td>';
                                         
-                                        $date=date_create($derniereDispensation['date_dispensation']);
-                                        
+                                        $date=date_create($derniereDispensation['date_dispensation']);                               
                                         if(count($derniereDispensation)>1){
                                             echo'<td>' . date_format($date, $formatDate) . '</td>';
                                         }
@@ -418,14 +424,19 @@ function viewListePatient($db)
                                         }
                                             
                                         echo'<td>' . $unProtocole['nom_proto'] . '</td>
-                                        <td>' . $uneLigne['nom_ligne'] . ' </td>
-                                        <td>' . $unPatient['poids'] . '</td>
-                                        <td><a href="index.php?page=detail&id_patient=' . $unPatient['id_patient'] . '">Dispensation</a></td>
-                                        <td>'. $etatPatient.'</td>';
-                                            
+                                             <td>' . $uneLigne['nom_ligne'] . ' </td>
+                                             <td>' . $unPatient['poids'] . '</td>
+                                             <td><a href="index.php?page=detail&id_patient=' . $unPatient['id_patient'] . '">Dispensation</a></td>';
+                                        if(count($etatPatient)!=0){
+                                                echo'<td>'. $etatPatient.'</td>';
+                                            }
+                                        else{
+                                            echo '<td> Non Suivi </td>';
+                                        }
+                                          
                                         $date=date_create($unRDV['rdv']);
                                         echo'<td>'. date_format($date, $formatDate).'</td>
-
+                                             <td>' . $uneInclu . '</td>
                                     </tr>
 
         			    ';
@@ -510,10 +521,11 @@ function viewModifPatient($db)
             $poids  = $_POST['poids'];
             $ligne = $_POST['ligne'];
             $co_infections = $_POST['co_infection'];
+            $inclusion = $_POST['inclusion'];
 
             $patient = new Patient($db);
 
-            $nb = $patient->updateAll($id_patient, $num_inclusion,$num_id_national, $profil_serologique, $sexe, $date_de_naissance, $protocole, $poids, $ligne, $co_infections);
+            $nb = $patient->updateAll($id_patient, $num_inclusion,$num_id_national, $profil_serologique, $sexe, $date_de_naissance, $protocole, $poids, $ligne, $co_infections,$inclusion);
             if ($nb == 1)
             {
                 echo '<br><div class="center alert alert-success" role="alert">Modification effectuée !</div>';
@@ -740,8 +752,8 @@ function viewIdPatient($db)
 
     if(isset($_POST['btValider'])){
     
-       $etat_dispensation = $_POST['etat_dispensation'];
-       $id_patient = $_POST['id_patient'];
+        $etat_dispensation = $_POST['etat_dispensation'];
+        $id_patient = $_POST['id_patient'];
         $date_dispensation = $_POST['date_dispensation'];
         $nb_jours_traitement = $_POST['nb_jours_traitement'];
         $date_fin_traitement = $_POST['date_fin_traitement'];
@@ -805,7 +817,7 @@ function viewIdPatient($db)
         {
             echo '<br><div class="center alert alert-success" role="alert">Ajout effectué !</div></div></div>';
             
-           // echo '<script type="text/javascript">window.location.replace("index.php?page=detail&id_patient="+"'.$id_patient.'");</script>';
+            echo '<script type="text/javascript">window.location.replace("index.php?page=detail&id_patient="+"'.$id_patient.'");</script>';
             
         }
     }
@@ -1292,18 +1304,21 @@ function viewFichePatient($db){
     $formatDate = "d/m/Y";
     
     $date_inclusion = new inclusion($db);
-    $DateInc = $date_inclusion->selectOne($lePatient['num_inclusion']);
+    $DateInc = $date_inclusion->selectOne($lePatient['inclusion']);
+    $uneInclu = $DateInc['type_inclusion'];
     
     $dispensation = new dispensation($db);
     $derniereDispen = $dispensation->selectDerniereDispen($lePatient['id_patient']);
     $DateDerniereDisp = $dispensation->selectDateDisp($derniereDispen['derniereDisp']); 
-    echo count($DateDerniereDisp);
+    //echo count($DateDerniereDisp);
     
     $dispensation2 = new dispensation($db);
     $allDisp = $dispensation2->selectAllDateDisp($lePatient['num_inclusion']);
     
     $etat_dispensation = new Etat_dispensation($db);
     $listeP = $etat_dispensation->selectOne($DateDerniereDisp['etat_dispensation']);
+    
+    
     
     //var_dump($allDisp);
     
@@ -1317,7 +1332,7 @@ function viewFichePatient($db){
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <div class="center">
-                                <h2>Patient n°'.$lePatient['num_id_national'].'</h2>
+                                <h2>Patient n°'.$lePatient['id_patient'].'</h2>
                             </div>
                         </div>';
     
@@ -1373,9 +1388,20 @@ function viewFichePatient($db){
                                         <td class="demitableau">'. date_format($date, $formatDate).'</td>
                                     </tr>  
                                     <tr>
-                                        <th class="demitableau">Statut du patient</th>
-                                        <td class="demitableau">'.$listeP['nom_etat_dispen'].'</td>
+                                        <th class="demitableau">Statut du patient</th>';
+                                        //<td class="demitableau">'.$listeP['nom_etat_dispen'].'</td>';
+                                            if(count($listeP['nom_etat_dispen'])!=0){
+                                                echo'<td>'. $listeP['nom_etat_dispen'].'</td>';
+                                            }
+                                            else{
+                                                echo '<td> Non Suivi </td>';
+                                            }
+                                            echo'</td>
                                     </tr>
+                                    <tr>
+                                        <th class="demitableau">Type d\'inclusion</th>
+                                        <td class="demitableau">'.$uneInclu.'</td>
+                                    </tr> 
                             </table>
                             
                         </div>
