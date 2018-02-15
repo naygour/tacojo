@@ -297,7 +297,7 @@ function menu()
                                   <ul class="dropdown-menu" role="menu">
                                     <li><a href="index.php?page=repartition_adulte" style="color: rgb(93, 182, 166)">Répartition adulte</a></li>
                                     <li><a href="index.php?page=repartition_enfant" style="color: rgb(93, 182, 166)">Répartition enfant</a></li>
-                                    <li><a href="index.php?page=repartition_ligne" style="color: rgb(93, 182, 166)">Répartition par ligne </a></li>
+                                    
                                   </ul>
                                 </li>
                                 
@@ -312,6 +312,7 @@ function menu()
                                   
                                   <ul class="dropdown-menu" role="menu">
                                     <li><a href="index.php?page=rapport" style="color: rgb(93, 182, 166)">Rapports</a></li>
+                                    <li><a href="index.php?page=repartition_ligne" style="color: rgb(93, 182, 166)">Rapport par ligne </a></li>
                                   </ul>
                                 </li>
                                 

@@ -26,7 +26,7 @@ function viewRepartitionAdulte($db)
     <select id="selectAnnee" name="select">'
     ;
     
-    for ($i = 2015; $i <= 2050; $i++)
+    for ($i = 2018; $i <= 2050; $i++)
     {
         echo "<option>$i</option>";
     }

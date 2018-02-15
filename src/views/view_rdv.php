@@ -87,7 +87,7 @@ function listeRDV($db)
                     echo
                     '
                     <tr>
-                        <td>'.$unPatient['num_id_national'].'</td>
+                        <td><a href="index.php?page=fichePatient&num_id_national=' . $unPatient['num_id_national'] . '">'.$unPatient['num_id_national'].'</td>
                         <td>'.$unPatient['num_inclusion'].'</td>
                         <td>'.$DateRDV.'</td>
                     </tr>

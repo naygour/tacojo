@@ -24,7 +24,7 @@ function viewRepartitionEnfant($db){
               <div class="panel-heading">
                 <div class="row">
                   <div class="col col-xs-9">
-                    <h3 class="panel-title">Répartition des patients par protocole national de 2017</h3>
+                    <h3 class="panel-title">Répartition des patients par protocole national de 2018</h3>
                   </div>
                 </div>
               </div>
@@ -32,7 +32,7 @@ function viewRepartitionEnfant($db){
                 <table style="min-width : 100%" id="repDataTable1" class="table table-striped table-bordered table-list display">';
 
                 $repartitions = new repartition_enfant($db);
-                $stats = $repartitions->selectAll(2017);
+                $stats = $repartitions->selectAll(2018);
 				        $nb = count($stats);
 
 
@@ -122,7 +122,7 @@ function viewRepartitionEnfant($db){
               <div class="panel-heading">
                 <div class="row">
                   <div class="col col-xs-9">
-                    <h3 class="panel-title">Répartition des patients par protocole atypique de 2017</h3>
+                    <h3 class="panel-title">Répartition des patients par protocole atypique de 2018</h3>
                   </div>
                 </div>
               </div>

@@ -283,14 +283,14 @@ function viewListePatient($db)
     $ligne = new ligne($db);
     $listeLigne = $ligne->selectAll();
 
-    echo
+    /*echo
     '
 
 <!--<div id="content-wrapper">-->
         <div class="container">
         <div class="mui--appbar-height"></div>
-        <div class="mui-container-fluid">
-      <br>
+        <div class="mui-container-fluid">';*/
+     echo' <br><br><br>
         <div class="panel panel-default">
 		<div class="panel-heading">
 			<div class="center">
@@ -323,10 +323,10 @@ function viewListePatient($db)
             <div class="panel panel-default panel-table">
               <div class="panel-heading">
                 <div class="row">
-                  <div class="col col-xs-6">
+                  <div class="col col-xs-1>
                     <h3 class="panel-title">Liste des patients</h3>
                   </div>
-                  <!--<div class="col col-xs-6 text-right">
+                  <!--<div class="col col-xs-1 text-right">
                     <button type="button" class="btn btn-sm btn-primary btn-create">Create New</button>
                   </div>-->
                 </div>
@@ -747,6 +747,8 @@ function viewIdPatient($db)
         else
         {
             echo '<br><div class="center alert alert-success" role="alert">Modification effectuée !</div>';
+            echo '<script type="text/javascript">window.location.replace("index.php?page=detail&id_patient="+"'.$id_patient.'");</script>';
+            
         }
     }
 
@@ -1121,7 +1123,7 @@ function viewIdPatient($db)
                         var nommois = $(this).data(\'nommois\');
                         var annee = $(this).data(\'annee\');
                         var idp = $(this).data(\'idp\');
-                        $("#pUpDate").datepicker("setDate", new Date(annee,mois-1,1));
+                        
                         $("#nommois").text(nommois);
                         $("#mois").val(mois);
                         $("#id_dispensation").val(iddisp);
@@ -1156,6 +1158,7 @@ function viewIdPatient($db)
                     else
                     {
 			echo '<br><div class="center alert alert-success" role="alert">Modification effectuée !</div>';
+                        
                     }
 
 		}
@@ -1318,7 +1321,13 @@ function viewFichePatient($db){
     $etat_dispensation = new Etat_dispensation($db);
     $listeP = $etat_dispensation->selectOne($DateDerniereDisp['etat_dispensation']);
     
+    $ligne = new ligne($db);
+    $nomLigne = $ligne->selectOne($lePatient['ligne']);
+    $ligneNom=$nomLigne['nom_ligne'];
     
+    $profil_serologique = new profil_serologique($db);
+    $nomProfil = $profil_serologique->selectOne($lePatient['profil_serologique']);
+    $profilNom = $nomProfil['nom_profil'];
     
     //var_dump($allDisp);
     
@@ -1350,7 +1359,7 @@ function viewFichePatient($db){
                                     </tr>
                                     <tr>    
                                         <th class="demitableau">Profil sérologique</th>
-                                        <td class="demitableau">'.$lePatient['profil_serologique'].'</td>   
+                                        <td class="demitableau">'.$profilNom.'</td>   
                                     </tr>';
     
                                     $date= date_create($lePatient['date_de_naissance']);
@@ -1370,7 +1379,7 @@ function viewFichePatient($db){
                                     </tr> 
                                     <tr>
                                         <th class="demitableau">Ligne de traitement</th>
-                                        <td class="demitableau">'.$lePatient['ligne'].'</td>
+                                        <td class="demitableau">'.$ligneNom.'</td>
                                     </tr>  
                                     <tr>
                                         <th class="demitableau">Poids</th>
@@ -1379,7 +1388,7 @@ function viewFichePatient($db){
                                     <tr>
                                         <th class="demitableau">Accès aux historiques de dispensations</th>
                                         <td class="demitableau">
-                                                <a href="index.php?page=detail&id_patient='.$lePatient['id_patient'].'">Dispensation du client</a>
+                                                <a href="index.php?page=detail&id_patient='.$lePatient['id_patient'].'">Dispensation du patient</a>
                                         </td>
                                     </tr> ';  
                                     $date= date_create($derniereDispen['rdv']);
