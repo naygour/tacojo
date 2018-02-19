@@ -61,6 +61,12 @@ function viewAjouterPatient($db)
                 <script>$(".well").fadeTo(5000, 200).slideUp(500);</script>';
             }
         }
+        if($inclusion!="1" && $inclusion!="2")
+        {
+            $impossible=1;
+            echo'<br><div class="well center alert alert-danger" role="alert">Veuillez renseigner le type d\'inclusion du patient !</div>
+            <script>$(".well").fadeTo(5000, 200).slideUp(500);</script>';
+        }
         else
         {
             $patient = new patient($db);
@@ -81,7 +87,7 @@ function viewAjouterPatient($db)
             
             if($impossible==0)
             {
-                $nb = $patient->insertAll($num_id_national, $num_inclusion, $profil_serologique, $sexe, $date_de_naissance, $protocole, 0, $ligne,$co_infections,$inclusion);
+                $nb = $patient->insertAll($num_id_national, $num_inclusion, $profil_serologique, $sexe, $date_de_naissance, $protocole, 0, $ligne,NULL,$date_inclusion,$inclusion);
                 
                 if ($nb == 1)
                 {
@@ -256,7 +262,14 @@ function viewAjouterPatient($db)
             '
             </select>
         </div>
-
+        <div class="form-group">
+            <label for="inclusion">Type d inclusion</label>
+            
+            <select class="form-control" name="inclusion" id="inclusion" />
+              <option value="1">Nouvelle inclusion</option>
+              <option value="2">Transfert entrant</option>
+            </select>
+        </div>
         <div class="form-group" style="float : right">      
             <button type="reset" class="btn btn-default">Réinitialiser</button>
             <button type="submit" class="btn btn-success" id="btPatient" name="btPatient">AJOUTER</button>
@@ -1172,7 +1185,7 @@ function viewIdPatient($db)
 			<div class="modal-content">
 			  <div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h2 class="modal-title" id="myModalLabel">Modification de la presence du patient ' . $uneListe['num_inclusion'] . ' (Pas encore effectué)</h2><input type="text" name="nommois" id="nommois"/>
+				<h2 class="modal-title" id="myModalLabel">Modification de la presence du patient ' . $uneListe['num_inclusion'] . ' 
 			  </div>
 			  <div class="modal-body">
 
