@@ -24,7 +24,7 @@ function viewAjouterPatient($db)
         $protocole          = $_POST['protocole'];
         $ligne              = $_POST['ligne'];
         $date_inclusion     = $_POST['date_inclusion'];
-        $co_infections      = $_POST['co_infection'];
+        //$co_infections      = $_POST['co_infection'];
         $inclusion          = $_POST['inclusion'];
 
 
@@ -97,9 +97,21 @@ function viewAjouterPatient($db)
                         <script>$(".well").fadeTo(5000, 200).slideUp(500);</script>
                     ';
                         
-                    $inclu = new inclusion($db);
+                    /*$inclu = new inclusion($db);
                     $nb2 = $inclu ->insertAll($id_inclusion , $type_inclusion);
 
+                    */
+                    
+                    $RecuperePatient = $patient ->selectOne3($num_inclusion, $num_id_national);
+                    $id_patient= $RecuperePatient['id_patient'];
+                    
+                    if(isset($_POST['choix'])){
+                        $liste = $_POST['choix'];
+                        foreach ($liste as $idCoInf) {
+                                $co_inf = new co_infection($db);
+                                $uneCo = $co_inf->insertAll($idCoInf , $id_patient);
+                        }
+                    }
                     echo "<script>window.location.replace(\"index.php?page=patient\")</script>";
                 }
                 else
