@@ -1081,6 +1081,9 @@ function viewIdPatient($db)
 
                                         <label>Nombre de jours du traitement</label>
                                         <input class="form-control" type="text" id="nb_jours_traitement" name="nb_jours_traitement" placeholder="Exemple : 30" value=""><br>
+                                        
+                                        <label> Date de fin de traitement (Se cacule toute seule ) </label> 
+                                        <input name="date_fin_traitement" disabled="disabled" type="date" id="date_fin_traitement" class="dOffDate form-control" /></br>
                                 
                                         <label>Protocole Dispensé</label>
                                         <select class="form-control" id="protocole" name="protocole"></br>
@@ -1116,9 +1119,6 @@ function viewIdPatient($db)
 
                                 <label> Observations </label>
                                 <input class="form-control" type="text" id="observations" name="observations" placeholder="Exemple : intolérence au médicament .... " value=""><br>
-
-
-                                <input name="date_fin_traitement" type="hidden" id="date_fin_traitement" class="dOffDate form-control" />
 				</div>
 
                                 </div>
