@@ -23,7 +23,7 @@
 
             $this->selectAll=$db->prepare("select * from PATIENT ");
             
-            $this->selectAll2=$db->prepare("select month(dateInscription) as moisInscription , year(dateInscription) as yearInscription,sexe, dateInscription, id_patient,DATEDIFF(:date , date_de_naissance) as AgeEnJour from PATIENT ");
+            $this->selectAll2=$db->prepare("select month(date_inclusion) as moisInscription , year(date_inclusion) as yearInscription,sexe,date_inclusion, dateInscription, id_patient,DATEDIFF(:date , date_de_naissance) as AgeEnJour from PATIENT ");
 
             $this->selectOne3=$db->prepare("select * from PATIENT where num_inclusion=:num_inclusion and num_id_national=:num_id_national");
 

@@ -160,7 +160,7 @@ function viewRapport($db)
                                 if($unPatient['moisInscription']==$mois && $unPatient['yearInscription']==$annee){ // Si ARV ce mois si
                                     $MoisF1=$MoisF1+1;
                                 }
-                                elseif(strtotime($unPatient['dateInscription']) < strtotime($date)) { // Si la date est avant la date demandé 
+                                elseif(strtotime($unPatient['date_inclusion']) < strtotime($date)) { // Si la date est avant la date demandé 
                                     $F1=$F1+1;
                                 }
                                 if($laDispensationDuMois['etat_dispensation']==3){
@@ -186,7 +186,7 @@ function viewRapport($db)
                                 if($unPatient['moisInscription']==$mois && $unPatient['yearInscription']==$annee){
                                     $MoisF2=$MoisF2+1;
                                 }
-                                elseif(strtotime($unPatient['dateInscription']) < strtotime($date)) {
+                                elseif(strtotime($unPatient['date_inclusion']) < strtotime($date)) {
                                     $F2=$F2+1;
                                 }
                                 if($laDispensationDuMois['etat_dispensation']==3){
@@ -211,7 +211,7 @@ function viewRapport($db)
                                 if($unPatient['moisInscription']==$mois && $unPatient['yearInscription']==$annee){
                                     $MoisF3=$MoisF3+1;
                                 }
-                                elseif(strtotime($unPatient['dateInscription']) < strtotime($date)) {
+                                elseif(strtotime($unPatient['date_inclusion']) < strtotime($date)) {
                                     $F3=$F3+1;
                                 }
                                 if($laDispensationDuMois['etat_dispensation']==3){
@@ -236,7 +236,7 @@ function viewRapport($db)
                                 if($unPatient['moisInscription']==$mois && $unPatient['yearInscription']==$annee){
                                     $MoisF4=$MoisF4+1;
                                 }
-                                 elseif(strtotime($unPatient['dateInscription']) < strtotime($date)) {
+                                 elseif(strtotime($unPatient['date_inclusion']) < strtotime($date)) {
                                     $F4=$F4+1;
                                 }
                                 if($laDispensationDuMois['etat_dispensation']==3){
@@ -263,7 +263,7 @@ function viewRapport($db)
                                 if($unPatient['moisInscription']==$mois && $unPatient['yearInscription']==$annee){
                                     $MoisM1=$MoisM1+1;
                                 }
-                               elseif(strtotime($unPatient['dateInscription']) < strtotime($date)) {
+                               elseif(strtotime($unPatient['date_inclusion']) < strtotime($date)) {
                                     $M1=$M1+1;
                                 }
                                 if($laDispensationDuMois['etat_dispensation']==3){
@@ -288,7 +288,7 @@ function viewRapport($db)
                                 if($unPatient['moisInscription']==$mois && $unPatient['yearInscription']==$annee){
                                     $MoisM2=$MoisM2+1;
                                 }
-                                elseif(strtotime($unPatient['dateInscription']) < strtotime($date)) {
+                                elseif(strtotime($unPatient['date_inclusion']) < strtotime($date)) {
                                     $M2=$M2+1;
 
                                 }
@@ -314,7 +314,7 @@ function viewRapport($db)
                                 if($unPatient['moisInscription']==$mois && $unPatient['yearInscription']==$annee){
                                     $MoisM3=$MoisM3+1;
                                 }
-                                elseif(strtotime($unPatient['dateInscription']) < strtotime($date)) {
+                                elseif(strtotime($unPatient['date_inclusion']) < strtotime($date)) {
                                     $M3=$M3+1;
                                 }
                                 if($laDispensationDuMois['etat_dispensation']==3){
@@ -339,7 +339,7 @@ function viewRapport($db)
                                 if($unPatient['moisInscription']==$mois && $unPatient['yearInscription']==$annee){
                                     $MoisM4=$MoisM4+1;
                                 }
-                                elseif(strtotime($unPatient['dateInscription']) < strtotime($date)) {
+                                elseif(strtotime($unPatient['date_inclusion']) < strtotime($date)) {
                                     $M4 = $M4+1;
                                 }
                                 if($laDispensationDuMois['etat_dispensation']==3){
