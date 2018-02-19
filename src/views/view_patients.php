@@ -189,16 +189,17 @@ function viewAjouterPatient($db)
         </div>  ';
 
         echo'<div class="form-group">
-            <label for="co_infection"> Co-Infection </label>
-            <select class="form-control" id="co_infection" name="co_infection">';
+            <label for="co_infection"> Co-Infectionsssss </label>';
                 $coInf = new co_infection($db);
                 $listeCoInf = $coInf->selectAll();
+                echo'</br>';
                 
                 foreach($listeCoInf as $uneInf)
                 {
-                    echo'<option value="'.$uneInf['id_co_infection'].'">'.$uneInf['nom_co_infection'].'</option>';
+                    //echo'<option value="'.$uneInf['id_co_infection'].'">'.$uneInf['nom_co_infection'].'</option>';
+                    echo' <input type="checkbox" name="choix[]" class="case" value ="'.$uneInf['id_co_infection'].'" id="case'.$uneInf['id_co_infection'].'">'.$uneInf['nom_co_infection'].'  ...      ';
                 }
-            echo'</select>
+            echo'
         </div>
         
         <div class="form-group">      
@@ -372,7 +373,7 @@ function viewListePatient($db)
                                 if ($unPatient['ligne'] == $uneLigne['id_ligne'])
                                 {
                                     $date_inclusion = new inclusion($db);
-                                    $DateInc = $date_inclusion->selectOne($unPatient['id_inclusion']);
+                                    $DateInc = $date_inclusion->selectOne($unPatient['inclusion']);
 
                                     $inclu = new inclusion($db);
                                     $uneDate= $inclu -> selectOne($unPatient['inclusion']);
@@ -1367,7 +1368,7 @@ function viewFichePatient($db){
                                         <th class="demitableau">Date de naissance</th>
                                         <td class="demitableau">'. date_format($date, $formatDate) .'</td>
                                     </tr>';
-                                    $date= date_create($DateInc['dateInclusion']);
+                                    $date= date_create($lePatient['date_inclusion']);
                                     echo'<tr>
                                         <th class="demitableau">Date d\'inclusion</th>
                                         <td class="demitableau">'. date_format($date, $formatDate).'</td>

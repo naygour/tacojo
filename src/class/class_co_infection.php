@@ -6,7 +6,7 @@
         
         public function __construct($db) 
         {
-            $this ->selectAll = $db->prepare("select * From CO_INFECTION");
+            $this ->selectAll = $db->prepare("select * From TYPE_CO_INFECTION");
         }
         
         public function selectAll()

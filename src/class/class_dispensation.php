@@ -17,7 +17,7 @@
         
         public function __construct($db) 
         {
-            $this->selectDerniereDispen = $db->prepare("SELECT  MAX(`date_dispensation`) AS 'derniereDisp' FROM `DISPENSATION` WHERE `id_patient`=:id_patient");
+            $this->selectDerniereDispen = $db->prepare("SELECT  MAX(`date_dispensation`) AS 'derniereDisp' , rdv FROM `DISPENSATION` WHERE `id_patient`=:id_patient");
             
             $this->insertAll = $db->prepare("INSERT INTO DISPENSATION(id_patient, etat_dispensation, date_dispensation,
                                             date_debut_traitement, nb_jours_traitement, date_fin_traitement, rdv,poids, observations) 
