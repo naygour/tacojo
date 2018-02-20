@@ -176,26 +176,31 @@
                                         <div class="form-group">
                                             <label for="nom_utilisateur">Nom</label>
                                             <input type="text" class="form-control" name="nom_utilisateur" id="nom_utilisateur" placeholder="Nom">
+                                            <div><span class="erreur" id="divnom">Veuillez saisir un nom</span></div>
                                         </div>
 
                                         <div class="form-group">
                                             <label for="prenom_utilisateur">Prénom</label>
                                             <input type="text" class="form-control" name="prenom_utilisateur" id="prenom_utilisateur" placeholder="Prénom">
+                                            <div><span class="erreur" id="divprenom">Veuillez saisir un prénom</span></div>
                                         </div>
 
                                         <div class="form-group">
                                             <label for="Login">Login</label>
                                             <input type="text" class="form-control" name="login" id="login" placeholder="Login">
+                                            <div><span class="erreur" id="divlogin">Veuillez saisir un login</span></div>
                                         </div>
 
                                         <div class="form-group">
                                             <label for="mdp">Mot de passe</label>
                                             <input type="password" class="form-control" name="mdp" id="mdp" placeholder="Mot de passe">
+                                            <div><span class="erreur" id="divmdp">Veuillez saisir un mot de passe</span></div>
                                         </div>
 
                                         <div class="form-group">
                                             <label for="mdp2">Confirmation du mot de passe</label>
                                             <input type="password" class="form-control" name="mdp2" id="mdp2" placeholder="Confirmation du mot de passe">
+                                            <div><span class="erreur" id="divconfirmation">Les mots de passe ne sont pas identiques !!</span></div>
                                         </div>
 
                                         <div class="form-group">

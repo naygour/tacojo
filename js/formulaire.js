@@ -52,11 +52,11 @@ $(document).ready(function()
          
         $('#btUtilisateur').click(function(e){
             var cp=0;
-            cp += verifier($('#nom_utilisateur'));
-            cp += verifier($('#prenom_utilisateur'));
-            cp += verifier($('#login'));
-            cp += verifier($('#mdp'));
-            cp += comparerMDP($('#mdp') , $('#mdp2'))
+            cp += verifier($('#nom_utilisateur'),$('#divnom'));
+            cp += verifier($('#prenom_utilisateur'),$('#divprenom'));
+            cp += verifier($('#login'),$('#divlogin'));
+            cp += verifier($('#mdp'),$('#divmdp'));
+            cp += comparerMDP($('#mdp') , $('#mdp2'),$('#divconfirmation'))
             if(cp!=5){
                 e.preventDefault(); // on annule la fonction par défaut du bouton d'envoi
             }
@@ -203,17 +203,17 @@ $(document).ready(function()
             return cp;
         }
         
-        function comparerMDP( champ1 , champ2 ){
+        function comparerMDP( champ1 , champ2 , divErreur){
             var cp=0;
             var mdp = champ1.val();
             var confirm = champ2.val();
             
             if(mdp==confirm){    
-                afficherErreur(false,champ2)
+                afficherErreur(false,champ2,divErreur)
                 cp=1;
             }
             else{
-                afficherErreur(true , champ2)
+                afficherErreur(true , champ2,divErreur)
                 
             }
             return cp;
