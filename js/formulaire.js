@@ -1,6 +1,6 @@
 $(document).ready(function()
 {
-    $("span").hide();
+    $(".erreur").hide();
         
     
         /*($('#num_inclusionTEST')).focusout(function(){
@@ -24,22 +24,27 @@ $(document).ready(function()
     
         $('#btValider').click(function(e){
             var cp=0;
-            cp += verifierNombre($('#poids'),$('#divpoids'));
-            cp += verifier($('#observations'),$('#divobservations'));
-            cp += verifierNombre($('#nb_jours_traitement'),$('#divnbjourtraitement'));
-            cp += verifier($('#protocole'),$('#divprotocole'));
-            cp += verifierDate($('#pUpDate'),$('#divDateDebutTraitement'));
-            cp += verifierDate($('#date_dispensation'),$('#divDateDisp'));
-            cp += verifierDate($('#date_rdv'),$('#divrdv'));
-            cp += verifierJourFerie($('#date_rdv'),$('#divjourferie'));
-            if(cp==8){
+            cp += verifierMoisDispensation($('#date_dispensation'),$('#divErreurMois'))   
+            if(cp==1){
+                
+                if($('#etat_dispensation').val()!=1){
+                    cp=11;
+                }
+                
+                cp += verifierNombre($('#poids'),$('#divpoids'));
+                cp += verifier($('#observations'),$('#divobservations'));
+                cp += verifierNombre($('#nb_jours_traitement'),$('#divnbjourtraitement'));
+                cp += verifier($('#protocole'),$('#divprotocole'));
+                cp += verifierDate($('#pUpDate'),$('#divDateDebutTraitement'));
+                cp += verifierDate($('#date_dispensation'),$('#divDateDisp'));
+                cp += verifierDate($('#date_rdv'),$('#divrdv'));
+                cp += verifierJourFerie($('#date_rdv'),$('#divjourferie'));
+            }
+            if(cp==9){
             cp += comparerDate($('#date_rdv') , $('#date_fin_traitement'),$('#divComparerRdv'));
             cp += comparerDate( $('#date_dispensation') , $('#pUpDate'),$('#divComparerDateDisp'));
             }
-            if($('#etat_dispensation').val()!=1){
-                cp=10;
-            }
-            if(cp!=10){
+            if(cp!=11){
                 e.preventDefault(); // on annule la fonction par défaut du bouton d'envoi
             }
 
@@ -57,8 +62,27 @@ $(document).ready(function()
             }
 
          });
+         
+        function verifierMoisDispensation(champ,divErreur){
+            var cp=0;
+            var date= champ.val();
+            var from = date.split("-")
+            var year = from[0];
+            var month = from[1];
+            var day = from[2];
+            var moisDisp = $('#mois').val();
+            if(month!=moisDisp){
+                afficherErreur(true,champ,divErreur);
+            }
+            else{
+                cp=1;
+                afficherErreur(false,champ,divErreur);
+            }
+            return cp;
+            
+        }
     
-       function verifier(champ,divErreur){
+        function verifier(champ,divErreur){
             var cp=0;
             if(champ.val() == ""){ // si le champ est vide
                 afficherErreur(true,champ,divErreur); // Fonction qui va afficher l'erreur

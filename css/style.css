@@ -39,7 +39,7 @@ buttons {
     padding-left : 10%;
 }
 
-span {
+.erreur {
     color :red;
 }
 
