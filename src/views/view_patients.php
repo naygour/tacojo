@@ -35,7 +35,7 @@ function viewAjouterPatient($db)
             <script>$(".well").fadeTo(5000, 200).slideUp(500);</script>';
         }
         if($profil_serologique==4)
-            {
+         {
             $impossible=1;
             echo'<br><div class="well center alert alert-danger" role="alert">Veuillez renseigner le profil sérologique du patient !</div>
             <script>$(".well").fadeTo(5000, 200).slideUp(500);</script>';

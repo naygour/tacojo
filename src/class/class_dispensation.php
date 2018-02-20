@@ -17,7 +17,7 @@
         
         public function __construct($db) 
         {
-            $this->selectDerniereDispen = $db->prepare("SELECT  MAX(`date_dispensation`) AS 'derniereDisp' , rdv FROM `DISPENSATION` WHERE `id_patient`=:id_patient");
+            $this->selectDerniereDispen = $db->prepare("SELECT  MAX(`date_dispensation`) AS 'derniereDisp'  FROM `DISPENSATION` WHERE `id_patient`=:id_patient");
             
             $this->insertAll = $db->prepare("INSERT INTO DISPENSATION(id_patient, etat_dispensation, date_dispensation,
                                             date_debut_traitement, nb_jours_traitement, date_fin_traitement, rdv,poids, observations) 
@@ -25,6 +25,9 @@
                                             :nb_jours_traitement, :date_fin_traitement, :rdv, :poids, :observations)");
 
             $this->selectAll=$db->prepare("select * from DISPENSATION ");
+           
+            $this->selectRDVDuJour=$db->prepare("select * from DISPENSATION where rdv=:date");
+            
 
             $this->updateAll=$db->prepare("update DISPENSATION SET  id_patient=:id_patient , etat_dispensation=:etat_dispensation,
                                            date_dispensation=:date_dispensation, date_debut_traitement=:date_debut_traitement , 
@@ -44,7 +47,7 @@
             
             $this->selectRDV=$db->prepare("select rdv from DISPENSATION where id_dispensation=:id_dispensation ");
              
-            $this->selectDateDisp=$db->prepare("select etat_dispensation,date_dispensation from DISPENSATION where date_dispensation=:date_dispensation ");
+            $this->selectDateDisp=$db->prepare("select etat_dispensation,date_dispensation,rdv from DISPENSATION where date_dispensation=:date_dispensation ");
             
             $this->selectDate=$db->prepare("select rdv from DISPENSATION where rdv=:rdv ");
             
@@ -89,6 +92,11 @@
         public function selectId($id_patient) {
             $this->selectId->execute(array(':id_patient' => $id_patient));
             return $this->selectId->fetch();
+        }
+        
+        public function selectRDVDuJour($date) {
+            $this->selectRDVDuJour->execute(array(':date' => $date));
+            return $this->selectRDVDuJour->fetchAll();
         }
 
         public function selectOneYearMonth($id_patient, $mois, $annee) {   

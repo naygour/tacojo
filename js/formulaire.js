@@ -32,9 +32,11 @@ $(document).ready(function()
             cp += verifierDate($('#date_dispensation'));
             cp += verifierDate($('#date_rdv'));
             cp += verifierJourFerie($('#date_rdv'));
+            if(cp==8){
             cp += comparerDate($('#date_rdv') , $('#date_fin_traitement'));
             cp += comparerDate( $('#date_dispensation') , $('#pUpDate'));
-            
+            }
+            alert(cp);
             if($('#etat_dispensation').val()!=1){
                 cp=10;
             }
@@ -169,6 +171,7 @@ $(document).ready(function()
             else {
                 cp=1;
                 afficherErreur(false,dateA1);
+                afficherErreur(false,dateA2);
             }
             return cp;
         }

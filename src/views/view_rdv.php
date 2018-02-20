@@ -2,10 +2,10 @@
 
 function listeRDV($db)
 {
-    $date=0;
+    $date="0";
     
     echo
-    '
+    '      <form class="form-group" method="POST" action="index.php?page=listeRDV" enctype="multipart/form-data" >
     <!--<div id="content-wrapper">-->
         <div class="container">
         <div class="mui--appbar-height"></div>
@@ -13,9 +13,11 @@ function listeRDV($db)
 
     if (isset($_POST['btVoir']))
     {
-        $date= $_POST['date_rdv'];
+        $date= Date('Y-m-d');
     }
-
+    $rdv = new dispensation($db);
+    $rdvDuJour = $rdv ->selectRDVDuJour(Date('Y-m-d'));
+    $nombreRDV = count($rdvDuJour);
     echo'
     <br>
         <div class="panel panel-default">
@@ -24,10 +26,22 @@ function listeRDV($db)
 				<h2>Liste des rendez-vous</h2>
 			</div>
 		</div>
-	</div>
+	</div>';
+        if($nombreRDV >0){
+        echo'<div class="RdvDuJour">
+        <div class="Image">
+        <img id="attention" class="Image" src="img/attention.png"/>
+        </div>
+        <div class="Ecriture">
+        Vous avez
+        <strong>'.$nombreRDV.' </strong> 
+        Rendez-vous Aujourdhui 
+        <button type="submit" class="btn btn-danger" id="btVoir" name="btVoir">Voir ces derniers</button>
+        </div>
+        </div>';
+        }
         
-      <form class="form-group" method="POST" action="index.php?page=listeRDV" enctype="multipart/form-data" >
-      <div class="row">
+      echo'<div class="row">
           <div class="col-md-12">
           
                 <div class="panel panel-default panel-table">
@@ -79,11 +93,7 @@ function listeRDV($db)
                     $formatDate = "d/m/Y";
                     $date1=date_create($listeRDV['rdv']);
                     $DateRDV = date_format($date1 , $formatDate);
-                    }
-                    
-                    else{
-                        $DateRDV='';
-                    }
+                             
                     echo
                     '
                     <tr>
@@ -92,17 +102,17 @@ function listeRDV($db)
                         <td>'.$DateRDV.'</td>
                     </tr>
                     ';
-
+                    }
                 }
                 else
                 {
                     $rdv        = new dispensation($db);
-                    $listeRDV   = $rdv->selectDerniereDispen($unPatient['idPatient']);
+                    $listeRDV   = $rdv->selectDerniereDispen($unPatient['id_patient']);
+                    $leRDV = $rdv->selectDateDisp($listeRDV['derniereDisp']);
                     
-                    //$formatDate = "d/m/Y";
-                    //$date1=date_create($listeRDV['rdv']);
-                    
-                    if($listeRDV['rdv']==$date)
+                    $formatDate = "d/m/Y";
+                    $date1=date_create($leRDV['rdv']);
+                    if($leRDV['rdv']==$date)
                     {
                         echo
                         '
@@ -110,7 +120,7 @@ function listeRDV($db)
                             <td>'.$unPatient['num_id_national'].'</td>
                             <td>'.$unPatient['num_inclusion'].'</td>
                             <td>'.date_format($date1 , $formatDate).'</td>
-                        <:tr>
+                        </tr>
                         ';
                     }
                 }

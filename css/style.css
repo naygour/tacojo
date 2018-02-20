@@ -18,6 +18,31 @@ buttons {
     text-align: center;
 }
 
+.Ecriture{
+    width: 70%;
+    padding-top: 88px;
+    float: right;
+    height : 200px;
+    padding-left : 10%;
+}
+
+.RdvDuJour{
+    background-color: lightcoral;
+    height: 200px;
+    width: 100%;
+}
+
+.Image {
+    height: 200px;
+    width: 30%;
+    float: left;
+    padding-left : 10%;
+}
+
+#attention{
+    width: 300px;
+}
+
 /**
  * Layout CSS
  */
