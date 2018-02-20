@@ -39,6 +39,10 @@ buttons {
     padding-left : 10%;
 }
 
+span {
+    color :red;
+}
+
 #attention{
     width: 300px;
 }

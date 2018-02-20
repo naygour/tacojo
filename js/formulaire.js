@@ -1,6 +1,6 @@
 $(document).ready(function()
 {
-    
+    $("span").hide();
         
     
         /*($('#num_inclusionTEST')).focusout(function(){
@@ -11,10 +11,10 @@ $(document).ready(function()
         
         $('#btPatient').click(function(e){
             var cp=0;
-            cp += verifierDate($('#date_de_naissance'));
-            cp += verifier($('#num_id_national'));
-            cp += verifier($('#num_inclusionTEST'));
-            cp += verifierDate($('#date_inclusion'));
+            cp += verifierDate($('#date_de_naissance'),$('#divDateNaissance'));
+            cp += verifier($('#num_id_national'),$('#dividnational'));
+            cp += verifier($('#num_inclusion'),$('#divnuminclusion'));
+            cp += verifierDate($('#date_inclusion'),$('#divDateInclusion'));
             if(cp!=4){
                 e.preventDefault(); // on annule la fonction par défaut du bouton d'envoi
             }
@@ -24,19 +24,18 @@ $(document).ready(function()
     
         $('#btValider').click(function(e){
             var cp=0;
-            cp += verifierNombre($('#poids'));
-            cp += verifier($('#observations'));
-            cp += verifierNombre($('#nb_jours_traitement'));
-            cp += verifier($('#protocole'));
-            cp += verifierDate($('#pUpDate'));
-            cp += verifierDate($('#date_dispensation'));
-            cp += verifierDate($('#date_rdv'));
-            cp += verifierJourFerie($('#date_rdv'));
+            cp += verifierNombre($('#poids'),$('#divpoids'));
+            cp += verifier($('#observations'),$('#divobservations'));
+            cp += verifierNombre($('#nb_jours_traitement'),$('#divnbjourtraitement'));
+            cp += verifier($('#protocole'),$('#divprotocole'));
+            cp += verifierDate($('#pUpDate'),$('#divDateDebutTraitement'));
+            cp += verifierDate($('#date_dispensation'),$('#divDateDisp'));
+            cp += verifierDate($('#date_rdv'),$('#divrdv'));
+            cp += verifierJourFerie($('#date_rdv'),$('#divjourferie'));
             if(cp==8){
-            cp += comparerDate($('#date_rdv') , $('#date_fin_traitement'));
-            cp += comparerDate( $('#date_dispensation') , $('#pUpDate'));
+            cp += comparerDate($('#date_rdv') , $('#date_fin_traitement'),$('#divComparerRdv'));
+            cp += comparerDate( $('#date_dispensation') , $('#pUpDate'),$('#divComparerDateDisp'));
             }
-            alert(cp);
             if($('#etat_dispensation').val()!=1){
                 cp=10;
             }
@@ -59,20 +58,20 @@ $(document).ready(function()
 
          });
     
-       function verifier(champ){
+       function verifier(champ,divErreur){
             var cp=0;
             if(champ.val() == ""){ // si le champ est vide
-                afficherErreur(true,champ); // Fonction qui va afficher l'erreur
+                afficherErreur(true,champ,divErreur); // Fonction qui va afficher l'erreur
             }
             else{
                 cp=1;
-                afficherErreur(false,champ); // Fonction qui va remet le formulaire basique s'il n'y a pas erreur
+                afficherErreur(false,champ,divErreur); // Fonction qui va remet le formulaire basique s'il n'y a pas erreur
             }
             return cp;
         
         }
         
-        function verifierDate(champ){
+        function verifierDate(champ,divErreur){
             var cp=0;
             var date= champ.val();
             var from = date.split("-")
@@ -81,33 +80,34 @@ $(document).ready(function()
             var day = from[2];
             
             if(year.length != 4 || year<1900 || year>2019 ){
-                afficherErreur(true,champ);
+                afficherErreur(true,champ,divErreur);
             }            
             else{
                 cp=1;
-                afficherErreur(false,champ);             
+                afficherErreur(false,champ,divErreur);             
             }
             return cp;
         }
         
-        function verifierNombre(champ){
+        function verifierNombre(champ,divErreur){
             var cp=0;
             var nb = champ.val();
             if(nb == ""){ // si le champ est vide
-                afficherErreur(true,champ);
+                afficherErreur(true,champ,divErreur);
             }
             else if(isNaN(nb)==false){
                 cp=1;
-                afficherErreur(false,champ);
+                afficherErreur(false,champ,divErreur);
             }
             else{
-                afficherErreur(true,champ);
+                afficherErreur(true,champ,divErreur);
             }
             return cp;
         }
         
-        function afficherErreur(valeur,champ){
+        function afficherErreur(valeur,champ,divErreur){
             if(valeur==true){
+                divErreur.show()
                 champ.css({ // on rend le champ rouge
     	        borderColor : 'red',
     	        color : 'red',
@@ -115,7 +115,7 @@ $(document).ready(function()
     	    });
             }
             else{
-                cp=1;
+                divErreur.hide();
                 champ.css({ // on remet le style des champs comme on l'avait défini dans le style CSS
                 borderColor : '#ccc',
                 color : '#555',
@@ -125,7 +125,7 @@ $(document).ready(function()
             }
         }
         
-        function verifierJourFerie(champ){
+        function verifierJourFerie(champ,divErreur){
             var cp=1;
             var dateDepart= champ.val(); 
             var from = dateDepart.split("-")
@@ -139,20 +139,23 @@ $(document).ready(function()
             
             if(jour==2 || jour==3){
                 cp=0;
-                afficherErreur(true,champ);
+                afficherErreur(true,champ,divErreur);
             }
             else{
                 for(var i=0 ; i<jourFerie.length; i++){
                     if(dateDepart==jourFerie[i]){
                         cp=0;
-                        afficherErreur(true,champ);
+                        afficherErreur(true,champ,divErreur);
                     }
                 }
+            }
+            if(cp==1){
+               afficherErreur(false,champ,divErreur);
             }
             return cp;
         }
         
-        function comparerDate(dateA1 , dateA2 ){
+        function comparerDate(dateA1 , dateA2 ,divErreur){
             var cp=0;
             var date1 = dateA1.val();
             var date2 = dateA2.val();
@@ -165,13 +168,13 @@ $(document).ready(function()
             date2 = new Date(year2 , month2 , day2);
 
             if(date1 > date2 ){
-                afficherErreur(true,dateA1);
-                afficherErreur(true,dateA2);
+                afficherErreur(true,dateA1,divErreur);
+                afficherErreur(true,dateA2,divErreur);
             }
             else {
                 cp=1;
-                afficherErreur(false,dateA1);
-                afficherErreur(false,dateA2);
+                afficherErreur(false,dateA1,divErreur);
+                afficherErreur(false,dateA2,divErreur);
             }
             return cp;
         }

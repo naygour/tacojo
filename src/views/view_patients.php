@@ -151,11 +151,13 @@ function viewAjouterPatient($db)
         <div class="form-group">
           <label for="num_id_national">N° Identification national</label>
           <input type="text" class="form-control" name="num_id_national" id="num_id_national" placeholder="N° Identification national">
+           <div><span id="dividnational">Erreur sur le numéro d\'identification national</span></div>
         </div>
         
         <div class="form-group">
           <label for="num_inclusion">N° Inclusion</label>
-          <input type="text" class="form-control" name="num_inclusion" id="num_inclusionTEST" placeholder="N° Inclusion">
+          <input type="text" class="form-control" name="num_inclusion" id="num_inclusion" placeholder="N° Inclusion">
+           <div><span id="divnuminclusion">Erreur sur le numéro d\'inclusion </span></div>
         </div>
         
         <div class="form-group">
@@ -170,11 +172,13 @@ function viewAjouterPatient($db)
         <div class="form-group">
           <label for="date_de_naissance">Date de naissance</label>
           <input class="datepicker form-control" type="date" name="date_de_naissance" id="date_de_naissance" placeholder="aaaa-mm-jj"/>
+           <div><span id="divDateNaissance">Erreur sur la date de naissance</span></div>
         </div>
         
         <div class="form-group">
           <label for="date_inclusion">Date d\'inclusion</label>
           <input class="datepicker form-control" type="date" name="date_inclusion" id="date_inclusion" placeholder="aaaa-mm-jj"/>
+           <div><span id="divDateInclusion">Erreur sur la date d\'inclusion</span></div>
         </div>
 
         <div class="form-group">
@@ -1072,22 +1076,35 @@ function viewIdPatient($db)
                                 </select><br>
 
                                         <div id=present>
-
+                                        <div class="form-group">
                                         <label>Date de la dispensation</label>
-                                        <input name="date_dispensation" type="date" id="date_dispensation" class="datepicker form-control" placeholder="JJ-MM-AAAA"/><br>
-
-                                        <label> Date du début du traitement </label>
-                                        <input name="date_debut_traitement" type="date" id="pUpDate" class="datepicker form-control" placeholder="JJ-MM-AAAA"/><br>
-
-                                        <label>Nombre de jours du traitement</label>
-                                        <input class="form-control" type="text" id="nb_jours_traitement" name="nb_jours_traitement" placeholder="Exemple : 30" value=""><br>
+                                        <input name="date_dispensation" type="date" id="date_dispensation" class="datepicker form-control" placeholder="JJ-MM-AAAA"/>
+                                        <div><span id="divDateDisp">veuillez saisir une date valide</span></div>
+                                        </div>
                                         
+                                        <div class="form-group">
+                                        <label> Date du début du traitement </label>
+                                        <input name="date_debut_traitement" type="date" id="pUpDate" class="datepicker form-control" placeholder="JJ-MM-AAAA"/>
+                                        <div><span id="divDateDebutTraitement">veuillez saisir une date valide</span></div>
+                                        <div><span id="divComparerDateDisp">La date de la dispensation ne peut-être posterieure a la date de debut de traitement</span></div>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                        <label>Nombre de jours du traitement</label>
+                                        <input class="form-control" type="text" id="nb_jours_traitement" name="nb_jours_traitement" placeholder="Exemple : 30" value="">
+                                        <div><span id="divnbjourtraitement">Erreur sur le nombre de jours , veuillez saisir un nombre</span></div>
+                                        </div>
+                                        
+                                        <div class="form-group">
                                         <label> Date de fin de traitement (Se cacule toute seule ) </label> 
-                                        <input name="date_fin_traitement" disabled="disabled" type="date" id="date_fin_traitement" class="dOffDate form-control" /></br>
-                                
+                                        <input name="date_fin_traitement" disabled="disabled" type="date" id="date_fin_traitement" class="dOffDate form-control" />
+                                        <div><span id="divFinTraitement">Erreur sur la date de fin de traitements</span></div>
+                                        </div>
+                                        
+                                        <div class="form-group">
                                         <label>Protocole Dispensé</label>
                                         <select class="form-control" id="protocole" name="protocole"></br>
-
+                                        </div>
                                 ';
                                 
                                 $proto = new protocole($db);
@@ -1111,15 +1128,26 @@ function viewIdPatient($db)
                                 '
 						</select>
 						<br>
+                                <div class="form-group">
                                 <label> Date du prochain RDV </label>
-                                <input name="date_rdv" type="date" id="date_rdv" class="datepicker form-control" placeholder="JJ-MM-AAAA"/><br>
-
+                                <input name="date_rdv" type="date" id="date_rdv" class="datepicker form-control" placeholder="JJ-MM-AAAA"/>
+                                <div><span id="divrdv">veuillez saisir une date valide</span></div>
+                                <div><span id="divjourferie">La date ne peut être un jour ferié ou un week-end </span></div>
+                                <div><span id="divComparerRdv">La date de RDV ne peut être postèrieure a la date de fin de traitement</span></div>
+                                </div>
+                                
+                                <div class="form-group">
                                 <label> Poids  </label>
-                                <input class="form-control" type="text" id="poids" name="poids" placeholder="Exemple : 70" value=""><br>
-
+                                <input class="form-control" type="text" id="poids" name="poids" placeholder="Exemple : 70" value="">
+                                <div><span id="divpoids">Erreur sur le poids , veuillez saisir un nombre </span></div>
+                                </div>
+                                
+                                <div class="form-group">
                                 <label> Observations </label>
-                                <input class="form-control" type="text" id="observations" name="observations" placeholder="Exemple : intolérence au médicament .... " value=""><br>
-				</div>
+                                <input class="form-control" type="text" id="observations" name="observations" placeholder="Exemple : intolérence au médicament .... " value="">
+				<div><span id="divobservations">Renseignez une information</span></div>
+                                </div>
+                                </div>
 
                                 </div>
 
