@@ -1358,12 +1358,25 @@ function viewIdPatient($db)
 
 function viewFichePatient($db){
     
+    
     if(isset($_GET['num_id_national']))
     {
         $num_id_national=$_GET['num_id_national'];
         $patient=new Patient($db);
         $lePatient = $patient->selectOne2($num_id_national);
+        $id_patient = $lePatient['id_patient'];
     } 
+    if(isset($_POST['btModif'])){
+        $id_patient=$_POST['id_patient'];
+        $patient=new Patient($db);
+        $lePatient = $patient->selectId($id_patient);
+        $num_id_national = $lePatient['num_id_national'];
+        $etat_patient = $_POST['etat_patient'];
+        $update = $patient ->updateEtat($id_patient, $etat_patient);
+        
+        echo '<script type="text/javascript">window.location.replace("index.php?page=fichePatient&num_id_national="+"'.$num_id_national.'");</script>';
+        
+    }
     $formatDate = "d/m/Y";
     
     $date_inclusion = new inclusion($db);
@@ -1401,7 +1414,7 @@ function viewFichePatient($db){
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <div class="center">
-                                <h2>Patient n°'.$lePatient['id_patient'].'</h2>
+                                <h2>Patient n°'.$id_patient.'</h2>
                             </div>
                         </div>';
     
@@ -1458,13 +1471,9 @@ function viewFichePatient($db){
                                     </tr>  
                                     <tr>
                                         <th class="demitableau">Statut du patient</th>';
-                                        //<td class="demitableau">'.$listeP['nom_etat_dispen'].'</td>';
-                                            if(count($listeP['nom_etat_dispen'])!=0){
-                                                echo'<td>'. $listeP['nom_etat_dispen'].'</td>';
-                                            }
-                                            else{
-                                                echo '<td> Non Suivi </td>';
-                                            }
+                                            $etat = new Etat_dispensation($db);
+                                            $sonEtat = $etat ->selectOne($lePatient['etat_patient']);
+                                            echo '<td>'.$sonEtat['nom_etat_dispen'].' </td>';
                                             echo'</td>
                                     </tr>
                                     <tr>
@@ -1475,8 +1484,22 @@ function viewFichePatient($db){
                             
                         </div>
                     </div>
+                    <input type="hidden" name="num_id_national" id="num_id_national" value="'.$num_id_national.'"/>
+                    <input type="hidden" name="id_patient" id="id_patient" value="'.$id_patient.'"/>
+                     
+                    <label> Modifier le statut du patient  :   </label>
+                    <select name="etat_patient" id="etat_patient">
+                    <option value="0"> </option>
+                    <option value="1"> Suivi </otpion>
+                    <option value="2"> Absent </option>
+                    <option value="3"> Décédé </otpion>
+                    <option value="4"> Abandon </option>
+                    <option value="5"> Transfert sortant </option> 
+                    </select>
+                    <input type="submit" id="btModif" name="btModif" value="Modifier"/>
+                    
                 </div>
-            </div>';
+            </div></form>';
     
 }
 
