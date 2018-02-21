@@ -24,12 +24,12 @@ $(document).ready(function()
     
         $('#btValider').click(function(e){
             var cp=0;
-            cp += verifierMoisDispensation($('#date_dispensation'),$('#divErreurMois'))   
+            cp += verifierMoisDispensation($('#date_dispensation'),$('#divErreurMois')) 
+            if($('#etat_dispensation').val()!=1){
+                    cp=11;
+            }
             if(cp==1){
                 
-                if($('#etat_dispensation').val()!=1){
-                    cp=11;
-                }
                 
                 cp += verifierNombre($('#poids'),$('#divpoids'));
                 cp += verifier($('#observations'),$('#divobservations'));

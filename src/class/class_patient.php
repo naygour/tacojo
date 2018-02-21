@@ -17,8 +17,8 @@
 
         public function __construct($db) {
 
-            $this->insertAll = $db->prepare("INSERT INTO PATIENT(num_id_national, num_inclusion, profil_serologique, sexe, date_de_naissance,
-                                            protocole, poids, ligne, co_infections, date_inclusion, inclusion) values( :num_id_national, :num_inclusion, :profil_serologique, :sexe,
+            $this->insertAll = $db->prepare("INSERT INTO PATIENT(num_id_national, num_inclusion, etat_patient,profil_serologique, sexe, date_de_naissance,
+                                            protocole, poids, ligne, co_infections, date_inclusion, inclusion) values( :num_id_national, :num_inclusion,:etat_patient, :profil_serologique, :sexe,
                                             :date_de_naissance, :protocole, :poids, :ligne, :co_infections, :date_inclusion , :inclusion)");
 
             $this->selectAll=$db->prepare("select * from PATIENT ");
@@ -40,13 +40,15 @@
                                           protocole=:protocole,  poids=:poids , ligne=:ligne, co_infections=:co_infections , date_inclusion=:date_inclusion , inclusion=:inclusion WHERE id_patient=:id_patient");
 
             $this->updateProto=$db->prepare("update PATIENT SET protocole=:protocole WHERE id_patient=:id_patient");
+            
+            $this->updateEtat=$db->prepare("update Patient set etat_patient=:etat_patient where id_patient=:id_patient");
 
             $this->deleteOne=$db->prepare("delete from PATIENT where id_patient=:id_patient");
             
         }
 
-        public function insertAll($num_id_national, $num_inclusion, $profil_serologique, $sexe, $date_de_naissance, $protocole, $poids, $ligne, $co_infections, $date_inclusion ,$inclusion){
-            $this->insertAll->execute(array(':num_id_national' => $num_id_national,':num_inclusion' => $num_inclusion,':profil_serologique' => $profil_serologique,
+        public function insertAll($num_id_national, $num_inclusion,$etat_patient, $profil_serologique, $sexe, $date_de_naissance, $protocole, $poids, $ligne, $co_infections, $date_inclusion ,$inclusion){
+            $this->insertAll->execute(array(':num_id_national' => $num_id_national,':num_inclusion' => $num_inclusion,':etat_patient' => $etat_patient,':profil_serologique' => $profil_serologique,
                     ':sexe' => $sexe,':date_de_naissance' => $date_de_naissance,':protocole' => $protocole,':poids' => $poids,':ligne' => $ligne, ':co_infections' => $co_infections, ':date_inclusion' => $date_inclusion, ':inclusion' => $inclusion));
             return $this->insertAll->rowCount();
         }
@@ -98,6 +100,11 @@
         public function updateProto($id_patient, $protocole){
             $this->updateProto->execute(array(':id_patient' => $id_patient,':protocole' => $protocole));
             return $this->updateProto->rowCount();
+        }
+        
+        public function updateEtat($id_patient, $etat_patient){
+            $this->updateEtat->execute(array(':id_patient' => $id_patient,':etat_patient' => $etat_patient));
+            return $this->updateEtat->rowCount();
         }
 
 

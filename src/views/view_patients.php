@@ -87,7 +87,7 @@ function viewAjouterPatient($db)
             
             if($impossible==0)
             {
-                $nb = $patient->insertAll($num_id_national, $num_inclusion, $profil_serologique, $sexe, $date_de_naissance, $protocole, 0, $ligne,NULL,$date_inclusion,$inclusion);
+                $nb = $patient->insertAll($num_id_national, $num_inclusion, 1,$profil_serologique, $sexe, $date_de_naissance, $protocole, 0, $ligne,NULL,$date_inclusion,$inclusion);
                 
                 if ($nb == 1)
                 {
@@ -412,10 +412,10 @@ function viewListePatient($db)
                                     //$uneInclusion= $inclu2 -> selectOne2($unPatient['inclusion']);
                                     //$uneInclu = $uneInclusion['type_inclusion'];
 
-                                    $etat = new dispensation($db);
-                                    $unEtat= $etat -> selectEtat($unPatient['id_patient']);
+                                    $etat = new Etat_dispensation($db);
+                                    $unEtat= $unPatient['etat_patient'];
 
-                                    $etatPatient= $unEtat['nom_etat_dispen'];
+                                    $etatPatient= $etat ->selectOne($unEtat);
 
                                     $formatDate = "d/m/Y";
 
@@ -458,7 +458,7 @@ function viewListePatient($db)
                                              <td>' . $unPatient['poids'] . '</td>
                                              <td><a href="index.php?page=detail&id_patient=' . $unPatient['id_patient'] . '">Dispensation</a></td>';
                                         if(count($etatPatient)!=0){
-                                                echo'<td>'. $etatPatient.'</td>';
+                                                echo'<td>'. $etatPatient['nom_etat_dispen'].'</td>';
                                             }
                                         else{
                                             echo '<td> Non Suivi </td>';
@@ -805,6 +805,9 @@ function viewIdPatient($db)
             $dispensation = new dispensation($db);
             $nb2 = $dispensation->insertAll($id_patient, $etat_dispensation, $date_dispensation,NULL,NULL,NULL,NULL,NULL,NULL);
             
+            $patient = new Patient($db);
+            $update = $patient  ->updateEtat($id_patient, $etat_dispensation);
+            
             if($nb2!=1)
         {
             echo '<br><div class="center alert alert-danger" role="alert">Erreur dans l\'ajout !</div>';
@@ -827,7 +830,7 @@ function viewIdPatient($db)
         $nb = $suivi_presence->insertAll($id_patient, $annee, $mois);
 
         $dispensation = new dispensation($db);
-
+        $update = $patient  ->updateEtat($id_patient, $etat_dispensation);
         $nb2 = $dispensation->insertAll($id_patient, $etat_dispensation, $date_dispensation, $date_debut_traitement, $nb_jours_traitement, $date_fin_traitement, $date_rdv,$poids, $observations);
         
        }
@@ -1446,7 +1449,7 @@ function viewFichePatient($db){
                                                 <a href="index.php?page=detail&id_patient='.$lePatient['id_patient'].'">Dispensation du patient</a>
                                         </td>
                                     </tr> ';  
-                                    $date= date_create($derniereDispen['rdv']);
+                                    $date= date_create($DateDerniereDisp['rdv']);
                                     echo'<tr>
                                         <th class="demitableau">Date du prochain rendez-vous</th>
                                         <td class="demitableau">'. date_format($date, $formatDate).'</td>
