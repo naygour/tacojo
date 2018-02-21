@@ -798,7 +798,7 @@ function viewIdPatient($db)
         $protocole = $_POST['protocole'];
         print_r($_POST); 
        if($etat_dispensation!=1){
-           $date_dispensation = Date("Y-m-d");
+           
            $suivi_presence = new Suivi($db);
             $nb = $suivi_presence->insertAll($id_patient, $annee, $mois);
            
@@ -1078,13 +1078,15 @@ function viewIdPatient($db)
                                 '
                                 </select><br>
 
-                                        <div id=present>
+                                        
                                         <div class="form-group">
                                         <label>Date de la dispensation</label>
                                         <input name="date_dispensation" type="date" id="date_dispensation" class="datepicker form-control" placeholder="JJ-MM-AAAA"/>
                                         <div><span class="erreur" id="divDateDisp">veuillez saisir une date valide</span></div>
                                         <div><span class="erreur" id="divErreurMois"> Veuillez saisir le bon mois de la dispensation </span></div>
                                         </div>
+                                        
+                                        <div id=present>
                                         
                                         <div class="form-group">
                                         <label> Date du début du traitement </label>
