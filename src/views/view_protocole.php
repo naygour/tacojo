@@ -136,7 +136,7 @@ echo'<meta http-equiv="content-type" content="text/html; charset=utf-8" />';
                   <div class="panel-heading">
                     <div class="row">
                       <div class="col col-xs-6">
-                        <h3 class="panel-title">Protocoles pré-enregistrés.</h3>
+                        <h3 class="panel-title">Protocoles pré-enregistrés</h3>
                       </div>
                       <!--<div class="col col-xs-6 text-right">
                         <button type="button" class="btn btn-sm btn-primary btn-create">Create New</button>
@@ -200,7 +200,7 @@ echo'<meta http-equiv="content-type" content="text/html; charset=utf-8" />';
                       <div class="panel-heading">
                         <div class="row">
                           <div class="col col-xs-6">
-                            <h3 class="panel-title">Protocoles additionnels</h3>
+                            <h3 class="panel-title">Protocoles atypiques</h3>
                           </div>
                           <!--<div class="col col-xs-6 text-right">
                             <button type="button" class="btn btn-sm btn-primary btn-create">Create New</button>

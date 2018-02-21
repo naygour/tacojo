@@ -22,7 +22,7 @@
 	require_once'src/views/view_repartition_ligne.php';
         require_once'src/views/view_rdv.php';
 	require_once'src/views/view_rapport.php';
-
+        require_once'src/views/view_savoir.php';
         require_once'src/class/class_inclusion.php';
 	require_once'src/class/class_dispensation.php';
 	require_once'src/class/class_etat_dispensation.php';

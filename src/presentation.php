@@ -343,6 +343,17 @@ function menu()
                                   </ul>
                                 </li>
                                 
+                                <li class="dropdown">
+                                  <a style="color: rgb(122, 122, 122)" href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-users" aria-hidden="true"></i>
+                                    En savoir plus
+                                    <span class="caret"></span>
+                                  </a>
+                                  <ul class="dropdown-menu" role="menu">
+                                    <li><a href="index.php?page=savoir" style="color: rgb(93, 182, 166)">Liste des développeurs</a></li>
+                                  </ul>
+                                </li>
+                                
 
 
 

@@ -185,6 +185,8 @@ function viewModifMedicament($db)
                   <br><div class="well center alert alert-success" role="alert">Suppression effectuée !</div>
                   </div></div>
             ';
+            echo '<script type="text/javascript">window.location.replace("index.php?page=acronyme");</script>';
+            
         }
     }
 
