@@ -170,7 +170,7 @@ function viewAjouterPatient($db)
         </div>  ';
 
         echo'<div class="form-group">
-            <label for="co_infection"> Co-Infectionsssss </label>';
+            <label for="co_infection"> Co-Infections </label>';
                 echo'</br>';
                 
                 foreach($listeCoInf as $uneInf)

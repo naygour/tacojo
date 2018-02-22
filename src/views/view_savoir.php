@@ -26,8 +26,8 @@ function viewListeSavoir(){
 											<br>
 										    <div class="col-sm-12">
                                                                                     <h4>Voici les développeurs qui ont travaillé sur le site TACOJO</h4>
-                                                                                    
-                                                                                    
+                                                                                    </br>
+                                                                                    <h5>Cette équipe a été formé dans le but d\'améliorer le site TACOJO ,pour aider le suivi des patients atteint du VIH au Sénégal.</h5>
                                                                                     <table style="min-width : 100%" class="table table-striped table-bordered table-list">
 
                										<thead>
@@ -39,16 +39,20 @@ function viewListeSavoir(){
 
 								                  	<tbody>
 								                  		<tr>
-                                                                                    
-                                                                                    <td>BRUWAERT Théo</td>
-                                                                                    <td>theo.bruwaert@laposte.net</td></tr></br>
-                                                                                    <tr><td>NORMAND Pierre</td></br>
-                                                                                    <td>pierre.normand62138@gmail.com</td></tr>
-                                                                                    <tr><td>PINGRENON François</td></br>
-                                                                                    <td>francois.pingrenon@gmail.com</td></tr>
-                                                                                    <tr><td>WALLE Théo</td></br>
-                                                                                    <td>theowalle62@gmail.com</td>
-                                                                                    
+                                                                                                    <td>BRUWAERT Théo</td>
+                                                                                                    <td>theo.bruwaert@laposte.net</td>
+                                                                                                </tr></br>
+                                                                                                <tr>
+                                                                                                    <td>NORMAND Pierre</td></br>
+                                                                                                    <td>pierre.normand62138@gmail.com</td>
+                                                                                                </tr>
+                                                                                                <tr>
+                                                                                                    <td>PINGRENON François</td></br>
+                                                                                                    <td>francois.pingrenon@gmail.com</td>
+                                                                                                </tr>
+                                                                                                    <tr><td>WALLE Théo</td></br>
+                                                                                                    <td>theowalle62@gmail.com</td>
+                                                                                                </tr>
                                                                                     </div>
                                                                             </div>
                                                                     </div>
