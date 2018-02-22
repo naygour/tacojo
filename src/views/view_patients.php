@@ -24,51 +24,8 @@ function viewAjouterPatient($db)
         $protocole          = $_POST['protocole'];
         $ligne              = $_POST['ligne'];
         $date_inclusion     = $_POST['date_inclusion'];
-        //$co_infections      = $_POST['co_infection'];
         $inclusion          = $_POST['inclusion'];
-
-
-        if($sexe!="M" && $sexe!="F")
-        {
-            $impossible=1;
-            echo'<br><div class="well center alert alert-danger" role="alert">Veuillez renseigner le sexe du patient !</div>
-            <script>$(".well").fadeTo(5000, 200).slideUp(500);</script>';
-        }
-        if($profil_serologique==4)
-         {
-            $impossible=1;
-            echo'<br><div class="well center alert alert-danger" role="alert">Veuillez renseigner le profil sérologique du patient !</div>
-            <script>$(".well").fadeTo(5000, 200).slideUp(500);</script>';
-        }
-        if(empty($date_de_naissance))
-        {
-            $impossible=1;
-            echo'<br><div class="well center alert alert-danger" role="alert">Veuillez renseigner la date de naissance !</div>
-            <script>$(".well").fadeTo(5000, 200).slideUp(500);</script>';
-        }
-        if(empty($date_inclusion))
-        {
-            $impossible=1;
-            echo'<br><div class="well center alert alert-danger" role="alert">Veuillez renseigner la date d\'inclusion du patient!</div>
-            <script>$(".well").fadeTo(5000, 200).slideUp(500);</script>';
-        }
-        if(empty($num_inclusion))
-        {
-            if(empty($num_id_national))
-            {
-                $impossible=1;
-                echo'<br><div class="well center alert alert-danger" role="alert">Veuillez renseigner soit un numéro id national ou un numéro d\'inclusion!</div>
-                <script>$(".well").fadeTo(5000, 200).slideUp(500);</script>';
-            }
-        }
-        if($inclusion!="1" && $inclusion!="2")
-        {
-            $impossible=1;
-            echo'<br><div class="well center alert alert-danger" role="alert">Veuillez renseigner le type d\'inclusion du patient !</div>
-            <script>$(".well").fadeTo(5000, 200).slideUp(500);</script>';
-        }
-        else
-        {
+        
             $patient = new patient($db);
             $listePatient = $patient->selectAll();
             
@@ -91,16 +48,6 @@ function viewAjouterPatient($db)
                 
                 if ($nb == 1)
                 {
-                    echo
-                    '
-                        <br><div class="well center alert alert-success" role="alert">Vous avez ajouté un Patient !</div>
-                        <script>$(".well").fadeTo(5000, 200).slideUp(500);</script>
-                    ';
-                        
-                    /*$inclu = new inclusion($db);
-                    $nb2 = $inclu ->insertAll($id_inclusion , $type_inclusion);
-
-                    */
                     
                     $RecuperePatient = $patient ->selectOne3($num_inclusion, $num_id_national);
                     $id_patient= $RecuperePatient['id_patient'];
@@ -112,6 +59,13 @@ function viewAjouterPatient($db)
                                 $uneCo = $co_inf->insertAll($idCoInf , $id_patient);
                         }
                     }
+                    
+                    echo
+                    '
+                        <br><div class="well center alert alert-success" role="alert">Vous avez ajouté un Patient !</div>
+                        <script>$(".well").fadeTo(5000, 200).slideUp(500);</script>
+                    ';
+                  
                     echo "<script>window.location.replace(\"index.php?page=patient\")</script>";
                 }
                 else
@@ -124,7 +78,22 @@ function viewAjouterPatient($db)
                 }
             }
         }
-    }
+        
+        $listeProfilsSerologiques = new profil_serologique($db);
+        $lesProfilsSérologiques = $listeProfilsSerologiques->selectAll();
+        
+        $coInf = new co_infection($db);
+        $listeCoInf = $coInf->selectAll();
+        
+        $listeProtocoles = new Protocole($db);
+        $lesProtocoles = $listeProtocoles->selectAll();
+        
+        $listeLignes = new ligne($db);
+        $lesLignes = $listeLignes->selectAll();
+                
+        $compteur=1;
+            
+    
 
     echo
     '
@@ -137,13 +106,6 @@ function viewAjouterPatient($db)
             </div>
         </div>
     <div class="panel-body">
-
-
-
-
-
-
-
 
     <form class="form-group" method="POST" action="index.php?page=ajouter_patient" enctype="multipart/form-data" style="margin-right:20%; margin-left : 20%">
     
@@ -186,9 +148,6 @@ function viewAjouterPatient($db)
             
             <select class="form-control" id="profil_serologique" name="profil_serologique">
             '; 
-            $listeProfilsSerologiques = new profil_serologique($db);
-            $lesProfilsSérologiques = $listeProfilsSerologiques->selectAll();
-            $compteur=1;
             
             //echo 'mdr'.var_dump($lesProfilsSérologiques);
             
@@ -212,8 +171,6 @@ function viewAjouterPatient($db)
 
         echo'<div class="form-group">
             <label for="co_infection"> Co-Infectionsssss </label>';
-                $coInf = new co_infection($db);
-                $listeCoInf = $coInf->selectAll();
                 echo'</br>';
                 
                 foreach($listeCoInf as $uneInf)
@@ -229,8 +186,6 @@ function viewAjouterPatient($db)
             <select class="form-control" id="protocole" name="protocole">
             ';
             
-            $listeProtocoles = new Protocole($db);
-            $lesProtocoles = $listeProtocoles->selectAll();
             $compteur=1;
             
             foreach($lesProtocoles as $unProtocole)
@@ -256,8 +211,7 @@ function viewAjouterPatient($db)
             <select class="form-control"  id="ligne" name="ligne">
             ';
             
-            $listeLignes = new ligne($db);
-            $lesLignes = $listeLignes->selectAll();
+            
             $compteur=1;
                         
             foreach($lesLignes as $uneLigne)
@@ -302,8 +256,6 @@ function viewListePatient($db)
     $patient = new Patient($db);
     $listePatient = $patient->selectAll();
     
-    //var_dump($listePatient);
-    
     $protocole = new Protocole($db);
     $listeProtocole = $protocole->selectAll();
 
@@ -313,13 +265,6 @@ function viewListePatient($db)
     $ligne = new ligne($db);
     $listeLigne = $ligne->selectAll();
 
-    /*echo
-    '
-
-<!--<div id="content-wrapper">-->
-        <div class="container">
-        <div class="mui--appbar-height"></div>
-        <div class="mui-container-fluid">';*/
      echo' <br><br><br>
         <div class="panel panel-default">
 		<div class="panel-heading">
@@ -407,10 +352,6 @@ function viewListePatient($db)
                                     $inclu = new inclusion($db);
                                     $uneDate= $inclu -> selectOne($unPatient['inclusion']);
                                     $uneInclu=$uneDate['type_inclusion'];
-                                    
-                                    //$inclu2 = new inclusion($db);
-                                    //$uneInclusion= $inclu2 -> selectOne2($unPatient['inclusion']);
-                                    //$uneInclu = $uneInclusion['type_inclusion'];
 
                                     $etat = new Etat_dispensation($db);
                                     $unEtat= $unPatient['etat_patient'];
@@ -585,6 +526,14 @@ function viewModifPatient($db)
 
         if($uneListe!=false)
         {
+            $profil = new profil_serologique($db);
+            $listeP = $profil->selectAll();
+            
+            $proto = new protocole($db);
+            $listeP = $proto->selectAll();
+            
+            $coInf = new co_infection($db);
+            $listeCoInf = $coInf->selectAll();
 
             echo'<br>
             <form method="POST" action="index.php?page=modifPatient" enctype="multipart/form-data">
@@ -627,8 +576,6 @@ function viewModifPatient($db)
                       <label>Profil sérologique</label>
                       <select class="form-control" id="profil_serologique" name="profil_serologique">';
 
-                        $profil = new profil_serologique($db);
-                        $listeP = $profil->selectAll();
 
                         foreach ($listeP as $unProfil)
                         {
@@ -668,8 +615,7 @@ function viewModifPatient($db)
                       <label>Protocole</label>
                       <select class="form-control" id="protocole" name="protocole">';
 
-                        $proto = new protocole($db);
-                        $listeP = $proto->selectAll();
+                        
 
                         foreach ($listeP as $unProto)
                         {
@@ -691,9 +637,6 @@ function viewModifPatient($db)
                   <div class="col-md-12">
                     <label> Co-Infections</label>
                     <select class="form-control" id="co_infection" name="co_infection">';
-                        
-                        $coInf = new co_infection($db);
-                        $listeCoInf = $coInf->selectAll();
                         
                         foreach($listeCoInf as $uneInf)
                         {
@@ -825,14 +768,16 @@ function viewIdPatient($db)
         
          $patient = new Patient($db);
          $nb = $patient->updateProto($id_patient, $protocole);
+         $update = $patient  ->updateEtat($id_patient, $etat_dispensation);
         //print_r($_POST);                          //Afiiche toutes les variables POST
         $suivi_presence = new Suivi($db);
         $nb = $suivi_presence->insertAll($id_patient, $annee, $mois);
 
-        $dispensation = new dispensation($db);
-        $update = $patient  ->updateEtat($id_patient, $etat_dispensation);
+        $dispensation = new dispensation($db); 
         $nb2 = $dispensation->insertAll($id_patient, $etat_dispensation, $date_dispensation, $date_debut_traitement, $nb_jours_traitement, $date_fin_traitement, $date_rdv,$poids, $observations);
         
+        
+                                
        }
         if($nb2!=1)
         {
@@ -873,6 +818,17 @@ function viewIdPatient($db)
         
         if ($uneListe != false)
         {
+            $suivi_presence = new Suivi($db);
+            $listesuivi = $suivi_presence->selectAll();
+            $listeModifications = $suivi_presence->getSuiviModifie($id_patient);
+            
+            $etat_dispensation = new Etat_dispensation($db);
+            $listeP = $etat_dispensation->selectAll();
+            
+            $dispensation = new Dispensation($db);
+                    
+            $proto = new protocole($db);
+            $listeProto = $proto->selectAll();
             echo
             '
              <br>
@@ -902,8 +858,6 @@ function viewIdPatient($db)
                 <form method="POST" action="index.php?page=detail&id_patient=">
                 <div class="panel-body">
             ';
-
-            $dispensation = new Dispensation($db);
             
             for ($mois=1; $mois<=12; $mois++)
             {
@@ -948,8 +902,7 @@ function viewIdPatient($db)
                         <th>Dec</th>
                     </tr>';
             
-                    $suivi_presence = new Suivi($db);
-                    $listesuivi = $suivi_presence->selectAll();
+                    
                     $nb = count($listesuivi);
                     
 
@@ -1008,8 +961,6 @@ function viewIdPatient($db)
                     $listMois = array("de Janvier", "de Février", "de Mars", "d'Avril", "de Mai", "de Juin", "de Juillet", "d'Aout", "de Septembre", "d'Octobre", "de Novembre", "de Décembre");
                     echo'<th></th>';
 			
-                    $suivi_presence = new Suivi($db);
-                    $listeModifications = $suivi_presence->getSuiviModifie($id_patient);
                     $arrayModif = array();
                     
                     foreach($listeModifications as $lm) array_push($arrayModif, $lm['mois'].':'.$lm['annee']);
@@ -1066,8 +1017,6 @@ function viewIdPatient($db)
                                         <select class="form-control" id="etat_dispensation" name="etat_dispensation">
                                 ';
 
-                                $etat_dispensation = new Etat_dispensation($db);
-                                $listeP = $etat_dispensation->selectAll();
 
                                 foreach ($listeP as $unType)
                                 {
@@ -1113,10 +1062,9 @@ function viewIdPatient($db)
                                         </div>
                                 ';
                                 
-                                $proto = new protocole($db);
-                                $listeP = $proto->selectAll();
+                                
 
-                                foreach ($listeP as $unProto)
+                                foreach ($listeProto as $unProto)
                                 {
                                     if ($unProto['id_proto'] == $uneListe['protocole'])
                                     {
@@ -1243,8 +1191,6 @@ function viewIdPatient($db)
                 <select class="form-control" id="etat_dispensation" name="etat_dispensation">
                 ';
 
-                $etat_dispensation = new Etat_dispensation($db);
-                $listeP = $etat_dispensation->selectAll();
 
                 foreach ($listeP as $unType)
                 {
@@ -1501,37 +1447,5 @@ function viewFichePatient($db){
                 </div>
             </div></form>';
     
-}
-
-/*function viewFichePatientDisp($db){
-    
-    if(isset($_GET['num_inclusion']))
-    {
-        $num_inclusion=$_GET['num_inclusion'];
-            
-        $dispensation2 = new dispensation($db);
-        $allDisp = $dispensation2->selectAllDateDisp($num_id_national);
-    }    
-    
-    echo'<form class="form-group" method="POST" action="index.php?page=fichePatientDisp" enctype="multipart/form-data">
-            <div class="container">
-                <div class="mui--appbar-height">    
-                </div>
-                
-                <div class="mui-container-fluid">
-                    <br/>
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <div class="center">
-                                <h2>Dispensations du patient n°</h2>
-                            </div>
-                            
-
-
-                        </div>
-                    </div>
-                </div>
-            </div>';
-    
-}*/
+}s
 ?>

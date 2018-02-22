@@ -13,11 +13,10 @@ function viewAjouterDispensation($db)
     if (isset($_POST['btPatient']))
     {
         $num_id_national = $_POST['num_id_national'];
-        //var_dump($num_id_national);
-        //$num_inclusion = $_POST['num_inclusion'];
 
         $patient = new patient($db); 
         $unPatient = $patient->selectOne2($num_id_national);
+        
         echo' <div class= "panel-heading">';
         if(count($unPatient)!=1)
         {
