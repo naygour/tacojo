@@ -16,7 +16,7 @@ function viewRepartitionEnfant($db){
 				<h2>Repartition des patients par protocole - Enfant</h2>
 			</div>
 		</div>
-	 </div>
+      </div>
 
     <div class="row">
         <div class="col-md-12">
@@ -33,7 +33,7 @@ function viewRepartitionEnfant($db){
 
                 $repartitions = new repartition_enfant($db);
                 $stats = $repartitions->selectAll(2018);
-				        $nb = count($stats);
+		$nb = count($stats);
 
 
 				if($nb>0){
@@ -104,9 +104,11 @@ function viewRepartitionEnfant($db){
                   </form>';
 
 
-                }else{
-                echo'<td>Il n\'y a pas de patient enfant avec un protocole national</td>';
-                }
+                            }
+                
+                             else{
+                                     echo'<td>Il n\'y a pas de patient enfant avec un protocole national</td>';
+                             }
                            echo'
 		         </table>
               </div>
@@ -133,8 +135,8 @@ function viewRepartitionEnfant($db){
                 $stats2 = $repartitions2->selectAll2();
 				        $nb2 = count($stats2);
 
-				if($nb2>0){
-                echo'
+		if($nb2>0){
+                         echo'
 				  <form method="POST" action="index.php?page=repartition_enfant">
                   <thead>
                     <tr>
@@ -196,8 +198,10 @@ function viewRepartitionEnfant($db){
                   </tbody>
                   </form>';
 
-                }else{
-                echo'<td>Il n\'y a pas de patient enfant avec un protocole atypique</td>';
+                }
+                
+                else{
+                        echo'<td>Il n\'y a pas de patient enfant avec un protocole atypique</td>';
                 }
                            echo'
 		         </table>
@@ -223,28 +227,36 @@ function viewRepartitionEnfant($db){
         <tr>
             <th>Protocole</th>
             <th>Jan</th>
-<th>Fev</th>
-<th>Mar</th>
-<th>Avr</th>
+            <th>Fev</th>
+            <th>Mar</th>
+            <th>Avr</th>
             <th>Mai</th>
             <th>Juin</th>
-<th>Jui</th>
-<th>Aout</th>
-<th>Sep</th>
+            <th>Jui</th>
+            <th>Aout</th>
+            <th>Sep</th>
             <th>Oct</th>
             <th>Nov</th>
-<th>Dec</th>
+            <th>Dec</th>
 
         </tr>
       </thead>';
+                           
       echo'<td class="bg-danger">Total</td>';
-for($i2=1;$i2<=12;$i2++){
-  $totalMois[$i2]=$totalMois[$i2]+$totalMois2[$i2];
-   echo '<td class="bg-danger">'.$totalMois[$i2].'</td>';
- }
-echo'</table></div></div>
+      
+        for($i2=1;$i2<=12;$i2++){
+            $totalMois[$i2]=$totalMois[$i2]+$totalMois2[$i2];
+             echo '<td class="bg-danger">'.$totalMois[$i2].'</td>';
+        }
+      echo'
+       </table>
+    </div>
+   </div>
 </div>
-<br><br></div></div></div>';
+<br><br>
+</div>
+</div>
+</div>';
 
 
 }

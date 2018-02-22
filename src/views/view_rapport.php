@@ -18,12 +18,19 @@ function viewRapport($db)
                 </div>
             </div>
 
-            Choisissez une année
+                        Choisissez une année
 
             <form action="" method="post">
 
 
             <select id="selectAnnee" name="select">';
+    $rapport        = new rapport($db);
+    $laDispensationDuMois   = $rapport ->selectEtatDisp($mois , $annee , $unPatient['id_patient']);
+    $patient        = new Patient($db);
+    $listePatient   = $patient ->selectAll2($date);   // On récupère tout d'abord la liste de tout les patients      
+                 
+                
+                    
             $mois = ['Janvier','Février', 'Mars' , 'Avril','Mai','Juin','Juillet','Aout','Septembre','Octobre','Novembre','Décembre'];
             for ($i = 2018; $i <= 2050; $i++)
             {
@@ -144,13 +151,7 @@ function viewRapport($db)
                     }
                 }
                 */
-                
-                $patient        = new Patient($db);
-                $listePatient   = $patient ->selectAll2($date);   // On récupère tout d'abord la liste de tout les patients      
-                 
-                foreach ($listePatient as $unPatient) {
-                    $rapport        = new rapport($db);
-                    $laDispensationDuMois   = $rapport ->selectEtatDisp($mois , $annee , $unPatient['id_patient']);
+               foreach ($listePatient as $unPatient) {
                     if($unPatient['AgeEnJour']>0){   
                         
                         if($unPatient['sexe']=='F'){ // Si c'est féminin 
@@ -411,103 +412,103 @@ function viewRapport($db)
                             <th>Nombre de patients sous ARV transférés dans le site (TE) durant le mois </th>
                             <th>Nombre de patients sous ARV transférés vers un autre site (TA) durant le mois  </th>
                             <th> Nombre total de patients sous ARV régulèrement suivis (file active sous ARV) </th>
-                            </tr>
+                        </tr>
                       </thead>
       
                     <tr>
-                    <td rowspan="2"> <1 an </td>
-                    <td>M</td>
-                    <td>'.$M1.'</td>
-                    <td>'.$MoisM1.'</td>
-                    <td>'.$DecedeM1.'</td>
-                    <td>'.$PDVM1.'</td>
-                    <td>'.$PDVRM1.'</td>
-                    <td>'.$TransfertEntrantM1.'</td>
-                    <td>'.$TransfertSortantM1.'</td>                    
-                    <td></td>                   
-                    <td></td>
+                        <td rowspan="2"> <1 an </td>
+                        <td>M</td>
+                        <td>'.$M1.'</td>
+                        <td>'.$MoisM1.'</td>
+                        <td>'.$DecedeM1.'</td>
+                        <td>'.$PDVM1.'</td>
+                        <td>'.$PDVRM1.'</td>
+                        <td>'.$TransfertEntrantM1.'</td>
+                        <td>'.$TransfertSortantM1.'</td>                    
+                        <td></td>                   
+                        <td></td>
                     </tr>                   
                     <tr>
-                    <td>F</td>
-                    <td>'.$F1.'</td>
-                    <td>'.$MoisF1.'</td>
-                    <td>'.$DecedeF1.'</td>
-                    <td>'.$PDVF1.'</td>
-                    <td>'.$PDVRF1.'</td>
-                    <td>'.$TransfertEntrantF1.'</td>
-                    <td>'.$TransfertSortantF1.'</td>                      
+                        <td>F</td>
+                        <td>'.$F1.'</td>
+                        <td>'.$MoisF1.'</td>
+                        <td>'.$DecedeF1.'</td>
+                        <td>'.$PDVF1.'</td>
+                        <td>'.$PDVRF1.'</td>
+                        <td>'.$TransfertEntrantF1.'</td>
+                        <td>'.$TransfertSortantF1.'</td>                      
                     </tr>
                     
                     <tr>
-                    <td rowspan="2"> 1-4 ans </td>
-                    <td>M</td>
-                    <td>'.$M2.'</td>
-                    <td>'.$MoisM2.'</td>
-                    <td>'.$DecedeM2.'</td>
-                    <td>'.$PDVM2.'</td>
-                    <td>'.$PDVRM2.'</td>
-                    <td>'.$TransfertEntrantM2.'</td>
-                    <td>'.$TransfertSortantM2.'</td>                     
-                    <td></td>                   
-                    <td></td>
+                        <td rowspan="2"> 1-4 ans </td>
+                        <td>M</td>
+                        <td>'.$M2.'</td>
+                        <td>'.$MoisM2.'</td>
+                        <td>'.$DecedeM2.'</td>
+                        <td>'.$PDVM2.'</td>
+                        <td>'.$PDVRM2.'</td>
+                        <td>'.$TransfertEntrantM2.'</td>
+                        <td>'.$TransfertSortantM2.'</td>                     
+                        <td></td>                   
+                        <td></td>
                     </tr>                    
                     <tr>
-                    <td>F</td>
-                    <td>'.$F2.'</td>
-                    <td>'.$MoisF2.'</td>
-                    <td>'.$DecedeF2.'</td>
-                    <td>'.$PDVF2.'</td>
-                    <td>'.$PDVRF2.'</td>
-                    <td>'.$TransfertEntrantF2.'</td>
-                    <td>'.$TransfertSortantF2.'</td>                      
+                        <td>F</td>
+                        <td>'.$F2.'</td>
+                        <td>'.$MoisF2.'</td>
+                        <td>'.$DecedeF2.'</td>
+                        <td>'.$PDVF2.'</td>
+                        <td>'.$PDVRF2.'</td>
+                        <td>'.$TransfertEntrantF2.'</td>
+                        <td>'.$TransfertSortantF2.'</td>                      
                     </tr>
                     
                     <tr>
-                    <td rowspan="2"> 5-14 ans </td>
-                    <td>M</td>
-                    <td>'.$M3.'</td>
-                    <td>'.$MoisM3.'</td>
-                    <td>'.$DecedeM3.'</td>
-                    <td>'.$PDVM3.'</td>
-                    <td>'.$PDVRM3.'</td>
-                    <td>'.$TransfertEntrantM3.'</td>
-                    <td>'.$TransfertSortantM3.'</td>                   
-                    <td></td>                   
-                    <td></td>
+                        <td rowspan="2"> 5-14 ans </td>
+                        <td>M</td>
+                        <td>'.$M3.'</td>
+                        <td>'.$MoisM3.'</td>
+                        <td>'.$DecedeM3.'</td>
+                        <td>'.$PDVM3.'</td>
+                        <td>'.$PDVRM3.'</td>
+                        <td>'.$TransfertEntrantM3.'</td>
+                        <td>'.$TransfertSortantM3.'</td>                   
+                        <td></td>                   
+                        <td></td>
                     </tr>                   
                     <tr>
-                    <td>F</td>
-                    <td>'.$F3.'</td>
-                    <td>'.$MoisF3.'</td>
-                    <td>'.$DecedeF3.'</td>
-                    <td>'.$PDVF3.'</td>
-                    <td>'.$PDVRF3.'</td>
-                    <td>'.$TransfertEntrantF3.'</td>
-                    <td>'.$TransfertSortantF3.'</td>                   
+                        <td>F</td>
+                        <td>'.$F3.'</td>
+                        <td>'.$MoisF3.'</td>
+                        <td>'.$DecedeF3.'</td>
+                        <td>'.$PDVF3.'</td>
+                        <td>'.$PDVRF3.'</td>
+                        <td>'.$TransfertEntrantF3.'</td>
+                        <td>'.$TransfertSortantF3.'</td>                   
                     </tr>
                     
                     <tr>
-                    <td rowspan="2"> > 14 ans </td>
-                    <td>M</td>
-                    <td>'.$M4.'</td>
-                    <td>'.$MoisM4.'</td>
-                    <td>'.$DecedeM4.'</td>
-                    <td>'.$PDVM4.'</td>
-                    <td>'.$PDVRM4.'</td>
-                    <td>'.$TransfertEntrantM4.'</td>
-                    <td>'.$TransfertSortantM4.'</td>                   
-                    <td></td>                   
-                    <td></td>
+                        <td rowspan="2"> > 14 ans </td>
+                        <td>M</td>
+                        <td>'.$M4.'</td>
+                        <td>'.$MoisM4.'</td>
+                        <td>'.$DecedeM4.'</td>
+                        <td>'.$PDVM4.'</td>
+                        <td>'.$PDVRM4.'</td>
+                        <td>'.$TransfertEntrantM4.'</td>
+                        <td>'.$TransfertSortantM4.'</td>                   
+                        <td></td>                   
+                        <td></td>
                     </tr>                    
                     <tr>
-                    <td>F</td>
-                    <td>'.$F4.'</td>
-                    <td>'.$MoisF4.'</td>
-                    <td>'.$DecedeF4.'</td>
-                    <td>'.$PDVF4.'</td>
-                    <td>'.$PDVRF4.'</td>
-                    <td>'.$TransfertEntrantF4.'</td>
-                    <td>'.$TransfertSortantF4.'</td>                    
+                        <td>F</td>
+                        <td>'.$F4.'</td>
+                        <td>'.$MoisF4.'</td>
+                        <td>'.$DecedeF4.'</td>
+                        <td>'.$PDVF4.'</td>
+                        <td>'.$PDVRF4.'</td>
+                        <td>'.$TransfertEntrantF4.'</td>
+                        <td>'.$TransfertSortantF4.'</td>                    
                     </tr>
                     
                         
@@ -519,16 +520,16 @@ function viewRapport($db)
                 
                 echo '
                     <tr>
-                    <td class="bg-danger">Total</td>
-                    <td class="bg-danger"></td>
-                    <td class="bg-danger">'.($F1 + $F2 + $F3 + $F4 + $M1 + $M2 + $M3 + $M4).'</td>
-                    <td class="bg-danger">'.($MoisF1 + $MoisF2 + $MoisF3 + $MoisF4 + $MoisM1 + $MoisM2 + $MoisM3 + $MoisM4).'</td>
-                    <td class="bg-danger">'.($DecedeF1 + $DecedeF2 + $DecedeF3 + $DecedeF4 + $DecedeM1 + $DecedeM2 + $DecedeM3 + $DecedeM4).'</td>
-                    <td class="bg-danger">'.($PDVF1 + $PDVF2 + $PDVF3 + $PDVF4 + $PDVM1 + $PDVM2 + $PDVM3 + $PDVM4).'</td>
-                    <td class="bg-danger">'.($PDVRF1 + $PDVRF2 + $PDVRF3 + $PDVRF4 + $PDVRM1 + $PDVRM2 + $PDVRM3 + $PDVRM4).'</td>
-                    <td class="bg-danger">'.($TransfertEntrantF1 + $TransfertEntrantF2 + $TransfertEntrantF3 + $TransfertEntrantF4 + $TransfertEntrantM1 + $TransfertEntrantM2 + $TransfertEntrantM3 + $TransfertEntrantM4).'</td>
-                    <td class="bg-danger">'.($TransfertSortantF1 + $TransfertSortantF2 + $TransfertSortantF3 + $TransfertSortantF4 + $TransfertSortantM1 + $TransfertSortantM2 + $TransfertSortantM3 + $TransfertSortantM4).'</td>
-                    <td class="bg-danger"></td>
+                        <td class="bg-danger">Total</td>
+                        <td class="bg-danger"></td>
+                        <td class="bg-danger">'.($F1 + $F2 + $F3 + $F4 + $M1 + $M2 + $M3 + $M4).'</td>
+                        <td class="bg-danger">'.($MoisF1 + $MoisF2 + $MoisF3 + $MoisF4 + $MoisM1 + $MoisM2 + $MoisM3 + $MoisM4).'</td>
+                        <td class="bg-danger">'.($DecedeF1 + $DecedeF2 + $DecedeF3 + $DecedeF4 + $DecedeM1 + $DecedeM2 + $DecedeM3 + $DecedeM4).'</td>
+                        <td class="bg-danger">'.($PDVF1 + $PDVF2 + $PDVF3 + $PDVF4 + $PDVM1 + $PDVM2 + $PDVM3 + $PDVM4).'</td>
+                        <td class="bg-danger">'.($PDVRF1 + $PDVRF2 + $PDVRF3 + $PDVRF4 + $PDVRM1 + $PDVRM2 + $PDVRM3 + $PDVRM4).'</td>
+                        <td class="bg-danger">'.($TransfertEntrantF1 + $TransfertEntrantF2 + $TransfertEntrantF3 + $TransfertEntrantF4 + $TransfertEntrantM1 + $TransfertEntrantM2 + $TransfertEntrantM3 + $TransfertEntrantM4).'</td>
+                        <td class="bg-danger">'.($TransfertSortantF1 + $TransfertSortantF2 + $TransfertSortantF3 + $TransfertSortantF4 + $TransfertSortantM1 + $TransfertSortantM2 + $TransfertSortantM3 + $TransfertSortantM4).'</td>
+                        <td class="bg-danger"></td>
                     </tr>
                  ';
                     

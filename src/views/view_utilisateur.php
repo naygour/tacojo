@@ -2,7 +2,8 @@
 
 	function viewListeUtilisateur($db){
 
-		echo'<!--<div id="content-wrapper">-->
+		echo'
+        <!--<div id="content-wrapper">-->
         <div class="container">
         <div class="mui--appbar-height"></div>
         <div class="mui-container-fluid">
@@ -47,7 +48,7 @@
 
 										    	<td><h4>' . $unGrade['nom_grade'] . '&nbsp;:</td>
 
-										   		<td><a href="index.php?page=modifUtilisateur&id_utilisateur=' . $uneListe['id_utilisateur'] . '">' . $uneListe['nom_utilisateur'] . '</td>
+										        <td><a href="index.php?page=modifUtilisateur&id_utilisateur=' . $uneListe['id_utilisateur'] . '">' . $uneListe['nom_utilisateur'] . '</td>
 										    	<td>' . $uneListe['prenom_utilisateur'] . '</h4></a></td>
 
 										    </div>
@@ -58,10 +59,10 @@
                									<table style="min-width : 100%" class="table table-striped table-bordered table-list">
 
                										<thead>
-								                    <tr>
-								                    	<th>Numéro droit</th>
-								                       	<th>Droits</th>
-								                    </tr>
+								                            <tr>
+								                    	        <th>Numéro droit</th>
+								                       	        <th>Droits</th>
+								                            </tr>
 								                  	</thead>
 
 								                  	<tbody>
@@ -89,7 +90,7 @@
 
 		                                				}
                                 						echo'
-                                						</tr><br>
+                                                                                                </tr><br>
 
 								                  	</tbody>
 
@@ -103,47 +104,51 @@
 								}
 							}
 					    }echo'
-					    </div>
-				   </div>
-				</div>
-			</div>';
+					</div>
+	    </div>
+            </div>
+            </div>';
 
 	}
 
 	function viewAjoutUtilisateur($db){
 
 		echo'
-			<!--<div id="content-wrapper">-->
+	<!--<div id="content-wrapper">-->
         <div class="container">
         <div class="mui--appbar-height"></div>
         <div class="mui-container-fluid">';
+                
+        $grade = new grade($db);
+        $listeGrade = $grade->selectAll();
+        $nom_utilisateur = $_POST['nom_utilisateur'];
+	$prenom_utilisateur = $_POST['prenom_utilisateur'];
+	$login = $_POST['login'];
+	$mdp = $_POST['mdp'];
+	$grade = $_POST['grade'];
+	$mdp2 = $_POST['mdp2'];
+        $utilisateur = new utilisateur($db);
+        $nb = $utilisateur->insertAll($nom_utilisateur, $prenom_utilisateur, $login, $mdp, $grade,1);
+
 
 
 				    if (isset($_POST['btUtilisateur'])) {
 
-				        $nom_utilisateur = $_POST['nom_utilisateur'];
-				        $prenom_utilisateur = $_POST['prenom_utilisateur'];
-				        $login = $_POST['login'];
-				        $mdp = $_POST['mdp'];
-				        $grade = $_POST['grade'];
-								$mdp2 = $_POST['mdp2'];
+				        
 
 								if($mdp != $mdp2) {
 
 									echo '
-													<br><div class="well center alert alert-danger" role="alert">Vous avez mal confirmé votre mot de passe, réessayez !</div>
-									            <script>$(".well").fadeTo(5000, 200).slideUp(500);</script>';
+                                                                            <br><div class="well center alert alert-danger" role="alert">Vous avez mal confirmé votre mot de passe, réessayez !</div>
+									    <script>$(".well").fadeTo(5000, 200).slideUp(500);</script>';
 								}
 								else {
 									echo '
-											<br><div class="well center alert alert-success" role="alert">Vous avez ajouté un utilisateur !</div>
-															<script>$(".well").fadeTo(5000, 200).slideUp(500);</script>';
+									<br><div class="well center alert alert-success" role="alert">Vous avez ajouté un utilisateur !</div>
+									<script>$(".well").fadeTo(5000, 200).slideUp(500);</script>';
 								}
 
-				        $utilisateur = new utilisateur($db);
-
-				        $nb = $utilisateur->insertAll($nom_utilisateur, $prenom_utilisateur, $login, $mdp, $grade,1);
-
+				       
 
 				    /*    if ($nb == 1) {
 
@@ -155,11 +160,13 @@
 										<br><div class="well center alert alert-success" role="alert">Vous avez ajouté un utilisateur !</div>
 														<script>$(".well").fadeTo(5000, 200).slideUp(500);</script>';
 				        }*/
-				    }echo'
+				    }
+                                    
+                                echo'
 
 
-			          <br>
-			          <div class="panel panel-default">
+			        <br>
+			        <div class="panel panel-default">
 
 			                <div class="panel-heading">
 
@@ -167,7 +174,7 @@
 			                  <h2>Ajouter un utilisateur</h2>
 			                  </div>
 
-			                 </div>
+			                </div>
 
 			            <div class="panel-body">
 
@@ -208,8 +215,7 @@
                                             <select class="form-control" id="grade" name="grade">
                                         ';
 
-                                            $grade = new grade($db);
-                                            $listeGrade = $grade->selectAll();
+                                            
                                             foreach ($listeGrade as $unGrade){
                                                 echo'<option value="'.$unGrade['id_grade'].'">'.$unGrade['nom_grade'].'</option>';
                                             }
@@ -219,23 +225,43 @@
                                         </div> 
 
                                         <button type="submit" class="btn btn-success" id="btUtilisateur" name="btUtilisateur">Ajouter</button>
-                                    </form>';
+                                    </form>
+                                    </div>
+            </div>
+            </div>
+            </div>';
 }
 
 	function viewModifUtilisateur($db) {
 
 		echo'
-		<!--<div id="content-wrapper">-->
+	<!--<div id="content-wrapper">-->
         <div class="container">
         <div class="mui--appbar-height"></div>
         <div class="mui-container-fluid">';
+        
+        $grade = new grade($db);
+        $listeGrade = $grade->selectAll();
+        $id_utilisateur = $_POST['id_utilisateur'];
+	$nom_utilisateur = $_POST['nom_utilisateur'];
+	$prenom_utilisateur = $_POST['prenom_utilisateur'];
+	$login = $_POST['login'];
+	$mdp = $_POST['mdp'];
+	$grade = $_POST['grade'];
+        $utilisateur = new utilisateur($db);
+        $nb = $utilisateur->updateAll($id_utilisateur,$nom_utilisateur, $prenom_utilisateur, $login, $mdp, $grade);
+        $id_utilisateur = $_POST['id_utilisateur'];
+        $utilisateur = new utilisateur($db);
+	$nb = $utilisateur->deleteOne($id_utilisateur);
+        $id_utilisateur=$_GET['id_utilisateur'];
+	$utilisateur=new utilisateur($db);
+        $uneListe=$utilisateur->selectOne($id_utilisateur); //selectOne renvoie la valeur false si il n'a pas trouver de Produit
+					
+					
 
 				if(isset($_POST['btSupprimer'])) {
 
-					$id_utilisateur = $_POST['id_utilisateur'];
-
-					$utilisateur = new utilisateur($db);
-					$nb = $utilisateur->deleteOne($id_utilisateur);
+					
 
 					if($nb!=1){
 							echo '<br><div class="center alert alert-danger" role="alert">Erreur de Suppression !</div>';
@@ -248,19 +274,9 @@
 
 				if(isset($_POST['btModifier'])) {
 
-					$id_utilisateur = $_POST['id_utilisateur'];
-					$nom_utilisateur = $_POST['nom_utilisateur'];
-					$prenom_utilisateur = $_POST['prenom_utilisateur'];
-					$login = $_POST['login'];
-					$mdp = $_POST['mdp'];
-					$grade = $_POST['grade'];
+					
 
-
-
-					$utilisateur = new utilisateur($db);
-
-					$nb = $utilisateur->updateAll($id_utilisateur,$nom_utilisateur, $prenom_utilisateur, $login, $mdp, $grade);
-					if ($nb == 1) {
+                                        if ($nb == 1) {
 						echo '<br><div class="center alert alert-success" role="alert">Modification effectuée !</div>';
 
 					} else {
@@ -272,15 +288,11 @@
 
 				if(isset($_GET['id_utilisateur'])){
 
-					$id_utilisateur=$_GET['id_utilisateur'];
-					$utilisateur=new utilisateur($db);
-
-					$uneListe=$utilisateur->selectOne($id_utilisateur); //selectOne renvoie la valeur false si il n'a pas trouver de Produit
 					if($uneListe!=false){
 
 						echo'<br>
 
-						<div class="col-md-1"></div>
+                      <div class="col-md-1"></div>
 
                       <div class="col-md-10">
                       <br>
@@ -305,7 +317,7 @@
 
                             <div class="panel-body">
 
-								<input class="form-control" type="hidden" name="id_utilisateur" id="id_utilisateur" value="'.$uneListe['id_utilisateur'].'"/>
+                                                    <input class="form-control" type="hidden" name="id_utilisateur" id="id_utilisateur" value="'.$uneListe['id_utilisateur'].'"/>
 
                               	<label>Nom</label>
 					            <input class="form-control" type="text" name="nom_utilisateur" id="nom_utilisateur" value="'.$uneListe['nom_utilisateur'].'"/><br>
@@ -322,8 +334,7 @@
                               	<label>Grade</label>
 					            <select class="form-control" id="grade" name="grade">';
 
-						            $grade = new grade($db);
-						            $listeGrade = $grade->selectAll();
+						            
 
 						            foreach ($listeGrade as $unGrade){
 
@@ -335,7 +346,7 @@
 
 					                              echo'<option value="'.$unGrade['id_grade'].'">'.$unGrade['nom_grade'].'</option>';
 					                    }
-					                }
+                                                            }
 
 						                    echo'
 					            </select><br>
@@ -490,9 +501,11 @@
 					}
 				}	echo'
 
-			</div></div>';
+			</div>
+                        
+                </div>
 
-				echo'
+				
 
 		</div>';
 

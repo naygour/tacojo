@@ -18,36 +18,37 @@ function viewRepartitionAdulte($db)
                     </div>
              </div>
 
-    Choisissez une année
+                    Choisissez une année
 
-    <form action="" method="post">
+                        <form action="" method="post">
 
 
-    <select id="selectAnnee" name="select">'
+                        <select id="selectAnnee" name="select">'
     ;
     
-    for ($i = 2018; $i <= 2050; $i++)
-    {
-        echo "<option>$i</option>";
-    }
+                    for ($i = 2018; $i <= 2050; $i++)
+                    {
+                       echo "<option>$i</option>";
+                    }
         
     echo
     '
-    </select>
+             </select>
 
-    <input type="submit" name="submit" value="Valider" />
-    </form>
-    <br>
+             <input type="submit" name="submit" value="Valider" />
+             </form>
+             <br>
     ';
 
-    if (isset($_POST['submit']))
-    {
-        echo '<script language="JavaScript">$("#selectAnnee").val('.$_POST['select'].')</script>';
-    }
-    else
-    {
-        ($_POST['select']= date('Y'));
-    }
+                    if (isset($_POST['submit']))
+                    {
+                         echo '<script language="JavaScript">$("#selectAnnee").val('.$_POST['select'].')</script>';
+                    }
+                    
+                    else
+                     {
+                        ($_POST['select']= date('Y'));
+                     }
 
     echo'
 
@@ -77,18 +78,17 @@ function viewRepartitionAdulte($db)
                     <tr>
                         <th>Protocole</th>
                         <th>Jan</th>
-						<th>Fev</th>
-						<th>Mar</th>
-						<th>Avr</th>
+			<th>Fev</th>
+			<th>Mar</th>
+			<th>Avr</th>
                         <th>Mai</th>
                         <th>Juin</th>
-						<th>Jui</th>
-						<th>Aout</th>
-						<th>Sep</th>
+			<th>Jui</th>
+			<th>Aout</th>
+			<th>Sep</th>
                         <th>Oct</th>
                         <th>Nov</th>
-						<th>Dec</th>
-
+			<th>Dec</th>
                     </tr>
                   </thead>
 
@@ -141,11 +141,12 @@ function viewRepartitionAdulte($db)
                     
                     for($i=1;$i<=12;$i++) echo '<td class="bg-danger">'.$totalMois[$i].'</td>';
                     
-            }
-            else
-            {
-                echo'<td>Il n\'y a pas de patient adulte avec un protocole atypique</td>';
-            }
+                }
+                
+                else
+                {
+                        echo'<td>Il n\'y a pas de patient adulte avec un protocole atypique</td>';
+                }
             
 
             
@@ -188,17 +189,17 @@ function viewRepartitionAdulte($db)
                     <tr>
                         <th>Protocole</th>
                         <th>Jan</th>
-						<th>Fev</th>
-						<th>Mar</th>
-						<th>Avr</th>
+			<th>Fev</th>
+			<th>Mar</th>
+			<th>Avr</th>
                         <th>Mai</th>
                         <th>Juin</th>
-						<th>Jui</th>
-						<th>Aout</th>
-						<th>Sep</th>
+			<th>Jui</th>
+			<th>Aout</th>
+			<th>Sep</th>
                         <th>Oct</th>
                         <th>Nov</th>
-						<th>Dec</th>
+			<th>Dec</th>
                     </tr>
                   </thead>
 

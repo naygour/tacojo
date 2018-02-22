@@ -1,7 +1,8 @@
 <?php
 function viewListeSavoir(){
 
-		echo'<!--<div id="content-wrapper">-->
+		echo'
+        <!--<div id="content-wrapper">-->
         <div class="container">
         <div class="mui--appbar-height"></div>
         <div class="mui-container-fluid">
@@ -49,12 +50,12 @@ function viewListeSavoir(){
                                                                                     <td>theowalle62@gmail.com</td>
                                                                                     
                                                                                     </div>
-                                                                             </div>
+                                                                            </div>
                                                                     </div>
-                                                                    </div>
-                                                                    </div>
-                                                                    </div>
-                                                                    </div>';
+                                    </div>
+         </div>
+         </div>
+         </div>';
 
 }
  ?>
